@@ -84,17 +84,23 @@ function useWindowManager() {
     'proj-glist':    { id: 'proj-glist',    title: 'Glist',                   isOpen: false, isMinimized: false, z: 10 },
   })
 
-  const [positions, setPositions] = useState({
-    home:            { x: 100, y: 44  },
-    about:           { x: 70,  y: 64  },
-    resume:          { x: 140, y: 84  },
-    projects:        { x: 180, y: 74  },
-    'proj-cesar':    { x: 220, y: 60  },
-    'proj-bancobr':  { x: 260, y: 80  },
-    'proj-samsung':  { x: 300, y: 70  },
-    'proj-petrobras':{ x: 240, y: 90  },
-    'proj-search':   { x: 260, y: 80  },
-    'proj-glist':    { x: 280, y: 70  },
+  const [positions, setPositions] = useState(() => {
+    const vw = window.innerWidth
+    const vh = window.innerHeight
+    const cx = (w) => Math.max(20, Math.round((vw - w) / 2))
+    const cy = (h) => Math.max(44, Math.round((vh - h) / 2))
+    return {
+      home:            { x: cx(700), y: cy(520) },
+      about:           { x: cx(600), y: cy(560) },
+      resume:          { x: cx(580), y: cy(520) },
+      projects:        { x: cx(580), y: cy(340) },
+      'proj-cesar':    { x: cx(500), y: cy(380) },
+      'proj-bancobr':  { x: cx(500), y: cy(380) },
+      'proj-samsung':  { x: cx(500), y: cy(380) },
+      'proj-petrobras':{ x: cx(780), y: cy(580) },
+      'proj-search':   { x: cx(780), y: cy(580) },
+      'proj-glist':    { x: cx(720), y: cy(560) },
+    }
   })
 
   const openWindow = useCallback((id) => {
@@ -3311,20 +3317,22 @@ function Desktop({ windows, onOpen }) {
         display: 'flex',
         alignItems: 'center',
         gap: 6,
-        background: 'rgba(255,240,248,0.18)',
-        backdropFilter: 'blur(8px)',
-        WebkitBackdropFilter: 'blur(8px)',
-        border: '1px solid rgba(255,200,230,0.35)',
+        background: 'rgba(255, 182, 215, 0.82)',
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)',
+        border: '1px solid rgba(255,150,200,0.5)',
         borderRadius: 20,
-        padding: '5px 14px 5px 10px',
+        padding: '6px 16px 6px 12px',
         pointerEvents: 'none',
         animation: 'hint-float 3s ease-in-out infinite',
+        boxShadow: '0 4px 20px rgba(220,100,160,0.2)',
       }}>
-        <span style={{ fontSize: 13, color: '#FFD700' }}>✦</span>
+        <span style={{ fontSize: 13, color: '#C4446A' }}>✦</span>
         <span style={{
           fontSize: 11,
           fontFamily: MAC.font,
-          color: 'rgba(255,235,248,0.95)',
+          color: '#7D1D3F',
+          fontWeight: 600,
           letterSpacing: 0.4,
           whiteSpace: 'nowrap',
         }}>click to explore my case studies</span>
