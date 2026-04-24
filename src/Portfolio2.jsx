@@ -3311,7 +3311,7 @@ function Desktop({ windows, onOpen }) {
       {/* Case studies hint — left of dock */}
       <div style={{
         position: 'fixed',
-        bottom: 18,
+        bottom: 34,
         right: 'calc(50% + 130px)',
         display: 'flex',
         alignItems: 'center',
