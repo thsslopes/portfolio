@@ -3174,12 +3174,12 @@ function MacDock({ projects, windows, onOpen }) {
       alignItems: 'flex-end',
       gap: 10,
       padding: '10px 18px 8px',
-      background: 'rgba(255, 220, 235, 0.55)',
+      background: 'rgba(255, 210, 230, 0.88)',
       backdropFilter: 'blur(22px)',
       WebkitBackdropFilter: 'blur(22px)',
-      border: '1px solid rgba(255,190,220,0.5)',
+      border: '1px solid rgba(255,170,210,0.65)',
       borderRadius: 22,
-      boxShadow: '0 8px 32px rgba(200,80,130,0.12), inset 0 1px 0 rgba(255,255,255,0.6)',
+      boxShadow: '0 8px 32px rgba(200,80,130,0.15), inset 0 1px 0 rgba(255,255,255,0.6)',
       zIndex: 99990,
     }}>
       {projects.map(p => {
@@ -3310,22 +3310,23 @@ function Desktop({ windows, onOpen }) {
 
       {/* Case studies hint label above dock */}
       <div style={{
-        position: 'absolute',
+        position: 'fixed',
         bottom: 102,
         left: '50%',
         transform: 'translateX(-50%)',
         display: 'flex',
         alignItems: 'center',
         gap: 6,
-        background: 'rgba(255, 228, 240, 0.80)',
+        background: 'rgba(255, 210, 230, 0.94)',
         backdropFilter: 'blur(10px)',
         WebkitBackdropFilter: 'blur(10px)',
-        border: '1px solid rgba(255,190,220,0.55)',
+        border: '1px solid rgba(255,170,210,0.7)',
         borderRadius: 20,
         padding: '6px 16px 6px 12px',
         pointerEvents: 'none',
         animation: 'hint-float 3s ease-in-out infinite',
-        boxShadow: '0 4px 16px rgba(220,100,160,0.12)',
+        boxShadow: '0 4px 16px rgba(220,100,160,0.18)',
+        zIndex: 99991,
       }}>
         <span style={{ fontSize: 13, color: '#E07AA0' }}>✦</span>
         <span style={{
