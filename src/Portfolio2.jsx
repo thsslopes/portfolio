@@ -3308,35 +3308,27 @@ function Desktop({ windows, onOpen }) {
         ))}
       </div>
 
-      {/* Case studies hint label above dock */}
+      {/* Case studies hint — left of dock */}
       <div style={{
         position: 'fixed',
-        bottom: 102,
-        left: '50%',
-        transform: 'translateX(-50%)',
+        bottom: 18,
+        right: 'calc(50% + 130px)',
         display: 'flex',
         alignItems: 'center',
-        gap: 6,
+        gap: 7,
         background: 'rgba(255, 210, 230, 0.94)',
         backdropFilter: 'blur(10px)',
         WebkitBackdropFilter: 'blur(10px)',
         border: '1px solid rgba(255,170,210,0.7)',
         borderRadius: 20,
-        padding: '4px 12px 4px 9px',
+        padding: '5px 10px 5px 13px',
         pointerEvents: 'none',
         animation: 'hint-float 3s ease-in-out infinite',
         boxShadow: '0 4px 16px rgba(220,100,160,0.18)',
         zIndex: 99991,
       }}>
-        <span style={{ fontSize: 11, color: '#E07AA0' }}>✦</span>
-        <span style={{
-          fontSize: 10,
-          fontFamily: MAC.font,
-          color: '#B04870',
-          fontWeight: 600,
-          letterSpacing: 0.3,
-          whiteSpace: 'nowrap',
-        }}>explore my cases</span>
+        <span style={{ fontSize: 10, fontFamily: MAC.font, color: '#B04870', fontWeight: 600, letterSpacing: 0.3, whiteSpace: 'nowrap' }}>explore my cases</span>
+        <span style={{ fontSize: 14, color: '#E07AA0', animation: 'hint-arrow 1.2s ease-in-out infinite' }}>→</span>
       </div>
 
       {/* Click burst */}
