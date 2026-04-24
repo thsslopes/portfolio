@@ -1,0 +1,355 @@
+.hero {
+  position: relative;
+  width: 100vw;
+  height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding-top: 20vh;
+  padding-bottom: 5vh;
+}
+
+.heroContent {
+  text-align: center;
+  position: relative;
+  z-index: 10;
+  max-width: 800px;
+  pointer-events: none;
+}
+
+.heroTitle {
+  font-size: clamp(3rem, 6vw, 6rem);
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+  margin-bottom: 24px;
+  pointer-events: auto;
+}
+
+.nameHighlight {
+  color: var(--pink);
+}
+
+.selectionBox {
+  position: relative;
+  display: inline-block;
+  border: 1.5px solid var(--ink);
+  border-radius: 2px;
+  padding: 2px 4px;
+  line-height: 1;
+}
+
+.handle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--white);
+  border: 1.5px solid var(--ink);
+  border-radius: 1px;
+}
+
+.selectionCursor {
+  position: absolute;
+  bottom: -30px;
+  right: -28px;
+  width: 36px;
+  height: 42px;
+  pointer-events: none;
+}
+
+.highlight {
+  font-family: var(--font-doodle);
+  color: var(--purple);
+  font-style: italic;
+  position: relative;
+  display: inline-block;
+}
+
+.highlight::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: -5%;
+  width: 110%;
+  height: 15px;
+  background: var(--yellow);
+  z-index: -1;
+  border-radius: 10px;
+  transform: rotate(-2deg);
+}
+
+.heroSub {
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  font-weight: 500;
+  color: #555;
+  pointer-events: auto;
+}
+
+/* Stickers */
+.sticker {
+  position: absolute;
+  pointer-events: auto;
+  transition: var(--transition-bouncy);
+}
+
+.sticker:hover {
+  z-index: 20 !important;
+}
+
+/* Awaken sticker */
+.stickerAwaken {
+  top: 10%;
+  left: 5%;
+  background: var(--white);
+  border: 1.5px solid var(--gray-border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  width: 280px;
+  transform: rotate(-3deg);
+  z-index: 2;
+  animation: float1 6s ease-in-out infinite;
+}
+
+.stickerAwaken:hover {
+  transform: scale(1.05) rotate(2deg) translateY(-5px) !important;
+}
+
+.bubbleSmall {
+  background: var(--pink);
+  color: white;
+  font-size: 0.7rem;
+  padding: 4px 8px;
+  border-radius: var(--radius-pill);
+  display: inline-block;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.awakenTitle {
+  font-size: 1.5rem;
+  line-height: 1;
+  position: relative;
+}
+
+.circleDoodle {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 120px;
+  height: 40px;
+  border: 2px solid var(--purple);
+  border-radius: 50%;
+  transform: rotate(-5deg);
+}
+
+.yellowArm {
+  position: absolute;
+  right: -20px;
+  top: -20px;
+  width: 80px;
+}
+
+/* Lime sticker */
+.stickerLime {
+  bottom: 15%;
+  left: 20%;
+  background: var(--lime);
+  border-radius: 40px 40px 40px 0;
+  padding: 30px;
+  transform: rotate(4deg);
+  z-index: 3;
+  text-align: center;
+  position: absolute;
+  animation: float2 5s ease-in-out infinite 1s;
+}
+
+.stickerLime:hover {
+  transform: scale(1.05) rotate(2deg) translateY(-5px) !important;
+}
+
+.limeTitle {
+  font-family: var(--font-ui);
+  font-weight: 800;
+  font-size: 2rem;
+  line-height: 0.9;
+  color: var(--ink);
+}
+
+.sparkle {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 40px;
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.lines {
+  position: absolute;
+  top: -30px;
+  right: 10px;
+  width: 30px;
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+/* Pink sticker */
+.stickerPink {
+  top: 60%;
+  right: 12%;
+  background: var(--pink);
+  border-radius: var(--radius-lg);
+  width: 200px;
+  height: 200px;
+  transform: rotate(6deg);
+  z-index: 1;
+  overflow: hidden;
+  animation: float3 7s ease-in-out infinite 0.5s;
+}
+
+.stickerPink:hover {
+  transform: scale(1.05) rotate(2deg) translateY(-5px) !important;
+}
+
+.bgText {
+  font-family: var(--font-doodle);
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 4rem;
+  line-height: 0.8;
+  font-weight: 700;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  transform: rotate(-10deg);
+}
+
+.doodleOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  stroke: var(--ink);
+  stroke-width: 2;
+  fill: none;
+}
+
+/* Purple sticker */
+.stickerPurple {
+  top: 10%;
+  right: 6%;
+  background: var(--purple);
+  border-radius: 40px 40px 0 40px;
+  width: 180px;
+  height: 180px;
+  transform: rotate(-8deg);
+  z-index: 4;
+  animation: float4 5.5s ease-in-out infinite 1.5s;
+}
+
+.stickerPurple:hover {
+  transform: scale(1.05) rotate(2deg) translateY(-5px) !important;
+}
+
+.face {
+  position: absolute;
+  top: 40%;
+  left: 20%;
+  width: 100%;
+  height: 100%;
+}
+
+/* Scroll indicator */
+.scrollIndicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-doodle);
+  font-size: 1.2rem;
+  color: var(--ink);
+  z-index: 10;
+}
+
+.scrollIndicator svg {
+  width: 24px;
+  height: 40px;
+  stroke: var(--ink);
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  animation: bounceDown 2s infinite;
+}
+
+/* Animations */
+@keyframes float1 {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-15px) rotate(-1deg); }
+}
+
+@keyframes float2 {
+  0%, 100% { transform: translateY(0) rotate(4deg); }
+  50% { transform: translateY(-10px) rotate(6deg); }
+}
+
+@keyframes float3 {
+  0%, 100% { transform: translateY(0) rotate(6deg); }
+  50% { transform: translateY(15px) rotate(4deg); }
+}
+
+@keyframes float4 {
+  0%, 100% { transform: translateY(0) rotate(-8deg); }
+  50% { transform: translateY(-12px) rotate(-10deg); }
+}
+
+@keyframes bounceDown {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
+}
+
+@media (max-width: 900px) {
+  .hero {
+    height: 100vh;
+  }
+
+  .stickerAwaken {
+    top: 10%;
+    left: 20%;
+    transform: scale(0.8);
+  }
+
+  .stickerLime {
+    bottom: 20%;
+    left: 5%;
+    transform: scale(0.8);
+  }
+
+  .stickerPink {
+    top: 10%;
+    right: 5%;
+    transform: scale(0.8);
+  }
+
+  .stickerPurple {
+    bottom: 10%;
+    right: 20%;
+    transform: scale(0.8);
+  }
+}
+
+@media (max-width: 600px) {
+  .stickerAwaken,
+  .stickerPink {
+    display: none;
+  }
+}

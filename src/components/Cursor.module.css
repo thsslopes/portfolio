@@ -1,0 +1,43 @@
+.dot {
+  width: 12px;
+  height: 12px;
+  background-color: var(--ink);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, background-color 0.2s;
+}
+
+.ring {
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease-out;
+}
+
+:global(body:has(a:hover)) .dot,
+:global(body:has(button:hover)) .dot,
+:global(body:has(.sticker:hover)) .dot {
+  width: 24px;
+  height: 24px;
+  background-color: var(--pink);
+  mix-blend-mode: multiply;
+}
+
+:global(body:has(a:hover)) .ring,
+:global(body:has(button:hover)) .ring,
+:global(body:has(.sticker:hover)) .ring {
+  transform: translate(-50%, -50%) scale(1.5);
+  border-color: transparent;
+}

@@ -1,0 +1,170 @@
+.stickyContainer {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Tab bar attached to top of card */
+.tabBar {
+  position: absolute;
+  top: -38px;
+  left: 0;
+  display: flex;
+  gap: 4px;
+}
+
+.folderTab {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 8px 22px;
+  border-radius: 10px 10px 0 0;
+  border: 1.5px solid var(--gray-border);
+  border-bottom: none;
+  background: rgba(255, 255, 255, 0.5);
+  color: #aaa;
+  cursor: pointer;
+  transition: var(--transition-bouncy);
+}
+
+.folderTab:hover {
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.8);
+  transform: translateY(-3px);
+}
+
+.folderTabActive {
+  color: var(--ink);
+  transform: translateY(0) !important;
+}
+
+/* Cards area */
+.cardsArea {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.card {
+  position: absolute;
+  left: 4vw;
+  right: 4vw;
+  top: 50%;
+  overflow: visible;
+  border-radius: 0 24px 24px 24px;
+  border: 1.5px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.07);
+  will-change: transform;
+}
+
+.cardInner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  padding: 48px 56px;
+  align-items: center;
+}
+
+/* Left */
+.cardLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cardMeta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.cardTitle {
+  font-size: clamp(2.5rem, 4vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  color: var(--ink);
+}
+
+.cardDesc {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.6;
+  max-width: 420px;
+}
+
+.cardLink {
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: gap 0.2s ease;
+}
+
+.cardLink:hover {
+  gap: 12px;
+}
+
+/* Right: mockup */
+.cardRight {
+  position: relative;
+  height: 280px;
+}
+
+.mockupShell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.mockupCard {
+  position: absolute;
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  width: 220px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mBar {
+  height: 10px;
+  background: #e8e8e8;
+  border-radius: 6px;
+  width: 100%;
+}
+
+.mCircle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+@media (max-width: 900px) {
+  .cardInner {
+    grid-template-columns: 1fr;
+    padding: 32px 28px;
+  }
+
+  .cardRight {
+    height: 200px;
+  }
+}

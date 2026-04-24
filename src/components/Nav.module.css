@@ -1,0 +1,40 @@
+.nav {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--white);
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  display: flex;
+  gap: 24px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  border: 1.5px solid var(--gray-border);
+  z-index: 100;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--ink);
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  transition: background 0.2s;
+}
+
+.link:hover {
+  background: var(--bg);
+}
+
+.active {
+  background: var(--lime);
+}
+
+@media (max-width: 600px) {
+  .nav {
+    width: 90%;
+    justify-content: space-between;
+    gap: 0;
+  }
+}
