@@ -3038,6 +3038,7 @@ function GlistCaseStudy({ onOpenPetrobras, onOpenSearch }) {
         </div>
 
       </div>
+      </div>
     </div>
   )
 }
