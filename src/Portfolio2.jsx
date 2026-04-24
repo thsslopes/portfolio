@@ -90,7 +90,7 @@ function useWindowManager() {
     const cx = (w) => Math.max(20, Math.round((vw - w) / 2))
     const cy = (h) => Math.max(44, Math.round((vh - h) / 2))
     return {
-      home:            { x: cx(700), y: cy(520) },
+      home:            { x: cx(700), y: Math.max(44, cy(520) - 50) },
       about:           { x: cx(600), y: cy(560) },
       resume:          { x: cx(580), y: cy(520) },
       projects:        { x: cx(580), y: cy(340) },
@@ -3322,21 +3322,21 @@ function Desktop({ windows, onOpen }) {
         WebkitBackdropFilter: 'blur(10px)',
         border: '1px solid rgba(255,170,210,0.7)',
         borderRadius: 20,
-        padding: '6px 16px 6px 12px',
+        padding: '4px 12px 4px 9px',
         pointerEvents: 'none',
         animation: 'hint-float 3s ease-in-out infinite',
         boxShadow: '0 4px 16px rgba(220,100,160,0.18)',
         zIndex: 99991,
       }}>
-        <span style={{ fontSize: 13, color: '#E07AA0' }}>✦</span>
+        <span style={{ fontSize: 11, color: '#E07AA0' }}>✦</span>
         <span style={{
-          fontSize: 11,
+          fontSize: 10,
           fontFamily: MAC.font,
           color: '#B04870',
           fontWeight: 600,
-          letterSpacing: 0.4,
+          letterSpacing: 0.3,
           whiteSpace: 'nowrap',
-        }}>click to explore my case studies</span>
+        }}>explore my cases</span>
       </div>
 
       {/* Click burst */}
