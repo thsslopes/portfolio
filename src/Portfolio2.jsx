@@ -3174,12 +3174,12 @@ function MacDock({ projects, windows, onOpen }) {
       alignItems: 'flex-end',
       gap: 10,
       padding: '10px 18px 8px',
-      background: 'rgba(255,255,255,0.18)',
+      background: 'rgba(255, 220, 235, 0.55)',
       backdropFilter: 'blur(22px)',
       WebkitBackdropFilter: 'blur(22px)',
-      border: '1px solid rgba(255,255,255,0.35)',
+      border: '1px solid rgba(255,190,220,0.5)',
       borderRadius: 22,
-      boxShadow: '0 8px 32px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.4)',
+      boxShadow: '0 8px 32px rgba(200,80,130,0.12), inset 0 1px 0 rgba(255,255,255,0.6)',
       zIndex: 99990,
     }}>
       {projects.map(p => {
@@ -3317,21 +3317,21 @@ function Desktop({ windows, onOpen }) {
         display: 'flex',
         alignItems: 'center',
         gap: 6,
-        background: 'rgba(255, 182, 215, 0.82)',
+        background: 'rgba(255, 228, 240, 0.80)',
         backdropFilter: 'blur(10px)',
         WebkitBackdropFilter: 'blur(10px)',
-        border: '1px solid rgba(255,150,200,0.5)',
+        border: '1px solid rgba(255,190,220,0.55)',
         borderRadius: 20,
         padding: '6px 16px 6px 12px',
         pointerEvents: 'none',
         animation: 'hint-float 3s ease-in-out infinite',
-        boxShadow: '0 4px 20px rgba(220,100,160,0.2)',
+        boxShadow: '0 4px 16px rgba(220,100,160,0.12)',
       }}>
-        <span style={{ fontSize: 13, color: '#C4446A' }}>✦</span>
+        <span style={{ fontSize: 13, color: '#E07AA0' }}>✦</span>
         <span style={{
           fontSize: 11,
           fontFamily: MAC.font,
-          color: '#7D1D3F',
+          color: '#B04870',
           fontWeight: 600,
           letterSpacing: 0.4,
           whiteSpace: 'nowrap',
