@@ -2338,7 +2338,7 @@ function DocumentsSearchEngineCaseStudy({ onOpenPetrobras, onOpenGlist }) {
           </div>
         </>
       ),
-      media: <SimpleCarousel images={[dseLeanCanvas, dseValueProp]} accentColor={DSE_GREEN} borderColor={DSE_GREEN_LIGHT} />,
+      media: <SimpleCarousel images={[dseLeanCanvas, dseValueProp, dseResearch]} accentColor={DSE_GREEN} borderColor={DSE_GREEN_LIGHT} />,
     },
     {
       id: 'research', num: '03', title: 'Understanding Users',
@@ -2375,7 +2375,7 @@ function DocumentsSearchEngineCaseStudy({ onOpenPetrobras, onOpenGlist }) {
           </div>
         </>
       ),
-      media: <img src={dseResearch} alt="Research workshop artifacts" style={{ width: '100%', borderRadius: 10, display: 'block' }} />,
+      media: null,
     },
     {
       id: 'synthesis', num: '04', title: 'Synthesis & Prioritization',
@@ -2424,9 +2424,10 @@ function DocumentsSearchEngineCaseStudy({ onOpenPetrobras, onOpenGlist }) {
               </div>
             ))}
           </div>
+          <img src={dseFilterTree} alt="Filter tree behavior" style={{ width: '100%', borderRadius: 10, display: 'block' }} />
         </>
       ),
-      media: <SimpleCarousel images={[dseFilterTree, dseAccess]} accentColor={DSE_GREEN} borderColor={DSE_GREEN_LIGHT} />,
+      media: null,
     },
     {
       id: 'execution', num: '06', title: 'Prototyping & Execution',
@@ -2437,7 +2438,7 @@ function DocumentsSearchEngineCaseStudy({ onOpenPetrobras, onOpenGlist }) {
           {para('This collaboration model allowed research and product strategy to drive the design, with visual execution moving quickly because the decisions had already been carefully grounded in user needs.')}
         </>
       ),
-      media: <img src={dseUi} alt="Geológica search results UI" style={{ width: '100%', borderRadius: 10, display: 'block' }} />,
+      media: <SimpleCarousel images={[dseUi, dseAccess]} accentColor={DSE_GREEN} borderColor={DSE_GREEN_LIGHT} />,
     },
     {
       id: 'testing', num: '07', title: 'Testing & Validation',
