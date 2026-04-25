@@ -1810,10 +1810,11 @@ function PasswordGate({ children }) {
             onClick={() => setShow(s => !s)}
             style={{
               border: 'none', background: 'transparent',
-              padding: '0 12px', fontSize: 15, color: '#CCC',
-              cursor: 'pointer', lineHeight: 1, flexShrink: 0,
+              padding: '0 12px', fontSize: 14, color: '#CCC',
+              cursor: 'pointer', flexShrink: 0,
+              display: 'flex', alignItems: 'center', alignSelf: 'stretch',
             }}
-          >{show ? '🙈' : '👁'}</button>
+          >{show ? '🙈' : '👁️'}</button>
         </div>
 
         {error && (
