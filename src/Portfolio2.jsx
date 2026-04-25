@@ -1261,18 +1261,34 @@ function AboutContent() {
         {/* Bio */}
         {sectionLabel('about me')}
         <p style={{ fontSize: 12.5, color: '#444', lineHeight: 1.85, margin: '0 0 10px' }}>
-          I design at the intersection of people, systems, and complexity — which usually means
-          I'm the one in the room asking <strong style={{ color: MAC.rose }}>"but why does it work this way?"</strong>{' '}
-          before anyone opens Figma. Based in Recife (after years in Manaus), I've spent 6+ years
-          at CESAR turning hard problems in oil & gas, finance, and government into products
+          I design at the intersection of people, systems, and complexity, which more often than not means
+          I'm the one in the room asking{' '}
+          <strong style={{ color: MAC.rose }}>"but why does it work this way?"</strong>{' '}
+          before anyone opens Figma.
+        </p>
+        <p style={{ fontSize: 12.5, color: '#444', lineHeight: 1.85, margin: '0 0 10px' }}>
+          Based in Recife (born and raised in Manaus), I've spent 6+ years working with companies
+          across oil & gas, finance, and government, turning messy, complex problems into products
           that people actually want to use.
         </p>
+        <p style={{ fontSize: 12.5, color: '#444', lineHeight: 1.85, margin: '0 0 10px' }}>
+          My Master's research brought me into{' '}
+          <strong style={{ color: MAC.rose }}>AI in healthcare</strong>, using Design Futures and
+          Transition Design to imagine what comes next, not just what exists now.
+        </p>
+        <p style={{ fontSize: 12.5, color: '#444', lineHeight: 1.85, margin: '0 0 10px' }}>
+          I lead the{' '}
+          <strong style={{ color: MAC.rose }}>Digital Agents Program</strong>{' '}
+          with the Government of Pernambuco, where non-technical civil servants design ideas to bring
+          public services into the digital world. I also coordinate{' '}
+          <strong style={{ color: MAC.rose }}>FAST</strong>, a data-driven design program where junior
+          designers and career-changers learn to work with data without losing sight of the people
+          behind the numbers. We won the{' '}
+          <strong style={{ color: MAC.rose }}>Brazilian Design Award 2025</strong>.
+        </p>
         <p style={{ fontSize: 12.5, color: '#444', lineHeight: 1.85, margin: 0 }}>
-          My Master's research explored <strong style={{ color: MAC.rose }}>AI in healthcare</strong>.
-          I lead the Digital Agents Program with the Pernambuco Government, coordinate
-          Data-Driven Design courses for Banco do Brasil, and teach UX to students building
-          their very first products. Design, to me, is less about screens —
-          and more about the decisions that shape them.
+          Design, to me, is less about screens and more about the decisions that shape them —
+          and the people those decisions are made with, and for.
         </p>
 
         {/* Teaching & Mentoring */}
