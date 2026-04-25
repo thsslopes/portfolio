@@ -2438,7 +2438,7 @@ function DocumentsSearchEngineCaseStudy({ onOpenPetrobras, onOpenGlist }) {
           {para('This collaboration model allowed research and product strategy to drive the design, with visual execution moving quickly because the decisions had already been carefully grounded in user needs.')}
         </>
       ),
-      media: <SimpleCarousel images={[dseAccess, dseUi]} accentColor={DSE_GREEN} borderColor={DSE_GREEN_LIGHT} />,
+      media: <SimpleCarousel images={[dseUi, dseAccess]} accentColor={DSE_GREEN} borderColor={DSE_GREEN_LIGHT} />,
     },
     {
       id: 'testing', num: '07', title: 'Testing & Validation',
