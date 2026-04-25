@@ -1737,6 +1737,112 @@ function ProjectDetailContent({ projectId }) {
   )
 }
 
+// ─── PasswordGate ────────────────────────────────────────────────────────────
+
+const CASE_PASSWORD = 'welcome14'
+
+function PasswordGate({ children }) {
+  const [unlocked, setUnlocked]   = useState(false)
+  const [value,    setValue]      = useState('')
+  const [show,     setShow]       = useState(false)
+  const [error,    setError]      = useState(false)
+  const [shaking,  setShaking]    = useState(false)
+
+  if (unlocked) return children
+
+  const attempt = () => {
+    if (value === CASE_PASSWORD) {
+      setUnlocked(true)
+    } else {
+      setError(true)
+      setShaking(true)
+      setTimeout(() => setShaking(false), 500)
+      setTimeout(() => setError(false), 2000)
+    }
+  }
+
+  return (
+    <div style={{
+      width: '100%', height: '100%', minHeight: 400,
+      background: 'linear-gradient(145deg, #FFF5F9 0%, #FFE8F3 50%, #F5EAFF 100%)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+    }}>
+      <div style={{
+        background: 'white',
+        borderRadius: 28,
+        padding: '44px 40px 40px',
+        boxShadow: '0 24px 80px rgba(200,60,120,0.18), 0 0 0 1px rgba(220,120,160,0.18)',
+        width: 300,
+        textAlign: 'center',
+        animation: shaking ? 'shake 0.5s ease' : 'gate-in 0.4s cubic-bezier(0.34,1.56,0.64,1)',
+      }}>
+        <div style={{ fontSize: 42, marginBottom: 18, lineHeight: 1 }}>🔒</div>
+        <div style={{ fontSize: 16, fontWeight: 700, color: '#1A1A1A', marginBottom: 8, fontFamily: MAC.font }}>
+          Protected case study
+        </div>
+        <div style={{ fontSize: 12, color: '#888', lineHeight: 1.6, marginBottom: 28 }}>
+          This case is under NDA.<br />Enter the password to continue.
+        </div>
+
+        {/* input row */}
+        <div style={{
+          display: 'flex', alignItems: 'center',
+          border: `1.5px solid ${error ? MAC.red : 'rgba(220,120,160,0.35)'}`,
+          borderRadius: 14, overflow: 'hidden',
+          background: '#FFF9FC',
+          transition: 'border-color 0.2s',
+          marginBottom: 14,
+        }}>
+          <input
+            type={show ? 'text' : 'password'}
+            value={value}
+            onChange={e => setValue(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && attempt()}
+            placeholder="password"
+            style={{
+              flex: 1, border: 'none', outline: 'none',
+              padding: '11px 14px', fontSize: 13,
+              background: 'transparent', color: '#333',
+              fontFamily: MAC.font, cursor: 'text',
+            }}
+          />
+          <button
+            onClick={() => setShow(s => !s)}
+            style={{
+              border: 'none', background: 'transparent',
+              padding: '0 12px', fontSize: 15, color: '#CCC',
+              cursor: 'pointer', lineHeight: 1, flexShrink: 0,
+            }}
+          >{show ? '🙈' : '👁'}</button>
+        </div>
+
+        {error && (
+          <div style={{ fontSize: 11, color: MAC.red, marginBottom: 12, fontFamily: MAC.font }}>
+            Wrong password. Try again.
+          </div>
+        )}
+
+        <button
+          onClick={attempt}
+          style={{
+            width: '100%', padding: '12px',
+            background: `linear-gradient(135deg, ${MAC.pink} 0%, ${MAC.rose} 100%)`,
+            border: 'none', borderRadius: 14,
+            color: 'white', fontSize: 13, fontWeight: 700,
+            fontFamily: MAC.font, cursor: 'pointer',
+            boxShadow: '0 4px 16px rgba(232,96,154,0.35)',
+            transition: 'opacity 0.15s',
+          }}
+          onMouseEnter={e => e.currentTarget.style.opacity = '0.88'}
+          onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+        >
+          Enter ✦
+        </button>
+      </div>
+    </div>
+  )
+}
+
 // ─── PetrobrasCaseStudy ───────────────────────────────────────────────────────
 
 function SimpleCarousel({ images, accentColor, borderColor }) {
@@ -3587,8 +3693,8 @@ export default function Portfolio() {
           {w.id === 'about'             && <AboutContent />}
           {w.id === 'resume'            && <ResumeContent />}
           {w.id === 'projects'          && <ProjectsContent onOpenProject={openWindow} />}
-          {w.id === 'proj-petrobras' && <PetrobrasCaseStudy onOpenSearch={() => openWindow('proj-search')} onOpenGlist={() => openWindow('proj-glist')} />}
-          {w.id === 'proj-search'    && <DocumentsSearchEngineCaseStudy onOpenPetrobras={() => openWindow('proj-petrobras')} onOpenGlist={() => openWindow('proj-glist')} />}
+          {w.id === 'proj-petrobras' && <PasswordGate><PetrobrasCaseStudy onOpenSearch={() => openWindow('proj-search')} onOpenGlist={() => openWindow('proj-glist')} /></PasswordGate>}
+          {w.id === 'proj-search'    && <PasswordGate><DocumentsSearchEngineCaseStudy onOpenPetrobras={() => openWindow('proj-petrobras')} onOpenGlist={() => openWindow('proj-glist')} /></PasswordGate>}
           {w.id === 'proj-glist'     && <GlistCaseStudy onOpenPetrobras={() => openWindow('proj-petrobras')} onOpenSearch={() => openWindow('proj-search')} />}
                     {w.id.startsWith('proj-') && w.id !== 'proj-petrobras' && w.id !== 'proj-search' && w.id !== 'proj-glist' && <ProjectDetailContent projectId={w.id} />}
         </MacWindow>
