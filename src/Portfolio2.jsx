@@ -558,6 +558,7 @@ const RESIZE_STYLES = {
 }
 const MIN_W = 320
 const MIN_H = 220
+const DOCK_CLEARANCE = 80 // dock bottom offset (14) + dock height (~66)
 
 function MacWindow({ id, title, isMinimized, z, pos, onClose, onMinimize, onFocus, onMove, children, width = 560, height = 480, toolbar = null, snapSide = null, onDragStart, onDragMove, onDragEnd, onSnapRelease }) {
   const dragging    = useRef(false)
@@ -653,7 +654,7 @@ function MacWindow({ id, title, isMinimized, z, pos, onClose, onMinimize, onFocu
   const toggleMaximize = () => {
     if (!maximized) {
       prevSize.current = { size: { ...size }, pos: { ...pos } }
-      setSize({ w: window.innerWidth, h: window.innerHeight - 24 })
+      setSize({ w: window.innerWidth, h: window.innerHeight - 24 - DOCK_CLEARANCE })
       onMove(id, { x: 0, y: 24 })
     } else {
       if (prevSize.current) {
@@ -674,7 +675,7 @@ function MacWindow({ id, title, isMinimized, z, pos, onClose, onMinimize, onFocu
         left: pos.x,
         top:  pos.y,
         width:  maximized ? window.innerWidth : size.w,
-        height: maximized ? window.innerHeight - 24 : size.h,
+        height: maximized ? window.innerHeight - 24 - DOCK_CLEARANCE : size.h,
         zIndex: z,
         display: 'flex',
         flexDirection: 'column',
