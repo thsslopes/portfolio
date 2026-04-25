@@ -1022,7 +1022,9 @@ function HomeContent() {
                 e.currentTarget.style.transform = 'translateY(0)'
               }}
             >
-              <img src={c.logo} alt={c.name} style={{ height: c.logoHeight ?? 34, objectFit: 'contain' }} />
+              <div style={{ height: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <img src={c.logo} alt={c.name} style={{ height: c.logoHeight ?? 34, objectFit: 'contain' }} />
+              </div>
               <span style={{ fontFamily: MAC.font, fontSize: 10, color: '#BBA0B0' }}>{c.name}</span>
             </div>
           ))}
