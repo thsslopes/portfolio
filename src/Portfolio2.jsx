@@ -948,7 +948,7 @@ function HomeContent() {
             <p style={{ fontSize: 13, color: '#555', lineHeight: 1.75, marginBottom: 10 }}>
               A Product Designer at{' '}
               <strong style={{ color: MAC.rose }}>CESAR</strong>
-              {' '}— Brazil's largest innovation center — with{' '}
+              {' '}(Brazil's largest innovation center), with{' '}
               <strong style={{ color: MAC.rose }}>6+ years</strong>{' '}
               building digital products across oil & gas, finance, and government.
               I turn deep research into strategy, and strategy into things people actually use.
@@ -1383,15 +1383,32 @@ function ResumeContent() {
     <div style={{ overflowY: 'auto', flex: 1, minHeight: 0 }}>
       {/* Header */}
       <div style={{ padding: '28px 32px 20px', background: 'linear-gradient(150deg, #FFF0F8 0%, #FFE4F2 60%, white 100%)', borderBottom: '1px solid #F0D4E8' }}>
-        <h1 style={{ fontSize: 28, fontWeight: 900, color: '#1A1A1A', margin: '0 0 4px', fontFamily: "'Montserrat', sans-serif" }}>Thais Lopes</h1>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
+          <h1 style={{ fontSize: 28, fontWeight: 900, color: '#1A1A1A', margin: 0, fontFamily: "'Montserrat', sans-serif" }}>Thais Lopes</h1>
+          <a
+            href="https://drive.google.com/file/d/1VJu33U0_8JfcbyE5tr4GKkH9nxf1bA_t/view?usp=sharing"
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              display: 'flex', alignItems: 'center', gap: 5,
+              background: `linear-gradient(135deg, ${P} 0%, ${R} 100%)`,
+              color: 'white', fontSize: 11, fontWeight: 700,
+              fontFamily: MAC.font, textDecoration: 'none',
+              padding: '7px 14px', borderRadius: 20,
+              boxShadow: '0 3px 12px rgba(232,96,154,0.3)',
+              flexShrink: 0,
+            }}
+          >
+            ↓ Download CV
+          </a>
+        </div>
         <div style={{ fontSize: 12, color: R, fontFamily: MAC.font, marginBottom: 12 }}>Product Design (UX/UI) · Service Design · Design Strategy</div>
         <div style={{ fontSize: 11, color: '#666', lineHeight: 1.7, maxWidth: 420, marginBottom: 16 }}>Experience delivering digital products with measurable business impact (Oil &amp; Gas, Finance, Tech).</div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px 24px' }}>
           {[
-            { icon: '📍', text: 'Recife, PE – Brazil' },
+            { icon: '📍', text: 'Recife, PE – Brazil (open to relocation)' },
             { icon: '📱', text: '+55 92 99137 2057' },
             { icon: '✉️', text: 'thaislopesdesign@gmail.com' },
-            { icon: '🌐', text: 'thaislopes.framer.website' },
           ].map(item => (
             <div key={item.text} style={{ fontSize: 11, color: '#555', fontFamily: MAC.font, display: 'flex', alignItems: 'center', gap: 5 }}>
               <span>{item.icon}</span>{item.text}
@@ -3519,10 +3536,10 @@ function Desktop({ windows, onOpen }) {
         display: 'flex',
         alignItems: 'center',
         gap: 7,
-        background: 'rgba(255, 210, 230, 0.50)',
+        background: 'rgba(196, 155, 168, 0.45)',
         backdropFilter: 'blur(10px)',
         WebkitBackdropFilter: 'blur(10px)',
-        border: '1px solid rgba(255,170,210,0.7)',
+        border: '1px solid rgba(172, 132, 148, 0.55)',
         borderRadius: 20,
         padding: '5px 10px 5px 13px',
         pointerEvents: 'none',
@@ -3530,8 +3547,8 @@ function Desktop({ windows, onOpen }) {
         boxShadow: '0 4px 16px rgba(220,100,160,0.18)',
         zIndex: 99991,
       }}>
-        <span style={{ fontSize: 10, fontFamily: MAC.font, color: '#B04870', fontWeight: 600, letterSpacing: 0.3, whiteSpace: 'nowrap' }}>explore my cases</span>
-        <span style={{ fontSize: 14, color: '#E07AA0', animation: 'hint-arrow 1.2s ease-in-out infinite' }}>→</span>
+        <span style={{ fontSize: 10, fontFamily: MAC.font, color: '#7A4E62', fontWeight: 600, letterSpacing: 0.3, whiteSpace: 'nowrap' }}>explore my cases</span>
+        <span style={{ fontSize: 14, color: '#9A7080', animation: 'hint-arrow 1.2s ease-in-out infinite' }}>→</span>
       </div>
 
       {/* Click burst */}
