@@ -1938,22 +1938,6 @@ function PetrobrasCaseStudy({ onOpenSearch, onOpenGlist }) {
       ),
       media: (
         <>
-          {/* Interactive Prototype */}
-          <div style={{ marginBottom: 28 }}>
-            <div style={{ fontSize: 9, fontWeight: 700, color: ROSE, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1.8, marginBottom: 10, display: 'flex', alignItems: 'center', gap: 6 }}>
-              <span style={{ display: 'inline-block', width: 18, height: 1.5, background: ROSE_LIGHT }} />
-              Interactive Prototype
-              <span style={{ display: 'inline-block', flex: 1, height: 1.5, background: ROSE_LIGHT }} />
-            </div>
-            <div style={{ border: `1.5px solid ${ROSE_LIGHT}`, borderRadius: 10, overflow: 'hidden' }}>
-              <iframe
-                src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/3WqZtWYhPxbnlgramell05/prototype?node-id=1001-15564%26t=2BtohN1i7j9LAoDE-1"
-                allowFullScreen
-                style={{ width: '100%', height: 340, border: 'none', display: 'block' }}
-              />
-            </div>
-          </div>
-
           {/* Low Fidelity */}
           <div style={{ marginBottom: 28 }}>
             <div style={{ fontSize: 9, fontWeight: 700, color: ROSE, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1.8, marginBottom: 10, display: 'flex', alignItems: 'center', gap: 6 }}>
@@ -1961,8 +1945,8 @@ function PetrobrasCaseStudy({ onOpenSearch, onOpenGlist }) {
               Low Fidelity
               <span style={{ display: 'inline-block', flex: 1, height: 1.5, background: ROSE_LIGHT }} />
             </div>
-            <SketchyBrowserFrame src={hdLofi1} alt="Low fidelity wireframe 1" />
-            <SketchyBrowserFrame src={hdLofi2} alt="Low fidelity wireframe 2" />
+            <img src={hdLofi1} alt="Low fidelity wireframe 1" style={{ width: '100%', borderRadius: 8, marginBottom: 10, display: 'block' }} />
+            <img src={hdLofi2} alt="Low fidelity wireframe 2" style={{ width: '100%', borderRadius: 8, display: 'block' }} />
           </div>
 
           {/* High Fidelity */}
