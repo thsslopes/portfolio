@@ -1287,7 +1287,7 @@ function AboutContent() {
           <strong style={{ color: MAC.rose }}>Brazilian Design Award 2025</strong>.
         </p>
         <p style={{ fontSize: 12.5, color: '#444', lineHeight: 1.85, margin: 0 }}>
-          Design, to me, is less about screens and more about the decisions that shape them —
+          Design, to me, is less about screens and more about the decisions that shape them,
           and the people those decisions are made with, and for.
         </p>
 
