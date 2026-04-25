@@ -49,6 +49,14 @@ import hdHifi3              from './assets/hd-hifi3.jpg'
 import hdLofi1              from './assets/hd-lofi1.jpg'
 import hdLofi2              from './assets/hd-lofi2.jpg'
 
+import dseLeanCanvas  from './assets/dse/dse-lean-canvas.png'
+import dseValueProp   from './assets/dse/dse-value-prop.png'
+import dseResearch    from './assets/dse/dse-research.png'
+import dseIa          from './assets/dse/dse-ia.png'
+import dseAccess      from './assets/dse/dse-access.png'
+import dseUi          from './assets/dse/dse-ui.png'
+import dseFilterTree  from './assets/dse/dse-filter-tree.png'
+
 // ─── Design tokens (girly pink palette) ──────────────────────────────────────
 
 const MAC = {
@@ -2308,7 +2316,7 @@ function DocumentsSearchEngineCaseStudy({ onOpenPetrobras, onOpenGlist }) {
           {para('Despite its importance, users struggled with <strong>imprecise search results, confusing filters, and inefficient workflows</strong>, especially when searching for well-related data. These friction points were slowing down critical decisions and creating unnecessary manual workarounds.')}
         </>
       ),
-      media: <DseImgSlot label="Before state: legacy search workflow" height={200} />,
+      media: null,
     },
     {
       id: 'framing', num: '02', title: 'Product Framing',
@@ -2330,7 +2338,7 @@ function DocumentsSearchEngineCaseStudy({ onOpenPetrobras, onOpenGlist }) {
           </div>
         </>
       ),
-      media: <DseImgSlot label="Lean Canvas session artifact" height={200} />,
+      media: <SimpleCarousel images={[dseLeanCanvas, dseValueProp]} accentColor={DSE_GREEN} borderColor={DSE_GREEN_LIGHT} />,
     },
     {
       id: 'research', num: '03', title: 'Understanding Users',
@@ -2367,7 +2375,7 @@ function DocumentsSearchEngineCaseStudy({ onOpenPetrobras, onOpenGlist }) {
           </div>
         </>
       ),
-      media: <DseImgSlot label="Research artifacts: interviews & heuristic evaluation" height={200} />,
+      media: <img src={dseResearch} alt="Research workshop artifacts" style={{ width: '100%', borderRadius: 10, display: 'block' }} />,
     },
     {
       id: 'synthesis', num: '04', title: 'Synthesis & Prioritization',
@@ -2390,7 +2398,11 @@ function DocumentsSearchEngineCaseStudy({ onOpenPetrobras, onOpenGlist }) {
           </div>
         </>
       ),
-      media: <DseImgSlot label="Opportunity Tree artifact" height={200} />,
+      media: (
+        <div style={{ overflowX: 'auto', borderRadius: 10, border: `1px solid ${DSE_GREEN_LIGHT}` }}>
+          <img src={dseIa} alt="Information architecture diagram" style={{ width: 900, maxWidth: 'none', display: 'block' }} />
+        </div>
+      ),
     },
     {
       id: 'decisions', num: '05', title: 'Design Decisions',
@@ -2414,7 +2426,7 @@ function DocumentsSearchEngineCaseStudy({ onOpenPetrobras, onOpenGlist }) {
           </div>
         </>
       ),
-      media: <DseImgSlot label="Design decision artifacts" height={200} />,
+      media: <SimpleCarousel images={[dseFilterTree, dseAccess]} accentColor={DSE_GREEN} borderColor={DSE_GREEN_LIGHT} />,
     },
     {
       id: 'execution', num: '06', title: 'Prototyping & Execution',
@@ -2425,7 +2437,7 @@ function DocumentsSearchEngineCaseStudy({ onOpenPetrobras, onOpenGlist }) {
           {para('This collaboration model allowed research and product strategy to drive the design, with visual execution moving quickly because the decisions had already been carefully grounded in user needs.')}
         </>
       ),
-      media: <DseImgSlot label="Design specifications handoff" height={200} />,
+      media: <img src={dseUi} alt="Geológica search results UI" style={{ width: '100%', borderRadius: 10, display: 'block' }} />,
     },
     {
       id: 'testing', num: '07', title: 'Testing & Validation',
@@ -2440,7 +2452,7 @@ function DocumentsSearchEngineCaseStudy({ onOpenPetrobras, onOpenGlist }) {
           </div>
         </>
       ),
-      media: <DseImgSlot label="UMUX survey results" height={200} />,
+      media: null,
     },
     {
       id: 'impact', num: '08', title: 'Impact',
@@ -2468,7 +2480,7 @@ function DocumentsSearchEngineCaseStudy({ onOpenPetrobras, onOpenGlist }) {
           </div>
         </>
       ),
-      media: <DseImgSlot label="Before / after: search experience" height={200} />,
+      media: null,
     },
     {
       id: 'learnings', num: '09', title: 'Key Learnings',
