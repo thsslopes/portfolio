@@ -938,14 +938,16 @@ function HomeContent() {
               Hello, I'm Thaís!
             </p>
             <p style={{ fontSize: 13, color: '#555', lineHeight: 1.75, marginBottom: 10 }}>
-              A Product Designer based in Brazil with{' '}
-              <strong style={{ color: MAC.rose }}>6+ years of experience</strong>{' '}
-              simplifying the complex. I thrive on aligning multidisciplinary teams and turning
-              deep research into human-centered designs.
+              A Product Designer at{' '}
+              <strong style={{ color: MAC.rose }}>CESAR</strong>
+              {' '}— Brazil's largest innovation center — with{' '}
+              <strong style={{ color: MAC.rose }}>6+ years</strong>{' '}
+              building digital products across oil & gas, finance, and government.
+              I turn deep research into strategy, and strategy into things people actually use.
             </p>
             <p style={{ fontSize: 13, color: '#555', lineHeight: 1.75 }}>
-              From banking to AI-driven tools, I believe in the power of strategy, empathy,
-              and a perfectly placed pixel.
+              I also researched AI in healthcare for my Master's, lead a digital program
+              with the Pernambuco Government, and mentor the next generation of designers.
             </p>
           </div>
         </div>
@@ -1259,10 +1261,18 @@ function AboutContent() {
         {/* Bio */}
         {sectionLabel('about me')}
         <p style={{ fontSize: 12.5, color: '#444', lineHeight: 1.85, margin: '0 0 10px' }}>
-          I'm passionate about <strong style={{ color: MAC.rose }}>adapting my skills and processes to solve complex challenges</strong>, bridging user needs and business goals. I thrive in multidisciplinary teams that value collaboration, inclusivity, and crafting meaningful solutions.
+          I design at the intersection of people, systems, and complexity — which usually means
+          I'm the one in the room asking <strong style={{ color: MAC.rose }}>"but why does it work this way?"</strong>{' '}
+          before anyone opens Figma. Based in Recife (after years in Manaus), I've spent 6+ years
+          at CESAR turning hard problems in oil & gas, finance, and government into products
+          that people actually want to use.
         </p>
         <p style={{ fontSize: 12.5, color: '#444', lineHeight: 1.85, margin: 0 }}>
-          My design practice spans UX strategy, product and visual design, user research, storytelling, and prototyping. I'm also deeply interested in <strong style={{ color: MAC.rose }}>mentoring, UX writing</strong>, and facilitating workshops to align teams and empower decision-making.
+          My Master's research explored <strong style={{ color: MAC.rose }}>AI in healthcare</strong>.
+          I lead the Digital Agents Program with the Pernambuco Government, coordinate
+          Data-Driven Design courses for Banco do Brasil, and teach UX to students building
+          their very first products. Design, to me, is less about screens —
+          and more about the decisions that shape them.
         </p>
 
         {/* Teaching & Mentoring */}
