@@ -1385,22 +1385,38 @@ function ResumeContent() {
       <div style={{ padding: '28px 32px 20px', background: 'linear-gradient(150deg, #FFF0F8 0%, #FFE4F2 60%, white 100%)', borderBottom: '1px solid #F0D4E8' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
           <h1 style={{ fontSize: 28, fontWeight: 900, color: '#1A1A1A', margin: 0, fontFamily: "'Montserrat', sans-serif" }}>Thais Lopes</h1>
-          <a
-            href="https://drive.google.com/file/d/1VJu33U0_8JfcbyE5tr4GKkH9nxf1bA_t/view?usp=sharing"
-            target="_blank"
-            rel="noreferrer"
-            style={{
-              display: 'flex', alignItems: 'center', gap: 5,
-              background: `linear-gradient(135deg, ${P} 0%, ${R} 100%)`,
-              color: 'white', fontSize: 11, fontWeight: 700,
-              fontFamily: MAC.font, textDecoration: 'none',
-              padding: '7px 14px', borderRadius: 20,
-              boxShadow: '0 3px 12px rgba(232,96,154,0.3)',
-              flexShrink: 0,
-            }}
-          >
-            ↓ Download CV
-          </a>
+          <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
+            <a
+              href="https://www.linkedin.com/in/thaiss-lopes/"
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                display: 'flex', alignItems: 'center', gap: 5,
+                background: `linear-gradient(135deg, ${P} 0%, ${R} 100%)`,
+                color: 'white', fontSize: 11, fontWeight: 700,
+                fontFamily: MAC.font, textDecoration: 'none',
+                padding: '7px 14px', borderRadius: 20,
+                boxShadow: '0 3px 12px rgba(232,96,154,0.3)',
+              }}
+            >
+              in LinkedIn
+            </a>
+            <a
+              href="https://drive.google.com/file/d/1VJu33U0_8JfcbyE5tr4GKkH9nxf1bA_t/view?usp=sharing"
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                display: 'flex', alignItems: 'center', gap: 5,
+                background: `linear-gradient(135deg, ${P} 0%, ${R} 100%)`,
+                color: 'white', fontSize: 11, fontWeight: 700,
+                fontFamily: MAC.font, textDecoration: 'none',
+                padding: '7px 14px', borderRadius: 20,
+                boxShadow: '0 3px 12px rgba(232,96,154,0.3)',
+              }}
+            >
+              ↓ Download CV
+            </a>
+          </div>
         </div>
         <div style={{ fontSize: 12, color: R, fontFamily: MAC.font, marginBottom: 12 }}>Product Design (UX/UI) · Service Design · Design Strategy</div>
         <div style={{ fontSize: 11, color: '#666', lineHeight: 1.7, maxWidth: 420, marginBottom: 16 }}>Experience delivering digital products with measurable business impact (Oil &amp; Gas, Finance, Tech).</div>
