@@ -2838,12 +2838,14 @@ function GlistCaseStudy({ onOpenPetrobras, onOpenSearch }) {
       <div style={{ padding: '0 40px 56px' }}>
 
         {/* 01 · Problem */}
+        {anchor('problem')}
         <SectionLabel n="01" label="Problem" />
         <Para>
           Glist started as a challenge to discover a way to help people <strong>reduce food waste</strong> through smarter grocery planning. Most people don't realize how much food they throw away daily, from uneaten leftovers to spoiled produce.
         </Para>
 
         {/* 02 · Research */}
+        {anchor('research')}
         <SectionLabel n="02" label="Research" />
         <Para>
           Before defining any solution, I needed to understand how people actually shop. I started with a CSD Matrix to separate what I knew from what I was assuming.
@@ -2900,6 +2902,7 @@ function GlistCaseStudy({ onOpenPetrobras, onOpenSearch }) {
         <div style={{ marginBottom: 16 }}>{img(glistEmpathy, 'Empathy map')}</div>
 
         {/* 03 · Define */}
+        {anchor('define')}
         <SectionLabel n="03" label="Define" />
         <Para>
           With the research done, I synthesized what I learned into personas and a user journey to align on who I was designing for and where the real pain lived.
@@ -2908,6 +2911,7 @@ function GlistCaseStudy({ onOpenPetrobras, onOpenSearch }) {
         <div style={{ marginBottom: 16 }}>{img(glistJourney, 'User journey map')}</div>
 
         {/* 04 · Project Goal — now earned by research */}
+        {anchor('goal')}
         <SectionLabel n="04" label="Project Goal" />
         <div style={{ background: `linear-gradient(135deg, ${OR_BG}, white)`, border: `1px solid rgba(244,132,26,0.25)`, borderLeft: `4px solid ${OR}`, borderRadius: '0 12px 12px 0', padding: '18px 20px', marginBottom: 4 }}>
           <Para>
@@ -2919,6 +2923,7 @@ function GlistCaseStudy({ onOpenPetrobras, onOpenSearch }) {
         </div>
 
         {/* 05 · Solution — now follows naturally */}
+        {anchor('solution')}
         <SectionLabel n="05" label="Solution" />
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 4 }}>
           {[
@@ -2935,11 +2940,13 @@ function GlistCaseStudy({ onOpenPetrobras, onOpenSearch }) {
         </div>
 
         {/* 06 · Ideate */}
+        {anchor('ideate')}
         <SectionLabel n="06" label="Ideate" />
         <Para>A moodboard set the tone: <strong>Fast, Practical, Easy, Convenient, Helpful, Handy</strong>. This guided all visual and interaction decisions forward.</Para>
         <div style={{ marginBottom: 16 }}>{img(glistMoodboard, 'Moodboard')}</div>
 
         {/* 07 · Prototype */}
+        {anchor('prototype')}
         <SectionLabel n="07" label="Prototype" />
         <Para>Sketches helped convey ideas quickly, demonstrating functionality and visualizing user flow before investing in higher-fidelity work.</Para>
         <div onClick={() => setExpandedImg({ src: glistSketches, alt: 'Hand sketches' })} style={{ cursor: 'zoom-in', marginBottom: 16, marginLeft: -40, marginRight: -40 }}>
@@ -2992,6 +2999,7 @@ function GlistCaseStudy({ onOpenPetrobras, onOpenSearch }) {
         <HiFiScreens screens={[glistProto05, glistProto06]} spread={glistProto04} animation={glistAnimation} onExpand={(src, alt) => setExpandedImg({ src, alt })} f={f} />
 
         {/* 08 · Testing */}
+        {anchor('testing')}
         <SectionLabel n="08" label="Testing" />
         <Para>I conducted <strong>5 moderated usability sessions</strong> online, camera and microphone on. Participants were given tasks to complete while thinking aloud. I observed where they hesitated, where they got lost, and what they expected to find but didn't.</Para>
         <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
@@ -3025,6 +3033,7 @@ function GlistCaseStudy({ onOpenPetrobras, onOpenSearch }) {
         </div>
 
         {/* 09 · Key Learnings */}
+        {anchor('learnings')}
         <SectionLabel n="09" label="Key Learnings" />
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginBottom: 4 }}>
           {[
