@@ -844,10 +844,10 @@ function HomeContent() {
   ]
 
   const clients = [
-    { name: 'CESAR',          logo: logoCesar },
     { name: 'Petrobras',      logo: logoPetrobras },
-    { name: 'Banco do Brasil',logo: logoBancoBrasil, logoHeight: 50 },
     { name: 'Samsung',        logo: logoSamsung },
+    { name: 'Banco do Brasil',logo: logoBancoBrasil, logoHeight: 50 },
+    { name: 'CESAR',          logo: logoCesar },
   ]
 
   return (
