@@ -3573,7 +3573,102 @@ function Desktop({ windows, onOpen }) {
 
 // ─── Portfolio (main export) ──────────────────────────────────────────────────
 
+function playICQSound() {
+  const ctx = new (window.AudioContext || window.webkitAudioContext)()
+  const notes = [520, 660, 780, 980, 1200, 1400]
+  notes.forEach((freq, i) => {
+    const osc  = ctx.createOscillator()
+    const gain = ctx.createGain()
+    osc.connect(gain)
+    gain.connect(ctx.destination)
+    osc.type = 'square'
+    osc.frequency.value = freq
+    const t = ctx.currentTime + i * 0.09
+    gain.gain.setValueAtTime(0.12, t)
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.13)
+    osc.start(t)
+    osc.stop(t + 0.13)
+  })
+}
+
+function EnterScreen({ onEnter }) {
+  const [hover, setHover] = useState(false)
+  return (
+    <div style={{
+      position: 'fixed', inset: 0, zIndex: 9999,
+      background: 'linear-gradient(135deg, #1a0a2e 0%, #2d0a4e 40%, #1a1a3e 100%)',
+      display: 'flex', flexDirection: 'column',
+      alignItems: 'center', justifyContent: 'center',
+      fontFamily: "'Outfit', sans-serif",
+    }}>
+      {/* stars */}
+      {[...Array(28)].map((_, i) => (
+        <div key={i} style={{
+          position: 'absolute',
+          left: `${Math.random() * 100}%`,
+          top: `${Math.random() * 100}%`,
+          width: i % 5 === 0 ? 3 : 2,
+          height: i % 5 === 0 ? 3 : 2,
+          borderRadius: '50%',
+          background: 'white',
+          opacity: 0.3 + (i % 4) * 0.15,
+          animation: `twinkle ${1.5 + (i % 3) * 0.7}s ease-in-out infinite`,
+          animationDelay: `${(i * 0.17) % 2}s`,
+        }} />
+      ))}
+
+      <div style={{ textAlign: 'center', position: 'relative' }}>
+        {/* glowing name */}
+        <div style={{
+          fontSize: 13, letterSpacing: 6, color: 'rgba(255,180,220,0.7)',
+          textTransform: 'uppercase', marginBottom: 18, fontWeight: 600,
+        }}>
+          thais lopes
+        </div>
+
+        <div style={{
+          fontSize: 42, fontWeight: 900, color: 'white',
+          marginBottom: 10, lineHeight: 1,
+          textShadow: '0 0 40px rgba(255,133,194,0.6)',
+          fontFamily: "'Plus Jakarta Sans', sans-serif",
+        }}>
+          ✦ portfolio
+        </div>
+
+        <div style={{
+          fontSize: 11, color: 'rgba(255,180,220,0.5)',
+          letterSpacing: 2, marginBottom: 52,
+        }}>
+          product design · ux/ui
+        </div>
+
+        <button
+          onClick={() => { playICQSound(); onEnter() }}
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+          style={{
+            background: hover
+              ? 'linear-gradient(135deg, #FF85C2 0%, #E8609A 100%)'
+              : 'transparent',
+            border: '1.5px solid rgba(255,133,194,0.6)',
+            borderRadius: 999, padding: '12px 36px',
+            color: hover ? 'white' : 'rgba(255,180,220,0.85)',
+            fontSize: 13, fontWeight: 700, cursor: 'pointer',
+            letterSpacing: 1.5, textTransform: 'uppercase',
+            transition: 'all 0.25s ease',
+            boxShadow: hover ? '0 0 32px rgba(232,96,154,0.5)' : 'none',
+            animation: 'hint-float 3s ease-in-out infinite',
+          }}
+        >
+          click to enter ✦
+        </button>
+      </div>
+    </div>
+  )
+}
+
 export default function Portfolio() {
+  const [entered, setEntered] = useState(false)
   const { windows, positions, openWindow, closeWindow, minimizeWindow, focusWindow, setPosition } = useWindowManager()
   const [snappedWindows, setSnappedWindows] = useState({})
   const [snapPreview, setSnapPreview] = useState(null) // 'left' | 'right' | null
@@ -3636,6 +3731,8 @@ export default function Portfolio() {
   const handleSnapRelease = useCallback(() => {
     setSnappedWindows({})
   }, [])
+
+  if (!entered) return <EnterScreen onEnter={() => setEntered(true)} />
 
   return (
     <div style={{ cursor: 'default', width: '100vw', height: '100vh', overflow: 'hidden' }}>
