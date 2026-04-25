@@ -1703,6 +1703,24 @@ function ProjectDetailContent({ projectId }) {
 
 // ─── PetrobrasCaseStudy ───────────────────────────────────────────────────────
 
+function SimpleCarousel({ images, accentColor, borderColor }) {
+  const [idx, setIdx] = useState(0)
+  return (
+    <div style={{ position: 'relative' }}>
+      <img src={images[idx]} alt={`Slide ${idx + 1}`} style={{ width: '100%', borderRadius: 8, display: 'block' }} />
+      {images.length > 1 && <>
+        <button onClick={() => setIdx(i => (i - 1 + images.length) % images.length)} style={{ position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', background: 'rgba(255,255,255,0.88)', border: `1px solid ${borderColor}`, borderRadius: '50%', width: 28, height: 28, cursor: 'pointer', fontSize: 15, color: accentColor, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 6px rgba(0,0,0,0.1)', lineHeight: 1 }}>‹</button>
+        <button onClick={() => setIdx(i => (i + 1) % images.length)} style={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', background: 'rgba(255,255,255,0.88)', border: `1px solid ${borderColor}`, borderRadius: '50%', width: 28, height: 28, cursor: 'pointer', fontSize: 15, color: accentColor, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 6px rgba(0,0,0,0.1)', lineHeight: 1 }}>›</button>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: 5, marginTop: 8 }}>
+          {images.map((_, i) => (
+            <div key={i} onClick={() => setIdx(i)} style={{ width: 6, height: 6, borderRadius: '50%', background: i === idx ? accentColor : borderColor, cursor: 'pointer', transition: 'background 0.2s' }} />
+          ))}
+        </div>
+      </>}
+    </div>
+  )
+}
+
 function SketchyBrowserFrame({ src, alt }) {
   return (
     <div style={{ position: 'relative', margin: '8px auto', width: '70%' }}>
@@ -1945,8 +1963,7 @@ function PetrobrasCaseStudy({ onOpenSearch, onOpenGlist }) {
               Low Fidelity
               <span style={{ display: 'inline-block', flex: 1, height: 1.5, background: ROSE_LIGHT }} />
             </div>
-            <img src={hdLofi1} alt="Low fidelity wireframe 1" style={{ width: '100%', borderRadius: 8, marginBottom: 10, display: 'block' }} />
-            <img src={hdLofi2} alt="Low fidelity wireframe 2" style={{ width: '100%', borderRadius: 8, display: 'block' }} />
+            <SimpleCarousel images={[hdLofi1, hdLofi2]} accentColor={ROSE} borderColor={ROSE_LIGHT} />
           </div>
 
           {/* High Fidelity */}
