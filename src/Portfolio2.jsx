@@ -836,10 +836,10 @@ function BrowserToolbar({ url = 'tha.design' }) {
 function HomeContent() {
   const skills = [
     { icon: '🔍', title: 'UX Research',    desc: 'User interviews, usability testing, competitive analysis and synthesis.' },
-    { icon: '✦',  title: 'UI Design',      desc: 'Pixel-perfect visual design, component libraries and design system governance.' },
-    { icon: '⚙',  title: 'Design Systems', desc: 'Scalable systems that bridge design and development across teams.' },
-    { icon: '▷',  title: 'Prototyping',    desc: 'High-fidelity interactive prototypes for testing and stakeholder alignment.' },
+    { icon: '✦',  title: 'UI Design',      desc: 'Pixel-perfect visual design, component libraries and vibe coding.' },
     { icon: '◈',  title: 'Strategy',       desc: 'Aligning design decisions with business goals, OKRs and user needs.' },
+    { icon: '◎',  title: 'Facilitation',   desc: 'Leading product strategy workshops, lean inception sessions and design thinking for cross-functional teams.' },
+    { icon: '▷',  title: 'Prototyping',    desc: 'High-fidelity interactive prototypes for testing and stakeholder alignment.' },
     { icon: '♡',  title: 'Leadership',     desc: 'Mentoring designers and facilitating cross-functional collaboration.' },
   ]
 
@@ -939,7 +939,7 @@ function HomeContent() {
             </p>
             <p style={{ fontSize: 13, color: '#555', lineHeight: 1.75, marginBottom: 10 }}>
               A Product Designer based in Brazil with{' '}
-              <strong style={{ color: MAC.rose }}>5+ years of experience</strong>{' '}
+              <strong style={{ color: MAC.rose }}>6+ years of experience</strong>{' '}
               simplifying the complex. I thrive on aligning multidisciplinary teams and turning
               deep research into human-centered designs.
             </p>
