@@ -846,7 +846,7 @@ function HomeContent() {
   const clients = [
     { name: 'CESAR',          logo: logoCesar },
     { name: 'Petrobras',      logo: logoPetrobras },
-    { name: 'Banco do Brasil',logo: logoBancoBrasil },
+    { name: 'Banco do Brasil',logo: logoBancoBrasil, logoHeight: 52 },
     { name: 'Samsung',        logo: logoSamsung },
   ]
 
@@ -1022,7 +1022,7 @@ function HomeContent() {
                 e.currentTarget.style.transform = 'translateY(0)'
               }}
             >
-              <img src={c.logo} alt={c.name} style={{ height: 34, objectFit: 'contain' }} />
+              <img src={c.logo} alt={c.name} style={{ height: c.logoHeight ?? 34, objectFit: 'contain' }} />
               <span style={{ fontFamily: MAC.font, fontSize: 10, color: '#BBA0B0' }}>{c.name}</span>
             </div>
           ))}
