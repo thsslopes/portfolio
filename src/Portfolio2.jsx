@@ -2642,7 +2642,12 @@ const CASE_META = {
 function CaseNavCards({ cases }) {
   const f = MAC.font
   return (
-    <div style={{ margin: '8px 32px 48px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+    <div style={{ margin: '8px 32px 48px' }}>
+      <div style={{ fontSize: 11, fontFamily: f, color: '#AAA', textTransform: 'uppercase', letterSpacing: 2.5, fontWeight: 600, marginBottom: 14, display: 'flex', alignItems: 'center', gap: 10 }}>
+        keep exploring
+        <span style={{ flex: 1, height: 1, background: 'linear-gradient(to right, #DDD, transparent)' }} />
+      </div>
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
       {cases.map(({ id, onOpen }) => {
         const m = CASE_META[id]
         return (
@@ -2663,6 +2668,7 @@ function CaseNavCards({ cases }) {
           </div>
         )
       })}
+    </div>
     </div>
   )
 }
