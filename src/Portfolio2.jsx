@@ -1291,6 +1291,18 @@ function AboutContent() {
           and the people those decisions are made with, and for.
         </p>
 
+        {/* Skill tags */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7, margin: '18px 0 0' }}>
+          {['UX Strategy', 'Product Design', 'Visual Design', 'User Research', 'Prototyping', 'UX Writing', 'Workshops', 'Mentoring', 'Storytelling'].map(tag => (
+            <span key={tag} style={{
+              background: '#FFF0F6', border: '1px solid #F0C8DC', borderRadius: 20,
+              padding: '4px 13px', fontSize: 11, fontFamily: MAC.font, color: MAC.titleText,
+            }}>
+              {tag}
+            </span>
+          ))}
+        </div>
+
         {/* Teaching & Mentoring */}
         {sectionLabel('teaching & mentoring')}
         <div style={{ display: 'flex', gap: 14, alignItems: 'flex-start' }}>
@@ -1312,7 +1324,7 @@ function AboutContent() {
           {/* Cards */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1 }}>
             {[
-              { icon: '🎓', title: 'UX Instructor', desc: 'Teaching UX fundamentals, research methods, and design thinking to students building their first products.' },
+              { icon: '🎓', title: 'UX Instructor', desc: 'Teaching design and the methods behind it — so students understand what each tool does and how to adapt it, not just follow a process.' },
               { icon: '🤝', title: 'Design Mentor', desc: 'Guiding junior designers through portfolio reviews, career transitions, and day-to-day design challenges.' },
               { icon: '🧩', title: 'Workshop Facilitator', desc: 'Running Lean Inception, Design Sprint, and alignment sessions that help teams make faster, better decisions.' },
             ].map(item => (
@@ -1334,21 +1346,9 @@ function AboutContent() {
 
         {/* Outside of work */}
         {sectionLabel('outside of work')}
-        <p style={{ fontSize: 12.5, color: '#444', lineHeight: 1.85, margin: '0 0 18px' }}>
+        <p style={{ fontSize: 12.5, color: '#444', lineHeight: 1.85, margin: 0 }}>
           You'll likely find me planning my next trip, exploring new tools to refine my craft, or enjoying a good book with a chocolate beside me. 🍫
         </p>
-
-        {/* Skill tags */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7 }}>
-          {['UX Strategy', 'Product Design', 'Visual Design', 'User Research', 'Prototyping', 'UX Writing', 'Workshops', 'Mentoring', 'Storytelling'].map(tag => (
-            <span key={tag} style={{
-              background: '#FFF0F6', border: '1px solid #F0C8DC', borderRadius: 20,
-              padding: '4px 13px', fontSize: 11, fontFamily: MAC.font, color: MAC.titleText,
-            }}>
-              {tag}
-            </span>
-          ))}
-        </div>
 
       </div>
     </div>
