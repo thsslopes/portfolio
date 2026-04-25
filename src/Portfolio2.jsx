@@ -1293,7 +1293,7 @@ function AboutContent() {
 
         {/* Skill tags */}
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7, margin: '18px 0 0' }}>
-          {['UX Strategy', 'Product Design', 'Visual Design', 'User Research', 'Prototyping', 'UX Writing', 'Workshops', 'Mentoring', 'Storytelling'].map(tag => (
+          {['Design Strategy', 'Product Design', 'User Research', 'Prototyping', 'Facilitation', 'UX Writing', 'Data-Driven Design', 'Design Futures', 'Mentoring', 'Public Sector'].map(tag => (
             <span key={tag} style={{
               background: '#FFF0F6', border: '1px solid #F0C8DC', borderRadius: 20,
               padding: '4px 13px', fontSize: 11, fontFamily: MAC.font, color: MAC.titleText,
