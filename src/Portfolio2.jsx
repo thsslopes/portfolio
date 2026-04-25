@@ -1785,14 +1785,7 @@ function PasswordGate({ children }) {
         </div>
 
         {/* input row */}
-        <div style={{
-          display: 'flex', alignItems: 'center',
-          border: `1.5px solid ${error ? MAC.red : 'rgba(220,120,160,0.35)'}`,
-          borderRadius: 14, overflow: 'hidden',
-          background: '#FFF9FC',
-          transition: 'border-color 0.2s',
-          marginBottom: 14,
-        }}>
+        <div style={{ position: 'relative', marginBottom: 14 }}>
           <input
             type={show ? 'text' : 'password'}
             value={value}
@@ -1800,19 +1793,23 @@ function PasswordGate({ children }) {
             onKeyDown={e => e.key === 'Enter' && attempt()}
             placeholder="password"
             style={{
-              flex: 1, border: 'none', outline: 'none',
-              padding: '11px 14px', fontSize: 13,
-              background: 'transparent', color: '#333',
+              width: '100%', boxSizing: 'border-box',
+              border: `1.5px solid ${error ? MAC.red : 'rgba(220,120,160,0.35)'}`,
+              borderRadius: 14, outline: 'none',
+              padding: '11px 40px 11px 14px', fontSize: 13,
+              background: '#FFF9FC', color: '#333',
               fontFamily: MAC.font, cursor: 'text',
+              transition: 'border-color 0.2s',
             }}
           />
           <button
             onClick={() => setShow(s => !s)}
             style={{
+              position: 'absolute', right: 12, top: '50%',
+              transform: 'translateY(-50%)',
               border: 'none', background: 'transparent',
-              padding: '0 12px', fontSize: 14, color: '#CCC',
-              cursor: 'pointer', flexShrink: 0,
-              display: 'flex', alignItems: 'center', alignSelf: 'stretch',
+              fontSize: 14, color: '#CCC', cursor: 'pointer',
+              padding: 0, lineHeight: 1,
             }}
           >{show ? '🙈' : '👁️'}</button>
         </div>
