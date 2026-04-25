@@ -1815,7 +1815,7 @@ function PetrobrasCaseStudy({ onOpenSearch, onOpenGlist }) {
   const pullquote = (text, attr) => (
     <div style={{ background: `linear-gradient(135deg, ${ROSE_BG} 0%, #EEF5FC 100%)`, borderLeft: `3px solid ${ROSE}`, borderRadius: '0 10px 10px 0', padding: '12px 16px', marginBottom: 10 }}>
       <div style={{ fontSize: 13, color: '#333', fontStyle: 'italic', lineHeight: 1.8, marginBottom: 5 }}>{text}</div>
-      <div style={{ fontSize: 10, color: ROSE, fontFamily: MAC.font, fontWeight: 700 }}>— {attr}</div>
+      <div style={{ fontSize: 10, color: ROSE, fontFamily: MAC.font, fontWeight: 700 }}>· {attr}</div>
     </div>
   )
 
@@ -1825,11 +1825,11 @@ function PetrobrasCaseStudy({ onOpenSearch, onOpenGlist }) {
       id: 'context', num: '01', title: 'Context',
       body: (
         <>
-          {para('Pipeline inspections in pre-salt reservoirs are critical to detecting and preventing stress corrosion cracking caused by CO₂ (SCC-CO₂). Until this project, data from those inspections was manually managed in <strong>spreadsheets and PowerPoint files</strong> — with little traceability, duplicated effort across teams, and frequent errors in data processing.')}
+          {para('Pipeline inspections in pre-salt reservoirs are critical to detecting and preventing stress corrosion cracking caused by CO₂ (SCC-CO₂). Until this project, data from those inspections was manually managed in <strong>spreadsheets and PowerPoint files</strong>, with little traceability, duplicated effort across teams, and frequent errors in data processing.')}
           {para('The need for a centralized, digital system had become urgent: not only to improve operational efficiency, but also to <strong>support strategic decisions through reliable, accessible data</strong>.')}
         </>
       ),
-      media: <img src={hdContext} alt="Before state — legacy spreadsheet workflow" style={{ width: '75%', borderRadius: 10, margin: '12px auto', display: 'block' }} />,
+      media: <img src={hdContext} alt="Before state: legacy spreadsheet workflow" style={{ width: '75%', borderRadius: 10, margin: '12px auto', display: 'block' }} />,
     },
     {
       id: 'framing', num: '02', title: 'Product Framing',
@@ -1871,7 +1871,7 @@ function PetrobrasCaseStudy({ onOpenSearch, onOpenGlist }) {
               <div style={{ fontSize: 10, fontWeight: 700, color: ROSE, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 10 }}>Key Findings</div>
               {['Lack of centralized access to inspection results across teams', 'Low automation in formatting and managing inspection reports', 'Reliance on other departments and external tools to retrieve data', 'High manual effort to create and share visuals or summaries'].map((t, i) => (
                 <div key={i} style={{ display: 'flex', gap: 8, fontSize: 12, color: '#444', lineHeight: 1.6, paddingBottom: 7, borderBottom: i < 3 ? `1px solid #E5EFF8` : 'none', marginBottom: 7 }}>
-                  <span style={{ color: '#CCC', flexShrink: 0 }}>—</span>{t}
+                  <span style={{ color: '#CCC', flexShrink: 0 }}>·</span>{t}
                 </div>
               ))}
             </div>
@@ -1899,7 +1899,7 @@ function PetrobrasCaseStudy({ onOpenSearch, onOpenGlist }) {
         <>
           {para('A <strong>three-day workshop</strong> combining Lean Inception and Design Sprint tools was held to collaboratively define the MVP scope.')}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10, marginBottom: 14 }}>
-            {[{ day: 'Day 01', focus: 'Product vision, pain point mapping, user roles' }, { day: 'Day 02', focus: 'Ideation, card sorting, sketchstorming' }, { day: 'Day 03', focus: 'Technical, business, and UX review — scope sequencing' }].map(item => (
+            {[{ day: 'Day 01', focus: 'Product vision, pain point mapping, user roles' }, { day: 'Day 02', focus: 'Ideation, card sorting, sketchstorming' }, { day: 'Day 03', focus: 'Technical, business, and UX review: scope sequencing' }].map(item => (
               <div key={item.day} style={{ background: 'white', border: `1px solid ${ROSE_LIGHT}`, borderRadius: 10, padding: '14px', textAlign: 'center' }}>
                 <div style={{ fontSize: 12, fontWeight: 800, color: ROSE, marginBottom: 6 }}>{item.day}</div>
                 <div style={{ fontSize: 11, color: '#666', lineHeight: 1.6 }}>{item.focus}</div>
@@ -1914,7 +1914,7 @@ function PetrobrasCaseStudy({ onOpenSearch, onOpenGlist }) {
               ))}
             </div>
             <div style={{ background: 'white', border: `1px solid ${ROSE_LIGHT}`, borderRadius: 10, padding: '14px 16px' }}>
-              <div style={{ fontSize: 9, fontWeight: 700, color: '#AAA', fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 10 }}>Deferred — and why</div>
+              <div style={{ fontSize: 9, fontWeight: 700, color: '#AAA', fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 10 }}>Deferred: and why</div>
               {[{ f: 'Real-time editing', r: 'architectural changes not feasible for v1' }, { f: 'Predictive analytics', r: 'needed more historical data to be meaningful' }, { f: 'API integrations', r: 'teams still transitioning from manual workflows' }].map((item, i) => (
                 <div key={i} style={{ marginBottom: 8 }}>
                   <div style={{ fontSize: 12, color: '#777', fontWeight: 600 }}>– {item.f}</div>
@@ -1932,7 +1932,7 @@ function PetrobrasCaseStudy({ onOpenSearch, onOpenGlist }) {
       body: (
         <>
           {para('My approach was <strong>co-participatory and iterative</strong>. I facilitated sketching sessions and rapid critique rounds with stakeholders and developers, continuously testing for feasibility and usability.')}
-          {para("Early concepts evolved into high-fidelity prototypes using the company's Design System — ensuring visual consistency and alignment with internal platform standards. As the <strong>sole designer</strong>, I created all flows in Figma and partnered closely with developers.")}
+          {para("Early concepts evolved into high-fidelity prototypes using the company's Design System, ensuring visual consistency and alignment with internal platform standards. As the <strong>sole designer</strong>, I created all flows in Figma and partnered closely with developers.")}
         </>
       ),
       media: (
@@ -1985,16 +1985,16 @@ function PetrobrasCaseStudy({ onOpenSearch, onOpenGlist }) {
           {para('To ensure usability and adoption across user segments, I designed and conducted <strong>two rounds of testing</strong>.')}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 16 }}>
             <div style={{ background: 'white', border: `1px solid ${ROSE_LIGHT}`, borderRadius: 10, padding: '16px' }}>
-              <div style={{ fontSize: 9, fontWeight: 700, color: ROSE, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12 }}>Moderated — Primary Users</div>
+              <div style={{ fontSize: 9, fontWeight: 700, color: ROSE, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12 }}>Moderated: Primary Users</div>
               <div style={{ fontSize: 28, fontWeight: 900, color: ROSE, lineHeight: 1 }}>100%</div>
               <div style={{ fontSize: 11, color: '#888', fontFamily: MAC.font, marginBottom: 10 }}>task success rate</div>
               <div style={{ fontSize: 12, color: '#555', lineHeight: 1.7, borderTop: `1px solid #E5EFF8`, paddingTop: 10 }}>All 13 tasks completed. Users flagged inconsistencies in filter behavior and terminology.</div>
             </div>
             <div style={{ background: 'white', border: `1px solid ${ROSE_LIGHT}`, borderRadius: 10, padding: '16px' }}>
-              <div style={{ fontSize: 9, fontWeight: 700, color: '#AAA', fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12 }}>Unmoderated — via Useberry</div>
+              <div style={{ fontSize: 9, fontWeight: 700, color: '#AAA', fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12 }}>Unmoderated: via Useberry</div>
               <div style={{ fontSize: 28, fontWeight: 900, color: '#90C4A8', lineHeight: 1 }}>67%</div>
               <div style={{ fontSize: 11, color: '#888', fontFamily: MAC.font, marginBottom: 10 }}>task completion success</div>
-              <div style={{ fontSize: 12, color: '#555', lineHeight: 1.7, borderTop: `1px solid #E5EFF8`, paddingTop: 10 }}>Identified gaps in dashboard clarity and data interpretation — informed v2 priorities.</div>
+              <div style={{ fontSize: 12, color: '#555', lineHeight: 1.7, borderTop: `1px solid #E5EFF8`, paddingTop: 10 }}>Identified gaps in dashboard clarity and data interpretation, informing v2 priorities.</div>
             </div>
           </div>
           {pullquote('"The tool is very intuitive and well organized."', 'User 01')}
@@ -2010,8 +2010,8 @@ function PetrobrasCaseStudy({ onOpenSearch, onOpenGlist }) {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10, marginBottom: 12 }}>
             {[
               { metric: '~3h',  sub: 'saved per user per week' },
-              { metric: '100%', sub: 'task success — moderated tests' },
-              { metric: 'Full', sub: 'MVP adoption — all target teams' },
+              { metric: '100%', sub: 'task success, moderated tests' },
+              { metric: 'Full', sub: 'MVP adoption, all target teams' },
             ].map(item => (
               <div key={item.metric} style={{ background: `linear-gradient(135deg, #E0ECF8 0%, ${ROSE_BG} 100%)`, border: `1.5px solid ${ROSE_LIGHT}`, borderRadius: 12, padding: '20px 16px', textAlign: 'center' }}>
                 <div style={{ fontSize: 28, fontWeight: 900, color: ROSE, marginBottom: 6 }}>{item.metric}</div>
@@ -2021,7 +2021,7 @@ function PetrobrasCaseStudy({ onOpenSearch, onOpenGlist }) {
           </div>
           <div style={{ background: `linear-gradient(135deg, #E0ECF8 0%, ${ROSE_BG} 100%)`, border: `1.5px solid ${ROSE_LIGHT}`, borderRadius: 12, padding: '20px 24px', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 16 }}>
             <div style={{ fontSize: 32, fontWeight: 900, color: ROSE, flexShrink: 0 }}>R$300M</div>
-            <div style={{ fontSize: 12, color: '#555', lineHeight: 1.7 }}>in <strong>risk reduction</strong> over 10 years at Petrobras — enabled by the platform's capacity to centralize inspection data and support strategic decisions at scale</div>
+            <div style={{ fontSize: 12, color: '#555', lineHeight: 1.7 }}>in <strong>risk reduction</strong> over 10 years at Petrobras, enabled by the platform's capacity to centralize inspection data and support strategic decisions at scale</div>
           </div>
           {bullet(['Eliminated spreadsheet-based processes entirely', 'Users reported increased autonomy and greater confidence in operational decisions'])}
         </>
@@ -2203,7 +2203,7 @@ function PetrobrasCaseStudy({ onOpenSearch, onOpenGlist }) {
             <div style={{ fontSize: 9, fontFamily: MAC.font, color: '#90C4A8', textTransform: 'uppercase', letterSpacing: 2, marginBottom: 16 }}>Screens & evidence</div>
             {SECTION_CONTENT.filter(s => s.media).map(s => (
               <div key={s.id} style={{ marginBottom: 22 }}>
-                <div style={{ fontSize: 9, fontFamily: MAC.font, color: ROSE, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 4 }}>{s.num} — {s.title}</div>
+                <div style={{ fontSize: 9, fontFamily: MAC.font, color: ROSE, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 4 }}>{s.num}: {s.title}</div>
                 {s.media}
               </div>
             ))}
@@ -2274,11 +2274,11 @@ function DocumentsSearchEngineCaseStudy({ onOpenPetrobras, onOpenGlist }) {
       id: 'context', num: '01', title: 'Context',
       body: (
         <>
-          {para('The platform was used to <strong>search and analyze complex geological and administrative documents</strong> — a critical tool for geoscientific teams making time-sensitive decisions.')}
-          {para('Despite its importance, users struggled with <strong>imprecise search results, confusing filters, and inefficient workflows</strong> — especially when searching for well-related data. These friction points were slowing down critical decisions and creating unnecessary manual workarounds.')}
+          {para('The platform was used to <strong>search and analyze complex geological and administrative documents</strong>, a critical tool for geoscientific teams making time-sensitive decisions.')}
+          {para('Despite its importance, users struggled with <strong>imprecise search results, confusing filters, and inefficient workflows</strong>, especially when searching for well-related data. These friction points were slowing down critical decisions and creating unnecessary manual workarounds.')}
         </>
       ),
-      media: <DseImgSlot label="Before state — legacy search workflow" height={200} />,
+      media: <DseImgSlot label="Before state: legacy search workflow" height={200} />,
     },
     {
       id: 'framing', num: '02', title: 'Product Framing',
@@ -2307,7 +2307,7 @@ function DocumentsSearchEngineCaseStudy({ onOpenPetrobras, onOpenGlist }) {
       body: (
         <>
           {para('To ground the project in real user behavior, I focused on understanding how different user profiles <strong>searched for and accessed geological and administrative data</strong>. Through interviews and in-platform evaluations, I identified where the search experience was failing and which use cases required immediate attention.')}
-          {callout('Complemented by a heuristic evaluation based on Nielsen Norman\'s heuristics — applied selectively and critically to validate usability issues identified during research.')}
+          {callout('Complemented by a heuristic evaluation based on Nielsen Norman\'s heuristics, applied selectively and critically to validate usability issues identified during research.')}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 14 }}>
             <div>
               <div style={{ fontSize: 10, fontWeight: 700, color: G, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 10 }}>Objectives</div>
@@ -2324,26 +2324,26 @@ function DocumentsSearchEngineCaseStudy({ onOpenPetrobras, onOpenGlist }) {
             <div>
               <div style={{ fontSize: 10, fontWeight: 700, color: G, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 10 }}>Key Findings</div>
               {[
-                'Imprecise search results — especially for well-related data — made it hard to find relevant documents',
+                'Imprecise search results, especially for well-related data, made it hard to find relevant documents',
                 'Inconsistent filter logic created confusion and reduced trust in search results',
                 "Unclear interface elements (e.g., 'Similar Documents') limited discoverability",
                 'Users could not request access to restricted documents within the platform itself',
               ].map((t, i) => (
                 <div key={i} style={{ display: 'flex', gap: 8, fontSize: 12, color: '#444', lineHeight: 1.6, paddingBottom: 7, borderBottom: i < 3 ? `1px solid ${GB}` : 'none', marginBottom: 7 }}>
-                  <span style={{ color: '#CCC', flexShrink: 0 }}>—</span>{t}
+                  <span style={{ color: '#CCC', flexShrink: 0 }}>·</span>{t}
                 </div>
               ))}
             </div>
           </div>
         </>
       ),
-      media: <DseImgSlot label="Research artifacts — interviews & heuristic evaluation" height={200} />,
+      media: <DseImgSlot label="Research artifacts: interviews & heuristic evaluation" height={200} />,
     },
     {
       id: 'synthesis', num: '04', title: 'Synthesis & Prioritization',
       body: (
         <>
-          {para('Research findings were synthesized into clear themes and translated into actionable opportunities using an <strong>Opportunity Tree</strong>. Priorities were then aligned with Product Owners, developers, and data scientists — narrowing scope to the most critical improvements in search and taxonomy.')}
+          {para('Research findings were synthesized into clear themes and translated into actionable opportunities using an <strong>Opportunity Tree</strong>. Priorities were then aligned with Product Owners, developers, and data scientists, narrowing scope to the most critical improvements in search and taxonomy.')}
           <div style={{ marginBottom: 16 }}>
             <div style={{ fontSize: 10, fontWeight: 700, color: G, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1.2, marginBottom: 12 }}>Before → After</div>
             {[
@@ -2391,8 +2391,8 @@ function DocumentsSearchEngineCaseStudy({ onOpenPetrobras, onOpenGlist }) {
       body: (
         <>
           {callout("This case's strength is research and strategy. UI execution was handled by a dedicated UI designer based on the design decisions and specifications produced in the previous phase.")}
-          {para('Based on the defined design decisions, I produced <strong>detailed specifications</strong> for each area — search behavior, filter logic, taxonomy structure, and access flows. These were handed off to a dedicated UI designer responsible for visual implementation, ensuring design intent was preserved throughout execution.')}
-          {para('This collaboration model allowed research and product strategy to drive the design — with visual execution moving quickly because the decisions had already been carefully grounded in user needs.')}
+          {para('Based on the defined design decisions, I produced <strong>detailed specifications</strong> for each area: search behavior, filter logic, taxonomy structure, and access flows. These were handed off to a dedicated UI designer responsible for visual implementation, ensuring design intent was preserved throughout execution.')}
+          {para('This collaboration model allowed research and product strategy to drive the design, with visual execution moving quickly because the decisions had already been carefully grounded in user needs.')}
         </>
       ),
       media: <DseImgSlot label="Design specifications handoff" height={200} />,
@@ -2401,7 +2401,7 @@ function DocumentsSearchEngineCaseStudy({ onOpenPetrobras, onOpenGlist }) {
       id: 'testing', num: '07', title: 'Testing & Validation',
       body: (
         <>
-          {para('During the research phase, a <strong>heuristic evaluation</strong> based on Nielsen Norman\'s ten principles was conducted to validate and cross-check usability issues found in interviews — providing a structured lens on the existing platform\'s friction points.')}
+          {para('During the research phase, a <strong>heuristic evaluation</strong> based on Nielsen Norman\'s ten principles was conducted to validate and cross-check usability issues found in interviews, providing a structured lens on the existing platform\'s friction points.')}
           <div style={{ background: 'white', border: `1px solid ${GL}`, borderRadius: 10, padding: '20px', textAlign: 'center', marginBottom: 16 }}>
             <div style={{ fontSize: 9, fontWeight: 700, color: G, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1.2, marginBottom: 10 }}>Post-launch · UMUX Score</div>
             <div style={{ fontSize: 48, fontWeight: 900, color: G, lineHeight: 1 }}>83</div>
@@ -2420,7 +2420,7 @@ function DocumentsSearchEngineCaseStudy({ onOpenPetrobras, onOpenGlist }) {
             <div style={{ background: `linear-gradient(135deg, ${GB} 0%, #EFF8F3 100%)`, border: `1.5px solid ${GL}`, borderRadius: 12, padding: '20px 16px', textAlign: 'center', gridColumn: '1 / -1' }}>
               <div style={{ fontSize: 9, color: G, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 6 }}>Business</div>
               <div style={{ fontSize: 26, fontWeight: 900, color: G, marginBottom: 4 }}>$1.2M</div>
-              <div style={{ fontSize: 11, color: '#888', fontFamily: MAC.font }}>contract renewal secured — directly tied to platform improvements</div>
+              <div style={{ fontSize: 11, color: '#888', fontFamily: MAC.font }}>contract renewal secured, directly tied to platform improvements</div>
             </div>
             <div style={{ background: `linear-gradient(135deg, ${GB} 0%, #EFF8F3 100%)`, border: `1.5px solid ${GL}`, borderRadius: 12, padding: '20px 16px', textAlign: 'center' }}>
               <div style={{ fontSize: 9, color: G, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 6 }}>User</div>
@@ -2438,15 +2438,15 @@ function DocumentsSearchEngineCaseStudy({ onOpenPetrobras, onOpenGlist }) {
           </div>
         </>
       ),
-      media: <DseImgSlot label="Before / after — search experience" height={200} />,
+      media: <DseImgSlot label="Before / after: search experience" height={200} />,
     },
     {
       id: 'learnings', num: '09', title: 'Key Learnings',
       body: (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           {[
-            { num: '01', title: 'Strategy is design work too',    body: 'Research and framing guided product decisions before visual execution — proving that upstream work has direct, measurable impact.' },
-            { num: '02', title: 'Cross-functional leadership',    body: 'Led workshops and alignment across technical teams — developers, data scientists, and product owners — to surface shared goals.' },
+            { num: '01', title: 'Strategy is design work too',    body: 'Research and framing guided product decisions before visual execution, proving that upstream work has direct, measurable impact.' },
+            { num: '02', title: 'Cross-functional leadership',    body: 'Led workshops and alignment across technical teams (developers, data scientists, and product owners) to surface shared goals.' },
             { num: '03', title: 'Research-led, proven impact',    body: 'Demonstrated clear outcomes on usability, operational efficiency, and business continuity through a research-led approach.' },
           ].map(item => (
             <div key={item.num} style={{ background: 'white', border: `1px solid ${GL}`, borderLeft: `3px solid ${G}`, borderRadius: '0 10px 10px 0', padding: '14px 16px' }}>
@@ -2604,7 +2604,7 @@ function DocumentsSearchEngineCaseStudy({ onOpenPetrobras, onOpenGlist }) {
             <div style={{ fontSize: 9, fontFamily: MAC.font, color: GL, textTransform: 'uppercase', letterSpacing: 2, marginBottom: 16 }}>Screens & evidence</div>
             {DSE_SECTION_CONTENT.filter(s => s.media).map(s => (
               <div key={s.id} style={{ marginBottom: 22 }}>
-                <div style={{ fontSize: 9, fontFamily: MAC.font, color: G, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 4 }}>{s.num} — {s.title}</div>
+                <div style={{ fontSize: 9, fontFamily: MAC.font, color: G, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 4 }}>{s.num}: {s.title}</div>
                 {s.media}
               </div>
             ))}
