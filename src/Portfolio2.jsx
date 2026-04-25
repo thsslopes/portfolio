@@ -3536,19 +3536,17 @@ function Desktop({ windows, onOpen }) {
         display: 'flex',
         alignItems: 'center',
         gap: 7,
-        background: 'rgba(196, 155, 168, 0.45)',
-        backdropFilter: 'blur(10px)',
-        WebkitBackdropFilter: 'blur(10px)',
-        border: '1px solid rgba(172, 132, 148, 0.55)',
+        background: 'linear-gradient(135deg, #FF85C2 0%, #E8609A 100%)',
+        border: 'none',
         borderRadius: 20,
-        padding: '5px 10px 5px 13px',
+        padding: '7px 14px',
         pointerEvents: 'none',
         animation: 'hint-float 3s ease-in-out infinite',
-        boxShadow: '0 4px 16px rgba(220,100,160,0.18)',
+        boxShadow: '0 3px 12px rgba(232,96,154,0.3)',
         zIndex: 99991,
       }}>
-        <span style={{ fontSize: 10, fontFamily: MAC.font, color: '#7A4E62', fontWeight: 600, letterSpacing: 0.3, whiteSpace: 'nowrap' }}>explore my cases</span>
-        <span style={{ fontSize: 14, color: '#9A7080', animation: 'hint-arrow 1.2s ease-in-out infinite' }}>→</span>
+        <span style={{ fontSize: 11, fontFamily: MAC.font, color: 'white', fontWeight: 700, whiteSpace: 'nowrap' }}>explore my cases</span>
+        <span style={{ fontSize: 14, color: 'rgba(255,255,255,0.85)', animation: 'hint-arrow 1.2s ease-in-out infinite' }}>→</span>
       </div>
 
       {/* Click burst */}
