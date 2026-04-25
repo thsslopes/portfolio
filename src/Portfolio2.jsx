@@ -1784,7 +1784,7 @@ function ImgSlot({ label, height = 180 }) {
   )
 }
 
-function PetrobrasCaseStudy({ onOpenNext }) {
+function PetrobrasCaseStudy({ onOpenSearch, onOpenGlist }) {
   const [activeTab,      setActiveTab]      = useState('context')
   const [splitView,      setSplitView]      = useState(false)
   const [canScrollLeft,  setCanScrollLeft]  = useState(false)
@@ -2133,19 +2133,7 @@ function PetrobrasCaseStudy({ onOpenNext }) {
     </div>
   )
 
-  const NextCase = () => (
-    <div onClick={onOpenNext} style={{ margin: '8px 40px 48px', background: 'linear-gradient(135deg, #0A1628 0%, #142240 100%)', borderRadius: 16, padding: '28px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', position: 'relative', overflow: 'hidden' }}>
-      <span style={{ position: 'absolute', top: -10, right: 30, fontSize: 100, opacity: 0.06, color: 'white', lineHeight: 1, pointerEvents: 'none' }}>✦</span>
-      <div>
-        <div style={{ fontSize: 9, color: 'rgba(180,210,240,0.6)', fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 2.5, marginBottom: 10 }}>Next case study</div>
-        <div style={{ fontSize: 20, fontWeight: 900, color: 'white', marginBottom: 6 }}>Documents Search Engine <span style={{ color: ROSE_LIGHT }}>✦</span></div>
-        <div style={{ fontSize: 11, color: 'rgba(180,210,240,0.6)', fontFamily: MAC.font }}>Petrobras · Product Design + Research</div>
-      </div>
-      <div style={{ background: ROSE, borderRadius: '50%', width: 46, height: 46, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <span style={{ fontSize: 18, color: 'white' }}>→</span>
-      </div>
-    </div>
-  )
+  const NextCase = () => <CaseNavCards cases={[{ id: 'proj-search', onOpen: onOpenSearch }, { id: 'proj-glist', onOpen: onOpenGlist }]} />
 
   const TabArrow = ({ label, dir, scrolled }) => (
     <button onClick={() => shiftTabs(dir)} style={{ flexShrink: 0, border: 'none', background: 'transparent', borderBottom: '2px solid transparent', padding: '0 8px', cursor: 'pointer', color: scrolled ? 'white' : ROSE, fontSize: 14, fontWeight: 700, zIndex: 2 }}>{label}</button>
@@ -2245,7 +2233,7 @@ function DseImgSlot({ label, height = 180 }) {
   )
 }
 
-function DocumentsSearchEngineCaseStudy({ onOpenNext }) {
+function DocumentsSearchEngineCaseStudy({ onOpenPetrobras, onOpenGlist }) {
   const [activeTab,      setActiveTab]      = useState('context')
   const [splitView,      setSplitView]      = useState(false)
   const [canScrollLeft,  setCanScrollLeft]  = useState(false)
@@ -2594,6 +2582,7 @@ function DocumentsSearchEngineCaseStudy({ onOpenNext }) {
               </div>
             ))}
           </div>
+          <CaseNavCards cases={[{ id: 'proj-petrobras', onOpen: onOpenPetrobras }, { id: 'proj-glist', onOpen: onOpenGlist }]} />
         </div>
       )}
 
@@ -2623,6 +2612,57 @@ function DocumentsSearchEngineCaseStudy({ onOpenNext }) {
         </div>
       )}
 
+    </div>
+  )
+}
+
+// ─── Case navigation cards (shown at bottom of every case study) ─────────────
+
+const CASE_META = {
+  'proj-petrobras': {
+    title: 'Historical Data',
+    summary: 'Redesigning how Petrobras engineers navigate 30 years of oil well data.',
+    badges: ['Product Design', 'Research', 'Data Viz'],
+    color: '#C94F7C', bg: '#FFF0F5', border: 'rgba(201,79,124,0.2)',
+  },
+  'proj-search': {
+    title: 'Documents Search Engine',
+    summary: 'AI-powered search that helped Petrobras teams find critical documents 3× faster.',
+    badges: ['Product Design', 'Research', 'AI Tools'],
+    color: '#3D8B61', bg: '#EFF8F3', border: 'rgba(61,139,97,0.2)',
+  },
+  'proj-glist': {
+    title: 'Glist',
+    summary: 'An iOS app that helps families plan groceries and stop wasting food.',
+    badges: ['UX/UI Design', 'Mobile', 'Personal Project'],
+    color: '#E07A20', bg: '#FFF8F2', border: 'rgba(224,122,32,0.2)',
+  },
+}
+
+function CaseNavCards({ cases }) {
+  const f = MAC.font
+  return (
+    <div style={{ margin: '8px 32px 48px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+      {cases.map(({ id, onOpen }) => {
+        const m = CASE_META[id]
+        return (
+          <div key={id} onClick={onOpen} style={{ cursor: 'pointer', background: m.bg, border: `1.5px solid ${m.border}`, borderRadius: 16, padding: '20px 20px 16px', display: 'flex', flexDirection: 'column', gap: 10, position: 'relative', overflow: 'hidden', transition: 'transform 0.15s ease, box-shadow 0.15s ease' }}
+            onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = `0 8px 24px ${m.border}` }}
+            onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none' }}
+          >
+            <span style={{ position: 'absolute', top: -12, right: 16, fontSize: 72, opacity: 0.05, color: m.color, lineHeight: 1, pointerEvents: 'none' }}>✦</span>
+            <div style={{ fontSize: 9, fontFamily: f, color: m.color, textTransform: 'uppercase', letterSpacing: 2, fontWeight: 700 }}>Case Study</div>
+            <div style={{ fontSize: 15, fontWeight: 900, color: '#1A1A1A', lineHeight: 1.25 }}>{m.title} <span style={{ color: m.color }}>✦</span></div>
+            <div style={{ fontSize: 11, color: '#666', fontFamily: f, lineHeight: 1.65, flex: 1 }}>{m.summary}</div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginTop: 4 }}>
+              {m.badges.map(b => (
+                <span key={b} style={{ background: 'white', border: `1px solid ${m.border}`, borderRadius: 20, padding: '2px 10px', fontSize: 9, fontFamily: f, color: m.color, fontWeight: 600, letterSpacing: 0.3 }}>{b}</span>
+              ))}
+            </div>
+            <div style={{ alignSelf: 'flex-end', fontSize: 11, color: m.color, fontFamily: f, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 4 }}>read case <span style={{ fontSize: 14 }}>→</span></div>
+          </div>
+        )
+      })}
     </div>
   )
 }
@@ -3053,6 +3093,7 @@ function GlistCaseStudy({ onOpenPetrobras, onOpenSearch }) {
         </div>
 
       </div>
+      <CaseNavCards cases={[{ id: 'proj-petrobras', onOpen: onOpenPetrobras }, { id: 'proj-search', onOpen: onOpenSearch }]} />
       </div>
     </div>
   )
@@ -3497,9 +3538,9 @@ export default function Portfolio() {
           {w.id === 'about'             && <AboutContent />}
           {w.id === 'resume'            && <ResumeContent />}
           {w.id === 'projects'          && <ProjectsContent onOpenProject={openWindow} />}
-          {w.id === 'proj-petrobras' && <PetrobrasCaseStudy onOpenNext={() => openWindow('proj-search')} />}
-          {w.id === 'proj-search'    && <DocumentsSearchEngineCaseStudy />}
-          {w.id === 'proj-glist'     && <GlistCaseStudy />}
+          {w.id === 'proj-petrobras' && <PetrobrasCaseStudy onOpenSearch={() => openWindow('proj-search')} onOpenGlist={() => openWindow('proj-glist')} />}
+          {w.id === 'proj-search'    && <DocumentsSearchEngineCaseStudy onOpenPetrobras={() => openWindow('proj-petrobras')} onOpenGlist={() => openWindow('proj-glist')} />}
+          {w.id === 'proj-glist'     && <GlistCaseStudy onOpenPetrobras={() => openWindow('proj-petrobras')} onOpenSearch={() => openWindow('proj-search')} />}
                     {w.id.startsWith('proj-') && w.id !== 'proj-petrobras' && w.id !== 'proj-search' && w.id !== 'proj-glist' && <ProjectDetailContent projectId={w.id} />}
         </MacWindow>
       ))}
