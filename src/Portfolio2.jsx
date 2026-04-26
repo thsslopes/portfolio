@@ -3424,7 +3424,7 @@ function MacMenuBar({ lang = 'en', onLangChange }) {
         {/* Language switcher — right side, before heart */}
         <button
           onClick={() => onLangChange?.(lang === 'en' ? 'pt' : 'en')}
-          title={lang === 'en' ? 'Mudar para Português' : 'Switch to English'}
+          title={lang === 'en' ? 'Switch to Portuguese' : 'Mudar para Inglês'}
           style={{
             background: 'rgba(232,96,154,0.1)',
             border: '1px solid rgba(232,96,154,0.25)',
@@ -3441,7 +3441,7 @@ function MacMenuBar({ lang = 'en', onLangChange }) {
           onMouseEnter={e => e.currentTarget.style.background = 'rgba(232,96,154,0.2)'}
           onMouseLeave={e => e.currentTarget.style.background = 'rgba(232,96,154,0.1)'}
         >
-          {lang === 'en' ? '🇧🇷 PT' : '🇺🇸 EN'}
+          {lang === 'en' ? '🇺🇸 EN' : '🇧🇷 PT'}
         </button>
         <span style={{ opacity: 0.75 }}>🩷</span>
         <span style={{ opacity: 0.75 }}>📶</span>
