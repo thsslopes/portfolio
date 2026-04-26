@@ -1585,8 +1585,15 @@ const PROJECT_DATA = [
 
 // ─── ProjectsContent — Finder-style folder grid ───────────────────────────────
 
-function ProjectsContent({ onOpenProject }) {
+const PROJECT_DATA_PT = [
+  { id: 'proj-petrobras', name: 'dados históricos', tag: 'UX Industrial', role: 'UX Designer', period: '2019–2020', desc: 'Arquitetura de informação e UX para transformação digital no setor energético. Tradução de fluxos industriais complexos em interfaces digitais intuitivas.', logo: logoPetrobras, frames: [], accent: '#009B3A', icon: (size) => <HistoricalDataIcon size={size} /> },
+  { id: 'proj-search',    name: 'buscador de documentos', tag: 'Product Design + Pesquisa', role: 'Product Designer', period: '2023–Atual', desc: 'Plataforma de busca e análise de documentos para times de geociências. Liderança de pesquisa, síntese e decisões de design que garantiram a renovação de contrato.', logo: logoPetrobras, frames: [], accent: '#005020', icon: (size) => <DocumentsSearchIcon size={size} /> },
+  { id: 'proj-glist',     name: 'glist', tag: 'Desafio UX & UI', role: 'UX/UI Designer', period: '2021', desc: 'Um app para ajudar famílias a calcular facilmente a quantidade de alimentos necessária — reduzindo desperdício com um planejamento de compras mais inteligente.', frames: [], accent: '#F4841A', icon: (size) => <GlistIcon size={size} /> },
+]
+
+function ProjectsContent({ onOpenProject, lang = 'en' }) {
   const [hovered, setHovered] = useState(null)
+  const data = lang === 'pt' ? PROJECT_DATA_PT : PROJECT_DATA
 
   return (
     <div style={{ display: 'flex', flex: 1, minHeight: 0 }}>
@@ -1627,7 +1634,7 @@ function ProjectsContent({ onOpenProject }) {
         alignContent: 'start',
         background: 'white',
       }}>
-        {PROJECT_DATA.map(p => (
+        {data.map(p => (
           <div
             key={p.id}
             onClick={() => onOpenProject(p.id)}
@@ -1774,7 +1781,7 @@ function ProjectDetailContent({ projectId }) {
 
 const CASE_PASSWORD = 'welcome14'
 
-function PasswordGate({ children }) {
+function PasswordGate({ children, lang = 'en' }) {
   const [unlocked, setUnlocked]   = useState(false)
   const [value,    setValue]      = useState('')
   const [show,     setShow]       = useState(false)
@@ -1782,6 +1789,10 @@ function PasswordGate({ children }) {
   const [shaking,  setShaking]    = useState(false)
 
   if (unlocked) return children
+
+  const PG = lang === 'pt'
+    ? { title: 'Case study protegido', sub: 'Este case está sob NDA.\nDigite a senha para continuar.', wrong: 'Senha incorreta. Tente novamente.', enter: 'Entrar ✦', placeholder: 'senha' }
+    : { title: 'Protected case study', sub: 'This case is under NDA.\nEnter the password to continue.', wrong: 'Wrong password. Try again.', enter: 'Enter ✦', placeholder: 'password' }
 
   const attempt = () => {
     if (value === CASE_PASSWORD) {
@@ -1811,10 +1822,10 @@ function PasswordGate({ children }) {
       }}>
         <div style={{ fontSize: 42, marginBottom: 18, lineHeight: 1 }}>🔒</div>
         <div style={{ fontSize: 16, fontWeight: 700, color: '#1A1A1A', marginBottom: 8, fontFamily: MAC.font }}>
-          Protected case study
+          {PG.title}
         </div>
         <div style={{ fontSize: 12, color: '#888', lineHeight: 1.6, marginBottom: 28 }}>
-          This case is under NDA.<br />Enter the password to continue.
+          {PG.sub.split('\n').map((line, i) => <span key={i}>{line}{i === 0 && <br />}</span>)}
         </div>
 
         {/* input row */}
@@ -1824,7 +1835,7 @@ function PasswordGate({ children }) {
             value={value}
             onChange={e => setValue(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && attempt()}
-            placeholder="password"
+            placeholder={PG.placeholder}
             style={{
               width: '100%', boxSizing: 'border-box',
               border: `1.5px solid ${error ? MAC.red : 'rgba(220,120,160,0.35)'}`,
@@ -1849,7 +1860,7 @@ function PasswordGate({ children }) {
 
         {error && (
           <div style={{ fontSize: 11, color: MAC.red, marginBottom: 12, fontFamily: MAC.font }}>
-            Wrong password. Try again.
+            {PG.wrong}
           </div>
         )}
 
@@ -1867,7 +1878,7 @@ function PasswordGate({ children }) {
           onMouseEnter={e => e.currentTarget.style.opacity = '0.88'}
           onMouseLeave={e => e.currentTarget.style.opacity = '1'}
         >
-          Enter ✦
+          {PG.enter}
         </button>
       </div>
     </div>
@@ -2308,7 +2319,7 @@ function PetrobrasCaseStudy({ onOpenSearch, onOpenGlist }) {
     </div>
   )
 
-  const NextCase = () => <CaseNavCards cases={[{ id: 'proj-search', onOpen: onOpenSearch }, { id: 'proj-glist', onOpen: onOpenGlist }]} />
+  const nextCaseDefs = [{ id: 'proj-search', onOpen: onOpenSearch }, { id: 'proj-glist', onOpen: onOpenGlist }]
 
   const TabArrow = ({ label, dir, scrolled }) => (
     <button onClick={() => shiftTabs(dir)} style={{ flexShrink: 0, border: 'none', background: 'transparent', borderBottom: '2px solid transparent', padding: '0 8px', cursor: 'pointer', color: scrolled ? 'white' : ROSE, fontSize: 14, fontWeight: 700, zIndex: 2 }}>{label}</button>
@@ -2351,7 +2362,7 @@ function PetrobrasCaseStudy({ onOpenSearch, onOpenGlist }) {
               </div>
             ))}
           </div>
-          <NextCase />
+          <CaseNavCards cases={nextCaseDefs} />
         </div>
       )}
 
@@ -2370,7 +2381,7 @@ function PetrobrasCaseStudy({ onOpenSearch, onOpenGlist }) {
                 </div>
               ))}
             </div>
-            <NextCase />
+            <CaseNavCards cases={nextCaseDefs} />
           </div>
 
           {/* Right — screens & evidence */}
@@ -2482,13 +2493,13 @@ function DocumentsSearchEngineCaseStudy({ onOpenPetrobras, onOpenGlist }) {
       body: (
         <>
           {para('To ground the project in real user behavior, I focused on understanding how different user profiles <strong>searched for and accessed geological and administrative data</strong>. Through interviews and in-platform evaluations, I identified where the search experience was failing and which use cases required immediate attention.')}
-          {callout('Complemented by a heuristic evaluation based on Nielsen Norman\'s heuristics, applied selectively and critically to validate usability issues identified during research.')}
+          {callout('In parallel with the interviews, 3 designers conducted a heuristic evaluation using Nielsen Norman\'s principles and WCAG criteria. Afterwards, I cross-referenced what users reported as problems in searches with the designers\' perceptions, arriving at a friction map validated from two different angles.')}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 14 }}>
             <div>
               <div style={{ fontSize: 10, fontWeight: 700, color: G, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 10 }}>Objectives</div>
               {[
                 'Map different user profiles and their search behaviors',
-                'Understand how users navigated internal tools and what workarounds they had developed',
+                'Understand how users navigated internal tools and what hacks they had developed in the tangle of documents',
                 'Identify critical search scenarios to prioritize in design decisions',
               ].map((t, i) => (
                 <div key={i} style={{ display: 'flex', gap: 8, fontSize: 12, color: '#444', lineHeight: 1.7, paddingBottom: 8, borderBottom: i < 2 ? `1px solid ${GB}` : 'none', marginBottom: 8 }}>
@@ -2518,7 +2529,7 @@ function DocumentsSearchEngineCaseStudy({ onOpenPetrobras, onOpenGlist }) {
       id: 'synthesis', num: '04', title: 'Synthesis & Prioritization',
       body: (
         <>
-          {para('Research findings were synthesized into clear themes and translated into actionable opportunities using an <strong>Opportunity Tree</strong>. Priorities were then aligned with Product Owners, developers, and data scientists, narrowing scope to the most critical improvements in search and taxonomy.')}
+          {para('Research findings were synthesized into themes and translated into opportunities using an <strong>Opportunity Tree</strong>. I brought this to the Product Owners to prioritize alongside developers and data scientists, ensuring what would be addressed was relevant both technically and for users.')}
           <div style={{ marginBottom: 16 }}>
             <div style={{ fontSize: 10, fontWeight: 700, color: G, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1.2, marginBottom: 12 }}>Before → After</div>
             {[
@@ -2581,7 +2592,6 @@ function DocumentsSearchEngineCaseStudy({ onOpenPetrobras, onOpenGlist }) {
       id: 'testing', num: '07', title: 'Testing & Validation',
       body: (
         <>
-          {para('During the research phase, a <strong>heuristic evaluation</strong> based on Nielsen Norman\'s ten principles was conducted to validate and cross-check usability issues found in interviews, providing a structured lens on the existing platform\'s friction points.')}
           <div style={{ background: 'white', border: `1px solid ${GL}`, borderRadius: 10, padding: '20px', textAlign: 'center', marginBottom: 16 }}>
             <div style={{ fontSize: 9, fontWeight: 700, color: G, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1.2, marginBottom: 10 }}>Post-launch · UMUX Score</div>
             <div style={{ fontSize: 48, fontWeight: 900, color: G, lineHeight: 1 }}>83</div>
@@ -2819,17 +2829,41 @@ const CASE_META = {
   },
 }
 
-function CaseNavCards({ cases }) {
+const CASE_META_PT = {
+  'proj-petrobras': {
+    title: 'Dados Históricos',
+    summary: 'Redesenhando como engenheiros da Petrobras navegam em 30 anos de dados de poços de petróleo.',
+    badges: ['Product Design', 'Pesquisa', 'Data Viz'],
+    color: '#C94F7C', bg: '#FFF0F5', border: 'rgba(201,79,124,0.2)',
+  },
+  'proj-search': {
+    title: 'Buscador de Documentos',
+    summary: 'Busca com IA que ajudou times da Petrobras a encontrar documentos críticos 3× mais rápido.',
+    badges: ['Product Design', 'Pesquisa', 'Ferramentas de IA'],
+    color: '#3D8B61', bg: '#EFF8F3', border: 'rgba(61,139,97,0.2)',
+  },
+  'proj-glist': {
+    title: 'Glist',
+    summary: 'Um app iOS que ajuda famílias a planejar compras e parar de desperdiçar comida.',
+    badges: ['UX/UI Design', 'Mobile', 'Projeto Pessoal'],
+    color: '#E07A20', bg: '#FFF8F2', border: 'rgba(224,122,32,0.2)',
+  },
+}
+
+function CaseNavCards({ cases, lang = 'en' }) {
   const f = MAC.font
+  const meta = lang === 'pt' ? CASE_META_PT : CASE_META
+  const label = lang === 'pt' ? 'continue explorando' : 'keep exploring'
+  const readLabel = lang === 'pt' ? 'ler case' : 'read case'
   return (
     <div style={{ margin: '8px 32px 48px' }}>
       <div style={{ fontSize: 11, fontFamily: f, color: '#AAA', textTransform: 'uppercase', letterSpacing: 2.5, fontWeight: 600, marginBottom: 14, display: 'flex', alignItems: 'center', gap: 10 }}>
-        keep exploring
+        {label}
         <span style={{ flex: 1, height: 1, background: 'linear-gradient(to right, #DDD, transparent)' }} />
       </div>
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
       {cases.map(({ id, onOpen }) => {
-        const m = CASE_META[id]
+        const m = meta[id]
         return (
           <div key={id} onClick={onOpen} style={{ cursor: 'pointer', background: m.bg, border: `1.5px solid ${m.border}`, borderRadius: 16, padding: '20px 20px 16px', display: 'flex', flexDirection: 'column', gap: 10, position: 'relative', overflow: 'hidden', transition: 'transform 0.15s ease, box-shadow 0.15s ease' }}
             onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = `0 8px 24px ${m.border}` }}
@@ -2844,7 +2878,7 @@ function CaseNavCards({ cases }) {
                 <span key={b} style={{ background: 'white', border: `1px solid ${m.border}`, borderRadius: 20, padding: '2px 10px', fontSize: 9, fontFamily: f, color: m.color, fontWeight: 600, letterSpacing: 0.3 }}>{b}</span>
               ))}
             </div>
-            <div style={{ alignSelf: 'flex-end', fontSize: 11, color: m.color, fontFamily: f, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 4 }}>read case <span style={{ fontSize: 14 }}>→</span></div>
+            <div style={{ alignSelf: 'flex-end', fontSize: 11, color: m.color, fontFamily: f, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 4 }}>{readLabel} <span style={{ fontSize: 14 }}>→</span></div>
           </div>
         )
       })}
@@ -3345,7 +3379,7 @@ function DesktopIcon({ label, onClick, isOpen, isHome = false, fileType = null, 
 
 // ─── macOS menu bar ───────────────────────────────────────────────────────────
 
-function MacMenuBar() {
+function MacMenuBar({ lang = 'en', onLangChange }) {
   const [time, setTime] = useState('')
 
   useEffect(() => {
@@ -3386,10 +3420,32 @@ function MacMenuBar() {
           {item}
         </span>
       ))}
-      <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 12, opacity: 0.75, fontSize: 12 }}>
-        <span>🩷</span>
-        <span>📶</span>
-        <span>{time}</span>
+      <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 10, fontSize: 12 }}>
+        {/* Language switcher — right side, before heart */}
+        <button
+          onClick={() => onLangChange?.(lang === 'en' ? 'pt' : 'en')}
+          title={lang === 'en' ? 'Mudar para Português' : 'Switch to English'}
+          style={{
+            background: 'rgba(232,96,154,0.1)',
+            border: '1px solid rgba(232,96,154,0.25)',
+            borderRadius: 6,
+            padding: '1px 7px',
+            fontSize: 10,
+            fontWeight: 700,
+            color: MAC.rose,
+            cursor: 'pointer',
+            letterSpacing: 0.3,
+            lineHeight: '18px',
+            transition: 'background 0.15s',
+          }}
+          onMouseEnter={e => e.currentTarget.style.background = 'rgba(232,96,154,0.2)'}
+          onMouseLeave={e => e.currentTarget.style.background = 'rgba(232,96,154,0.1)'}
+        >
+          {lang === 'en' ? '🇧🇷 PT' : '🇺🇸 EN'}
+        </button>
+        <span style={{ opacity: 0.75 }}>🩷</span>
+        <span style={{ opacity: 0.75 }}>📶</span>
+        <span style={{ opacity: 0.75 }}>{time}</span>
       </div>
     </div>
   )
@@ -3397,7 +3453,9 @@ function MacMenuBar() {
 
 // ─── Mac Dock ─────────────────────────────────────────────────────────────────
 
-function MacDock({ projects, windows, onOpen }) {
+const PT_PROJECT_NAMES = { 'proj-petrobras': 'dados históricos', 'proj-search': 'buscador de documentos', 'proj-glist': 'glist' }
+
+function MacDock({ projects, windows, onOpen, lang = 'en' }) {
   const [hoveredId, setHoveredId] = useState(null)
 
   return (
@@ -3457,7 +3515,7 @@ function MacDock({ projects, windows, onOpen }) {
                 pointerEvents: 'none',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
               }}>
-                {p.name}
+                {lang === 'pt' ? (PT_PROJECT_NAMES[p.id] || p.name) : p.name}
               </div>
             )}
 
@@ -3491,14 +3549,20 @@ function MacDock({ projects, windows, onOpen }) {
 
 // ─── Desktop ──────────────────────────────────────────────────────────────────
 
-function Desktop({ windows, onOpen }) {
+function Desktop({ windows, onOpen, lang = 'en' }) {
   const [burst, setBurst] = useState(null)
 
-  const leftIcons = [
-    { id: 'home',   label: 'tha.design', isHome: true,  fileType: null    },
-    { id: 'about',  label: 'about.txt',    isHome: false, fileType: 'txt'   },
-    { id: 'resume', label: 'resume.pdf',   isHome: false, fileType: 'pdf'   },
-  ]
+  const leftIcons = lang === 'pt'
+    ? [
+        { id: 'home',   label: 'tha.design',    isHome: true,  fileType: null  },
+        { id: 'about',  label: 'sobre.txt',      isHome: false, fileType: 'txt' },
+        { id: 'resume', label: 'curriculo.pdf',  isHome: false, fileType: 'pdf' },
+      ]
+    : [
+        { id: 'home',   label: 'tha.design',  isHome: true,  fileType: null  },
+        { id: 'about',  label: 'about.txt',   isHome: false, fileType: 'txt' },
+        { id: 'resume', label: 'resume.pdf',  isHome: false, fileType: 'pdf' },
+      ]
 
   const handleDesktopClick = (e) => {
     // Only fire on direct desktop click (not on windows or icons)
@@ -3561,7 +3625,7 @@ function Desktop({ windows, onOpen }) {
         boxShadow: '0 3px 12px rgba(232,96,154,0.3)',
         zIndex: 99991,
       }}>
-        <span style={{ fontSize: 11, fontFamily: MAC.font, color: 'white', fontWeight: 700, whiteSpace: 'nowrap' }}>explore my cases</span>
+        <span style={{ fontSize: 11, fontFamily: MAC.font, color: 'white', fontWeight: 700, whiteSpace: 'nowrap' }}>{lang === 'pt' ? 'explore meus cases' : 'explore my cases'}</span>
         <span style={{ fontSize: 14, color: 'rgba(255,255,255,0.85)', animation: 'hint-arrow 1.2s ease-in-out infinite' }}>→</span>
       </div>
 
@@ -3592,76 +3656,1546 @@ function playICQSound() {
 }
 
 function EnterScreen({ onEnter }) {
-  const [hover, setHover] = useState(false)
+  const [hoverPt, setHoverPt]   = useState(false)
+  const [hoverEn, setHoverEn]   = useState(false)
+  const [exiting, setExiting]   = useState(false)
+
+  const handleEnter = (lang) => {
+    if (exiting) return
+    playICQSound()
+    setExiting(true)
+    setTimeout(() => onEnter(lang), 480)
+  }
+
+  const btnStyle = (hovered) => ({
+    background: hovered
+      ? 'linear-gradient(135deg, #FF85C2 0%, #E8609A 100%)'
+      : 'rgba(255,255,255,0.12)',
+    border: '1.5px solid rgba(255,200,230,0.5)',
+    borderRadius: 999, padding: '10px 30px',
+    color: hovered ? 'white' : 'rgba(255,220,240,0.9)',
+    fontSize: 12, fontWeight: 700, cursor: 'pointer',
+    letterSpacing: 1.5, textTransform: 'uppercase',
+    transition: 'all 0.22s ease',
+    boxShadow: hovered
+      ? '0 0 28px rgba(232,96,154,0.55), inset 0 1px 0 rgba(255,255,255,0.2)'
+      : 'inset 0 1px 0 rgba(255,255,255,0.15)',
+    backdropFilter: 'blur(4px)',
+    WebkitBackdropFilter: 'blur(4px)',
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
+  })
+
   return (
     <div style={{
       position: 'fixed', inset: 0, zIndex: 9999,
-      background: 'linear-gradient(135deg, #1a0a2e 0%, #2d0a4e 40%, #1a1a3e 100%)',
-      display: 'flex', flexDirection: 'column',
+      backgroundColor: '#9E8A96',
+      backgroundImage: `
+        linear-gradient(45deg, #8A7480 25%, transparent 25%),
+        linear-gradient(-45deg, #8A7480 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #8A7480 75%),
+        linear-gradient(-45deg, transparent 75%, #8A7480 75%)
+      `,
+      backgroundSize: '28px 28px',
+      backgroundPosition: '0 0, 0 14px, 14px -14px, -14px 0px',
+      display: 'flex',
       alignItems: 'center', justifyContent: 'center',
-      fontFamily: "'Outfit', sans-serif",
     }}>
-      {/* stars */}
-      {[...Array(28)].map((_, i) => (
-        <div key={i} style={{
-          position: 'absolute',
-          left: `${Math.random() * 100}%`,
-          top: `${Math.random() * 100}%`,
-          width: i % 5 === 0 ? 3 : 2,
-          height: i % 5 === 0 ? 3 : 2,
-          borderRadius: '50%',
-          background: 'white',
-          opacity: 0.3 + (i % 4) * 0.15,
-          animation: `twinkle ${1.5 + (i % 3) * 0.7}s ease-in-out infinite`,
-          animationDelay: `${(i * 0.17) % 2}s`,
-        }} />
+      <style>{`
+        @keyframes enter-out {
+          0%   { transform: scale(1);    opacity: 1; filter: blur(0px); }
+          20%  { transform: scale(1.04); opacity: 0.9; }
+          100% { transform: scale(0.82); opacity: 0; filter: blur(6px); }
+        }
+        @keyframes enter-in {
+          0%   { transform: scale(0.84); opacity: 0; filter: blur(8px); }
+          65%  { transform: scale(1.02); opacity: 1; filter: blur(0px); }
+          100% { transform: scale(1);    opacity: 1; filter: blur(0px); }
+        }
+      `}</style>
+
+      {/* Ambient sparkles on the checkerboard */}
+      {[
+        { t: '12%', l: '18%', s: 16, d: '0s'   },
+        { t: '22%', l: '78%', s: 11, d: '0.7s'  },
+        { t: '70%', l: '12%', s: 13, d: '1.3s'  },
+        { t: '78%', l: '82%', s: 18, d: '0.4s'  },
+        { t: '45%', l: '6%',  s: 9,  d: '1.8s'  },
+        { t: '8%',  l: '52%', s: 10, d: '1.1s'  },
+        { t: '88%', l: '46%', s: 14, d: '0.2s'  },
+      ].map((p, i) => (
+        <span key={i} style={{
+          position: 'absolute', top: p.t, left: p.l,
+          fontSize: p.s, color: 'rgba(255,200,230,0.55)',
+          animation: `twinkle 2.4s ease-in-out ${p.d} infinite`,
+          pointerEvents: 'none', userSelect: 'none',
+        }}>✦</span>
       ))}
 
-      <div style={{ textAlign: 'center', position: 'relative' }}>
-        {/* glowing name */}
+      {/* Card */}
+      <div style={{
+        animation: exiting ? 'enter-out 0.48s cubic-bezier(0.4,0,1,1) forwards' : 'enter-in 0.55s cubic-bezier(0.34,1.36,0.64,1) forwards',
+        background: 'rgba(60,20,40,0.52)',
+        backdropFilter: 'blur(28px) saturate(1.3)',
+        WebkitBackdropFilter: 'blur(28px) saturate(1.3)',
+        border: '1px solid rgba(255,200,230,0.18)',
+        borderRadius: 28,
+        padding: '52px 64px 48px',
+        textAlign: 'center',
+        boxShadow: '0 12px 60px rgba(60,0,40,0.45), 0 0 0 1px rgba(255,200,230,0.08), inset 0 1px 0 rgba(255,255,255,0.1)',
+        minWidth: 340,
+      }}>
+        {/* Thin top gloss line */}
+        <div style={{ position: 'absolute', top: 0, left: '15%', right: '15%', height: 1, background: 'linear-gradient(to right, transparent, rgba(255,200,230,0.4), transparent)', borderRadius: 1 }} />
+
+        {/* THAIS LOPES */}
         <div style={{
-          fontSize: 13, letterSpacing: 6, color: 'rgba(255,180,220,0.7)',
-          textTransform: 'uppercase', marginBottom: 18, fontWeight: 600,
+          fontFamily: "'Plus Jakarta Sans', sans-serif",
+          fontSize: 32, fontWeight: 900,
+          color: 'rgba(255,220,238,0.95)',
+          letterSpacing: 4, textTransform: 'uppercase',
+          lineHeight: 1,
+          marginBottom: 6,
+          textShadow: '0 0 32px rgba(255,133,194,0.35)',
         }}>
           thais lopes
         </div>
 
+        {/* ✦ portfolio */}
         <div style={{
-          fontSize: 42, fontWeight: 900, color: 'white',
-          marginBottom: 10, lineHeight: 1,
-          textShadow: '0 0 40px rgba(255,133,194,0.6)',
           fontFamily: "'Plus Jakarta Sans', sans-serif",
+          fontSize: 32, fontWeight: 900,
+          color: 'white',
+          letterSpacing: 2,
+          lineHeight: 1,
+          marginBottom: 14,
+          textShadow: '0 0 40px rgba(255,133,194,0.6)',
         }}>
-          ✦ portfolio
+          portfolio ✦
         </div>
 
+        {/* product design · ux/ui */}
         <div style={{
-          fontSize: 11, color: 'rgba(255,180,220,0.5)',
-          letterSpacing: 2, marginBottom: 52,
+          fontFamily: "'Outfit', sans-serif",
+          fontSize: 10, fontWeight: 500,
+          color: 'rgba(255,200,228,0.5)',
+          letterSpacing: 3.5, textTransform: 'uppercase',
+          marginBottom: 44,
         }}>
           product design · ux/ui
         </div>
 
-        <button
-          onClick={() => { playICQSound(); onEnter() }}
-          onMouseEnter={() => setHover(true)}
-          onMouseLeave={() => setHover(false)}
-          style={{
-            background: hover
-              ? 'linear-gradient(135deg, #FF85C2 0%, #E8609A 100%)'
-              : 'transparent',
-            border: '1.5px solid rgba(255,133,194,0.6)',
-            borderRadius: 999, padding: '12px 36px',
-            color: hover ? 'white' : 'rgba(255,180,220,0.85)',
-            fontSize: 13, fontWeight: 700, cursor: 'pointer',
-            letterSpacing: 1.5, textTransform: 'uppercase',
-            transition: 'all 0.25s ease',
-            boxShadow: hover ? '0 0 32px rgba(232,96,154,0.5)' : 'none',
-            animation: 'hint-float 3s ease-in-out infinite',
-          }}
-        >
-          click to enter ✦
-        </button>
+        {/* Divider */}
+        <div style={{ height: 1, background: 'linear-gradient(to right, transparent, rgba(255,200,230,0.2), transparent)', marginBottom: 28 }} />
+
+        {/* Language label */}
+        <div style={{
+          fontFamily: "'Outfit', sans-serif",
+          fontSize: 9, fontWeight: 600,
+          color: 'rgba(255,200,228,0.4)',
+          letterSpacing: 3, textTransform: 'uppercase',
+          marginBottom: 16,
+        }}>
+          choose language
+        </div>
+
+        {/* Buttons */}
+        <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
+          <button
+            onClick={() => handleEnter('pt')}
+            onMouseEnter={() => setHoverPt(true)}
+            onMouseLeave={() => setHoverPt(false)}
+            style={btnStyle(hoverPt)}
+          >
+            🇧🇷 português
+          </button>
+          <button
+            onClick={() => handleEnter('en')}
+            onMouseEnter={() => setHoverEn(true)}
+            onMouseLeave={() => setHoverEn(false)}
+            style={btnStyle(hoverEn)}
+          >
+            🇺🇸 english
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ─── PT Content Components ────────────────────────────────────────────────────
+
+function HomeContentPt() {
+  const skills = [
+    { icon: '🔍', title: 'UX Research',    desc: 'Entrevistas com usuários, testes de usabilidade, análise competitiva e síntese.' },
+    { icon: '✦',  title: 'UI Design',      desc: 'Design visual pixel-perfect, bibliotecas de componentes e vibe coding.' },
+    { icon: '◈',  title: 'Estratégia',     desc: 'Alinhando decisões de design com objetivos de negócio, OKRs e necessidades dos usuários.' },
+    { icon: '◎',  title: 'Facilitação',    desc: 'Conduzindo workshops de estratégia de produto, sessões de Lean Inception e design thinking para times multidisciplinares.' },
+    { icon: '▷',  title: 'Prototipação',   desc: 'Protótipos interativos de alta fidelidade para testes e alinhamento com stakeholders.' },
+    { icon: '♡',  title: 'Liderança',      desc: 'Mentoria de designers e facilitação de colaboração entre times multidisciplinares.' },
+  ]
+  const clients = [
+    { name: 'Petrobras',      logo: logoPetrobras },
+    { name: 'Samsung',        logo: logoSamsung },
+    { name: 'Banco do Brasil',logo: logoBancoBrasil, logoHeight: 50 },
+    { name: 'CESAR',          logo: logoCesar },
+  ]
+  return (
+    <div style={{ fontFamily: "'Montserrat', sans-serif", background: '#FDFAFC' }}>
+      <div style={{ padding: '56px 44px 48px', borderBottom: '1px solid #F5E6EF', background: 'linear-gradient(150deg, #FFF5F9 0%, #FFF0FB 40%, white 100%)', position: 'relative', overflow: 'hidden' }}>
+        {[{ top: 12, right: 32, size: 18, color: '#FFD700', delay: '0s' }, { top: 40, right: 80, size: 10, color: '#FF85C2', delay: '0.5s' }, { top: 80, right: 20, size: 14, color: '#FFB3D9', delay: '1s' }, { top: 20, left: 90, size: 8, color: '#FF85C2', delay: '1.5s' }].map((s, i) => (
+          <span key={i} style={{ position: 'absolute', top: s.top, right: s.right, left: s.left, fontSize: s.size, color: s.color, animation: `twinkle 2.5s ease-in-out ${s.delay} infinite`, pointerEvents: 'none' }}>✦</span>
+        ))}
+        <p style={{ fontFamily: MAC.font, fontSize: 11, color: '#C090B0', textTransform: 'uppercase', letterSpacing: 2.5, marginBottom: 14 }}>
+          simplificando a complexidade por meio de
+        </p>
+        <h1 style={{ fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 700, lineHeight: 1.1, color: '#1A1A1A', letterSpacing: '-1.5px', marginBottom: 32 }}>
+          estratégia{' '}
+          <span style={{ background: 'linear-gradient(135deg, #FF85C2, #E8609A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>&amp;</span>
+          {' '}empatia
+        </h1>
+        <div style={{ display: 'flex', gap: 28, alignItems: 'flex-start', flexWrap: 'wrap' }}>
+          <div style={{ position: 'relative', flexShrink: 0 }}>
+            <img src={thaisImg} alt="Thaís Lopes" style={{ width: 180, height: 220, objectFit: 'cover', objectPosition: '50% 8%', borderRadius: 14, border: '2px solid #F0C0D8', display: 'block' }} />
+            <span style={{ position: 'absolute', bottom: -8, right: -8, fontSize: 20, filter: 'drop-shadow(0 1px 4px rgba(255,180,60,0.6))', animation: 'glitter-spin 3s ease-in-out infinite' }}>✦</span>
+          </div>
+          <div style={{ flex: 1, minWidth: 180 }}>
+            <p style={{ fontSize: 15, fontWeight: 700, color: '#1A1A1A', marginBottom: 8 }}>Olá, me chamo Thaís!</p>
+            <p style={{ fontSize: 13, color: '#555', lineHeight: 1.75, marginBottom: 10 }}>
+              Product Designer no{' '}<strong style={{ color: MAC.rose }}>CESAR</strong>{' '}(o maior centro de inovação do Brasil), com{' '}<strong style={{ color: MAC.rose }}>6+ anos</strong>{' '}construindo produtos digitais em óleo & gás, finanças e governo. Transformo pesquisa profunda em estratégia, e estratégia em coisas que as pessoas realmente usam.
+            </p>
+            <p style={{ fontSize: 13, color: '#555', lineHeight: 1.75 }}>
+              Também pesquisei IA na saúde no meu Mestrado, lidero um programa digital com o Governo de Pernambuco e mentoro a próxima geração de designers.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div style={{ padding: '44px 44px 36px', borderBottom: '1px solid #F5E6EF' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+          <span style={{ fontSize: 14, color: MAC.pink }}>✦</span>
+          <p style={{ fontFamily: MAC.font, fontSize: 11, color: '#C090B0', textTransform: 'uppercase', letterSpacing: 2.5 }}>Especialidades</p>
+        </div>
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: '#1A1A1A', marginBottom: 24, letterSpacing: '-0.5px' }}>Habilidades &amp; Competências</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(190px, 1fr))', gap: 12 }}>
+          {skills.map(s => (
+            <div key={s.title} style={{ background: 'white', border: '1px solid #F0D4E8', borderRadius: 10, padding: '16px', transition: 'border-color 0.2s, transform 0.2s' }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = '#FF85C2'; e.currentTarget.style.transform = 'translateY(-2px)' }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = '#F0D4E8'; e.currentTarget.style.transform = 'translateY(0)' }}
+            >
+              <div style={{ fontSize: 18, marginBottom: 8 }}>{s.icon}</div>
+              <div style={{ fontSize: 13, fontWeight: 700, color: '#1A1A1A', marginBottom: 5 }}>{s.title}</div>
+              <p style={{ fontFamily: MAC.font, fontSize: 11, color: '#999', lineHeight: 1.6 }}>{s.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div style={{ padding: '44px 44px 60px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+          <span style={{ fontSize: 14, color: MAC.pink }}>✦</span>
+          <p style={{ fontFamily: MAC.font, fontSize: 11, color: '#C090B0', textTransform: 'uppercase', letterSpacing: 2.5 }}>Clientes</p>
+        </div>
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: '#1A1A1A', marginBottom: 24, letterSpacing: '-0.5px' }}>Empresas com quem trabalhei</h2>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14 }}>
+          {clients.map(c => (
+            <div key={c.name} style={{ background: 'white', border: '1px solid #F0D4E8', borderRadius: 10, padding: '18px 24px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, minWidth: 110, transition: 'border-color 0.2s, transform 0.2s' }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = '#FF85C2'; e.currentTarget.style.transform = 'translateY(-2px)' }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = '#F0D4E8'; e.currentTarget.style.transform = 'translateY(0)' }}
+            >
+              <div style={{ height: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <img src={c.logo} alt={c.name} style={{ height: c.logoHeight ?? 34, objectFit: 'contain' }} />
+              </div>
+              <span style={{ fontFamily: MAC.font, fontSize: 10, color: '#BBA0B0' }}>{c.name}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function AboutContentPt() {
+  const [lightbox, setLightbox] = useState(null)
+  const openPhoto = (i) => setLightbox(i)
+  const closePhoto = () => setLightbox(null)
+  const prevPhoto = () => setLightbox(i => (i - 1 + ABOUT_PHOTOS.length) % ABOUT_PHOTOS.length)
+  const nextPhoto = () => setLightbox(i => (i + 1) % ABOUT_PHOTOS.length)
+  const sectionLabel = (text) => (
+    <div style={{ fontSize: 9, fontWeight: 700, color: MAC.rose, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 2.2, marginBottom: 12, marginTop: 22, display: 'flex', alignItems: 'center', gap: 8 }}>
+      {text}
+      <span style={{ flex: 1, height: 1, background: 'linear-gradient(to right, #F0D4E8, transparent)' }} />
+    </div>
+  )
+  return (
+    <div style={{ overflowY: 'auto', flex: 1, minHeight: 0, fontFamily: "'Montserrat', sans-serif" }}>
+      {lightbox !== null && <PhotoLightbox index={lightbox} onClose={closePhoto} onPrev={prevPhoto} onNext={nextPhoto} />}
+      <div style={{ padding: '24px 28px 36px' }}>
+        <div style={{ display: 'flex', gap: 18, alignItems: 'flex-start', marginBottom: 20 }}>
+          <div style={{ paddingTop: 2 }}>
+            <h2 style={{ fontSize: 19, fontWeight: 800, color: '#1A1A1A', margin: '0 0 4px', lineHeight: 1.2 }}>
+              Olá, eu sou a Thaís <span style={{ color: MAC.pink }}>✦</span>
+            </h2>
+            <div style={{ fontFamily: MAC.font, color: MAC.rose, fontSize: 11, marginBottom: 8 }}>Product Designer · Estrategista de UX</div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 14px' }}>
+              {[{ emoji: '📍', text: 'Manaus → Recife, Brasil' }, { emoji: '🐶', text: 'dog mom' }, { emoji: '📷', text: 'fotografia' }].map(f => (
+                <span key={f.text} style={{ fontSize: 11, fontFamily: MAC.font, color: '#888', display: 'flex', alignItems: 'center', gap: 4 }}>{f.emoji} {f.text}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div style={{ display: 'flex', gap: 14, marginBottom: 6, paddingBottom: 4, justifyContent: 'center' }}>
+          <AboutPolaroid src={aboutManaus} label="Manaus 🌅"    rotate={-2.5} photoIndex={0} onOpen={openPhoto} />
+          <AboutPolaroid src={aboutDogs}   label="os bebês 🐶"  rotate={1.5}  photoIndex={1} onOpen={openPhoto} />
+          <AboutPolaroid src={aboutTravel} label="Porto ✈️"     rotate={-1.5} photoIndex={2} onOpen={openPhoto} />
+          <AboutPolaroid src={aboutMuseum} label="arte 🎨"      rotate={2}    photoIndex={3} onOpen={openPhoto} />
+          <AboutPolaroid src={aboutFunny}  label="100% real 😂" rotate={-1}   photoIndex={4} onOpen={openPhoto} />
+        </div>
+        {sectionLabel('sobre mim')}
+        <p style={{ fontSize: 12.5, color: '#444', lineHeight: 1.85, margin: '0 0 10px' }}>
+          Eu faço design na interseção de pessoas, sistemas e complexidade, o que, na maioria das vezes, significa que sou eu quem está na sala perguntando{' '}
+          <strong style={{ color: MAC.rose }}>"mas por que funciona assim?"</strong>{' '}antes de alguém abrir o Figma.
+        </p>
+        <p style={{ fontSize: 12.5, color: '#444', lineHeight: 1.85, margin: '0 0 10px' }}>
+          Morando em Recife (natural de Manaus), tenho 6+ anos trabalhando com empresas de óleo & gás, finanças e governo, transformando problemas complexos e confusos em produtos que as pessoas realmente querem usar.
+        </p>
+        <p style={{ fontSize: 12.5, color: '#444', lineHeight: 1.85, margin: '0 0 10px' }}>
+          No Mestrado, pesquisei{' '}<strong style={{ color: MAC.rose }}>IA na saúde</strong>, usando Design de Futuros e Transition Design para imaginar o que vem a seguir em áreas como experiência, sistema, processo e cultura.
+        </p>
+        <p style={{ fontSize: 12.5, color: '#444', lineHeight: 1.85, margin: '0 0 10px' }}>
+          Lidero o{' '}<strong style={{ color: MAC.rose }}>Programa de Agentes Digitais</strong>{' '}com o Governo de Pernambuco, onde servidores públicos sem perfil técnico criam ideias para digitalizar serviços públicos. Também coordeno o{' '}
+          <strong style={{ color: MAC.rose }}>FAST</strong>, um programa de design orientado a dados onde designers júnior e pessoas em transição de carreira aprendem a trabalhar com dados sem perder de vista as pessoas por trás dos números. Ganhamos o{' '}
+          <strong style={{ color: MAC.rose }}>Prêmio Brasileiro de Design 2025</strong>.
+        </p>
+        <p style={{ fontSize: 12.5, color: '#444', lineHeight: 1.85, margin: 0 }}>
+          Design, pra mim, é menos sobre telas e mais sobre as decisões que as moldam: as pessoas com quem e para quem essas decisões são tomadas.
+        </p>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7, margin: '18px 0 0' }}>
+          {['Estratégia de Design', 'Product Design', 'Pesquisa com Usuários', 'Prototipação', 'Facilitação', 'UX Writing', 'Design Orientado a Dados', 'Design Futuros', 'Mentoria', 'Setor Público'].map(tag => (
+            <span key={tag} style={{ background: '#FFF0F6', border: '1px solid #F0C8DC', borderRadius: 20, padding: '4px 13px', fontSize: 11, fontFamily: MAC.font, color: MAC.titleText }}>{tag}</span>
+          ))}
+        </div>
+        {sectionLabel('ensino & mentoria')}
+        <div style={{ display: 'flex', gap: 14, alignItems: 'flex-start' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8, flexShrink: 0 }}>
+            <img src={aboutTeach} alt="Facilitação de workshop" onClick={() => openPhoto(5)}
+              style={{ width: 110, height: 130, objectFit: 'cover', objectPosition: '50% 20%', borderRadius: 10, border: '2px solid #F0C8DC', cursor: 'pointer', transition: 'transform 0.15s ease' }}
+              onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.04)'}
+              onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+            />
+            <img src={aboutGroup} alt="Grupo de mentoria" onClick={() => openPhoto(6)}
+              style={{ width: 110, height: 72, objectFit: 'cover', objectPosition: '50% 30%', borderRadius: 10, border: '2px solid #F0C8DC', cursor: 'pointer', transition: 'transform 0.15s ease' }}
+              onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.04)'}
+              onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+            />
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1 }}>
+            {[
+              { icon: '🎓', title: 'Professora de UX', desc: 'Ensinando design e os métodos por trás dele, para que os alunos entendam o que cada ferramenta faz e como adaptá-la, não apenas seguir um processo.' },
+              { icon: '🤝', title: 'Mentora de Design', desc: 'Orientando designers júnior em revisões de portfólio, transições de carreira e desafios do dia a dia.' },
+              { icon: '🧩', title: 'Facilitadora de Workshops', desc: 'Conduzindo Lean Inception, Design Sprint e sessões de alinhamento que ajudam times a tomar decisões mais rápidas e melhores.' },
+            ].map(item => (
+              <div key={item.title} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', background: '#FFF8FC', border: '1px solid #F5DCE8', borderLeft: `3px solid ${MAC.pink}`, borderRadius: '0 10px 10px 0', padding: '10px 12px' }}>
+                <span style={{ fontSize: 18, lineHeight: 1, flexShrink: 0, marginTop: 1 }}>{item.icon}</span>
+                <div>
+                  <div style={{ fontWeight: 700, fontSize: 12, color: '#1A1A1A', marginBottom: 2 }}>{item.title}</div>
+                  <div style={{ fontSize: 11, color: '#666', lineHeight: 1.6, fontFamily: MAC.font }}>{item.desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        {sectionLabel('fora do trabalho')}
+        <p style={{ fontSize: 12.5, color: '#444', lineHeight: 1.85, margin: 0 }}>
+          Provavelmente você me encontrará planejando minha próxima viagem, explorando novas ferramentas para aprimorar meu craft, ou curtindo um bom livro com um chocolate do lado. 🍫
+        </p>
+      </div>
+    </div>
+  )
+}
+
+function ResumeContentPt() {
+  const P = MAC.pink
+  const R = MAC.rose
+  const section = (label) => (
+    <div style={{ fontSize: 9, fontWeight: 700, color: R, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 2.5, marginBottom: 12, marginTop: 24, display: 'flex', alignItems: 'center', gap: 8 }}>
+      {label}
+      <span style={{ flex: 1, height: 1, background: 'linear-gradient(to right, #F0D4E8, transparent)' }} />
+    </div>
+  )
+  const bullet = (text) => (
+    <div style={{ display: 'flex', gap: 8, fontSize: 11, color: '#555', lineHeight: 1.7, marginBottom: 5 }}>
+      <span style={{ color: P, flexShrink: 0, marginTop: 2 }}>✦</span>{text}
+    </div>
+  )
+  return (
+    <div style={{ overflowY: 'auto', flex: 1, minHeight: 0 }}>
+      <div style={{ padding: '28px 32px 20px', background: 'linear-gradient(150deg, #FFF0F8 0%, #FFE4F2 60%, white 100%)', borderBottom: '1px solid #F0D4E8' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
+          <h1 style={{ fontSize: 28, fontWeight: 900, color: '#1A1A1A', margin: 0, fontFamily: "'Montserrat', sans-serif" }}>Thais Lopes</h1>
+          <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
+            <a href="https://www.linkedin.com/in/thaiss-lopes/" target="_blank" rel="noreferrer"
+              style={{ display: 'flex', alignItems: 'center', gap: 5, background: `linear-gradient(135deg, ${P} 0%, ${R} 100%)`, color: 'white', fontSize: 11, fontWeight: 700, fontFamily: MAC.font, textDecoration: 'none', padding: '7px 14px', borderRadius: 20, boxShadow: '0 3px 12px rgba(232,96,154,0.3)' }}>
+              in LinkedIn
+            </a>
+            <a href="https://drive.google.com/file/d/1XuCq_Po46CAk2Fr-04SMm19VXyeUDDK1/view?usp=sharing" target="_blank" rel="noreferrer"
+              style={{ display: 'flex', alignItems: 'center', gap: 5, background: `linear-gradient(135deg, ${P} 0%, ${R} 100%)`, color: 'white', fontSize: 11, fontWeight: 700, fontFamily: MAC.font, textDecoration: 'none', padding: '7px 14px', borderRadius: 20, boxShadow: '0 3px 12px rgba(232,96,154,0.3)' }}>
+              ↓ Baixar CV
+            </a>
+          </div>
+        </div>
+        <div style={{ fontSize: 12, color: R, fontFamily: MAC.font, marginBottom: 12 }}>Product Design (UX/UI) · Service Design · Estratégia de Design</div>
+        <div style={{ fontSize: 11, color: '#666', lineHeight: 1.7, maxWidth: 420, marginBottom: 16 }}>Experiência entregando produtos digitais com impacto mensurável (Óleo & Gás, Finanças, Tecnologia).</div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px 24px' }}>
+          {[{ icon: '📍', text: 'Recife, PE – Brasil (aberta a realocação)' }, { icon: '📱', text: '+55 92 99137 2057' }, { icon: '✉️', text: 'thaislopesdesign@gmail.com' }].map(item => (
+            <div key={item.text} style={{ fontSize: 11, color: '#555', fontFamily: MAC.font, display: 'flex', alignItems: 'center', gap: 5 }}>
+              <span>{item.icon}</span>{item.text}
+            </div>
+          ))}
+        </div>
+      </div>
+      <div style={{ padding: '0 32px 40px', fontFamily: "'Montserrat', sans-serif" }}>
+        {section('Experiência')}
+        {[
+          {
+            title: 'Product Designer', company: 'CESAR', location: 'Recife', period: 'Nov 2021 – Presente',
+            sub: 'O maior centro de inovação do Nordeste do Brasil · Destaque na Forbes e BBC',
+            bullets: [
+              'Liderou projetos de design para um grande cliente de óleo & gás, gerando impacto de R$1,5M e garantindo renovações de longo prazo.',
+              'Definiu e facilitou workshops de estratégia de produto (visão de produto, design thinking, lean inception) para líderes e times diversos, alinhando lançamentos de MVP e conduzindo 6 releases de produto.',
+              'Conduziu pesquisa com usuários (entrevistas, surveys, análise de mercado) para MVPs em projetos de óleo & gás e finanças, clarificando espaços de problema, validando soluções e acelerando entregas.',
+            ],
+          },
+          {
+            title: 'Product Designer', company: 'Sidia', location: 'Manaus', period: 'Set 2020 – Nov 2021',
+            sub: 'Um dos maiores institutos de P&D do Brasil',
+            bullets: [
+              'Liderou discovery, pesquisa e prototipação de 5 ferramentas internas automatizando o desenvolvimento Android da Samsung LATAM.',
+              'Integrou design centrado no usuário a fluxos ágeis, reduzindo lacunas de handoff e melhorando usabilidade.',
+              'Estabeleceu práticas de design do discovery à entrega com engenharia e QA para ferramentas de suporte às releases Android da Samsung na América Latina.',
+            ],
+          },
+          {
+            title: 'Designer UX/UI', company: 'Fermen.to Innovation Lab', location: 'Manaus', period: 'Jun 2019 – Dez 2019',
+            sub: 'Lab de inovação independente',
+            bullets: [
+              'Gerenciou o design ponta a ponta de 3 produtos digitais em estágio inicial, supervisionando pesquisa e entrega de interfaces junto com desenvolvedores.',
+              'Liderou pesquisa de mercado e design UX para um site de associação de clube de futebol, aumentando o engajamento e a afinidade com a marca.',
+              'Influenciou a direção de produto apresentando soluções diretamente a stakeholders e validando decisões de design por meio de ciclos de feedback.',
+            ],
+          },
+        ].map(exp => (
+          <div key={exp.company} style={{ marginBottom: 20, background: '#FFF8FB', border: '1px solid #F0D4E8', borderLeft: `3px solid ${P}`, borderRadius: '0 10px 10px 0', padding: '14px 16px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 2 }}>
+              <span style={{ fontWeight: 700, fontSize: 13, color: '#1A1A1A' }}>{exp.title} — {exp.company}, <em style={{ fontWeight: 400 }}>{exp.location}</em></span>
+              <span style={{ fontFamily: MAC.font, fontSize: 10, color: '#BBA0B0', flexShrink: 0, marginLeft: 12 }}>{exp.period}</span>
+            </div>
+            <div style={{ fontSize: 10, color: R, fontFamily: MAC.font, marginBottom: 10 }}>{exp.sub}</div>
+            {exp.bullets.map((b, i) => bullet(b))}
+          </div>
+        ))}
+        {section('Formação')}
+        {[
+          { degree: 'Mestrado em Design', school: 'CESAR School', period: '2022–2024', note: 'Dissertação: Fenômenos Emergentes na Integração de IA na Saúde' },
+          { degree: 'Bacharelado em Design', school: 'Universidade Federal do Amazonas – UFAM', period: '2015–2019', note: '' },
+        ].map(ed => (
+          <div key={ed.school} style={{ marginBottom: 12, paddingLeft: 12, borderLeft: '2px solid #F0D4E8' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+              <span style={{ fontWeight: 700, fontSize: 12, color: '#1A1A1A' }}>{ed.degree}, <span style={{ fontWeight: 400 }}>{ed.school}</span></span>
+              <span style={{ fontFamily: MAC.font, fontSize: 10, color: '#BBA0B0', flexShrink: 0, marginLeft: 12 }}>{ed.period}</span>
+            </div>
+            {ed.note && <div style={{ fontSize: 10, color: '#888', fontStyle: 'italic', marginTop: 2 }}>{ed.note}</div>}
+          </div>
+        ))}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginTop: 8 }}>
+          <div>
+            {section('Habilidades')}
+            {[
+              { cat: 'Pesquisa & Estratégia', items: 'Pesquisa com Usuários, Estratégia de Produto, Validação de Hipóteses, Análise de Dados' },
+              { cat: 'Design & Entrega', items: 'Product Design (UX/UI), Design Systems, Prototipação (Figma), Testes de Usabilidade, Design de Interação' },
+              { cat: 'Colaboração', items: 'Fluxos Ágeis, Times Multidisciplinares, Alinhamento com Stakeholders' },
+            ].map(s => (
+              <div key={s.cat} style={{ marginBottom: 10 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: '#333' }}>{s.cat}: </span>
+                <span style={{ fontSize: 11, color: '#666' }}>{s.items}</span>
+              </div>
+            ))}
+          </div>
+          <div>
+            {section('Certificações')}
+            {[
+              'Inovação e Liderança em Gestão de Projetos — ISCTE Executive Education, 2025',
+              'Lean Inception Facilitator — Caroli.org, 2024',
+              'Product Management, PM3 – 2024',
+              'Product Discovery, PM3 – 2023',
+            ].map((c) => bullet(c))}
+          </div>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+          <div>
+            {section('Idiomas')}
+            {[['Português', 'Nativo (C2)'], ['Inglês', 'Fluente (C1)'], ['Espanhol', 'Intermediário (B2)']].map(([lang, level]) => (
+              <div key={lang} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: '#555', marginBottom: 6, paddingBottom: 6, borderBottom: '1px solid #F8EEF4' }}>
+                <span style={{ fontWeight: 600 }}>{lang}</span>
+                <span style={{ color: R, fontFamily: MAC.font }}>{level}</span>
+              </div>
+            ))}
+          </div>
+          <div>
+            {section('Projetos Especiais')}
+            {[
+              'Mentora de times de intraempreendedorismo em saúde e aeroespacial.',
+              'Coordenadora acadêmica do Design Orientado a Dados (FAST) e Gestão de Produtos (Banco do Brasil).',
+              'Líder do Programa de Agentes Digitais (UPE) com o Governo de Pernambuco.',
+            ].map((p) => bullet(p))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const HD_SECTIONS_PT = [
+  { id: 'context',   title: 'Contexto',                  num: '01' },
+  { id: 'framing',   title: 'Framing do Produto',         num: '02' },
+  { id: 'research',  title: 'Entendendo os Usuários',     num: '03' },
+  { id: 'synthesis', title: 'Síntese',                    num: '04' },
+  { id: 'decisions', title: 'Decisões de Design',         num: '05' },
+  { id: 'execution', title: 'Prototipação & Execução',    num: '06' },
+  { id: 'testing',   title: 'Testes & Validação',         num: '07' },
+  { id: 'impact',    title: 'Impacto',                    num: '08' },
+  { id: 'learnings', title: 'Aprendizados',               num: '09' },
+]
+
+const GLIST_SECTIONS_PT = [
+  { id: 'problem',   title: 'Problema',           num: '01' },
+  { id: 'research',  title: 'Pesquisa',           num: '02' },
+  { id: 'define',    title: 'Definir',            num: '03' },
+  { id: 'goal',      title: 'Objetivo do Projeto',num: '04' },
+  { id: 'solution',  title: 'Solução',            num: '05' },
+  { id: 'ideate',    title: 'Ideação',            num: '06' },
+  { id: 'prototype', title: 'Protótipo',          num: '07' },
+  { id: 'testing',   title: 'Testes',             num: '08' },
+  { id: 'learnings', title: 'Aprendizados',       num: '09' },
+]
+
+function PetrobrasCaseStudyPt({ onOpenSearch, onOpenGlist }) {
+  const [activeTab,      setActiveTab]      = useState('context')
+  const [splitView,      setSplitView]      = useState(false)
+  const [canScrollLeft,  setCanScrollLeft]  = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(true)
+  const [tabScrolled,    setTabScrolled]    = useState(false)
+  const scrollRef   = useRef(null)
+  const textPaneRef = useRef(null)
+  const tabBarRef   = useRef(null)
+  const singleRefs  = useRef({})
+  const splitRefs   = useRef({})
+
+  const para = (html) => (
+    <p style={{ fontSize: 13, color: '#444', lineHeight: 1.9, marginBottom: 14, marginTop: 0 }} dangerouslySetInnerHTML={{ __html: html }} />
+  )
+  const bullet = (items) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 16 }}>
+      {items.map((item, i) => (
+        <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', background: 'white', border: `1px solid ${ROSE_LIGHT}`, borderRadius: 8, padding: '9px 13px' }}>
+          <span style={{ color: ROSE, fontSize: 13, flexShrink: 0, marginTop: 1 }}>✦</span>
+          <span style={{ fontSize: 12, color: '#444', lineHeight: 1.7 }}>{item}</span>
+        </div>
+      ))}
+    </div>
+  )
+  const pullquote = (text, attr) => (
+    <div style={{ background: `linear-gradient(135deg, ${ROSE_BG} 0%, #EEF5FC 100%)`, borderLeft: `3px solid ${ROSE}`, borderRadius: '0 10px 10px 0', padding: '12px 16px', marginBottom: 10 }}>
+      <div style={{ fontSize: 13, color: '#333', fontStyle: 'italic', lineHeight: 1.8, marginBottom: 5 }}>{text}</div>
+      <div style={{ fontSize: 10, color: ROSE, fontFamily: MAC.font, fontWeight: 700 }}>· {attr}</div>
+    </div>
+  )
+
+  const SECTION_CONTENT = [
+    {
+      id: 'context', num: '01', title: 'Contexto',
+      body: (
+        <>
+          {para('Inspeções de dutos em reservatórios de pré-sal são críticas para detectar e prevenir corrosão sob tensão causada por CO₂ (SCC-CO₂). Até este projeto, os dados dessas inspeções eram gerenciados manualmente em <strong>planilhas e arquivos PowerPoint</strong>, com pouca rastreabilidade, esforço duplicado entre times e erros frequentes no processamento de dados.')}
+          {para('A necessidade de um sistema centralizado e digital havia se tornado urgente: não apenas para melhorar a eficiência operacional, mas também para <strong>apoiar decisões estratégicas com dados confiáveis e acessíveis</strong>.')}
+        </>
+      ),
+      media: <img src={hdContext} alt="Estado anterior: fluxo legado em planilhas" style={{ width: '75%', borderRadius: 10, margin: '12px auto', display: 'block' }} />,
+    },
+    {
+      id: 'framing', num: '02', title: 'Framing do Produto',
+      body: (
+        <>
+          {para('Para orientar o projeto desde o início, facilitei uma sessão de <strong>Lean Canvas</strong> para mapear dores dos usuários, valor do produto e prioridades. Esse exercício visual ajudou a alinhar o time em torno de uma direção clara antes de qualquer trabalho de design.')}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 14 }}>
+            {[
+              { label: 'Dores',              value: 'Planilhas manuais, baixa automação e comunicação fragmentada entre times' },
+              { label: 'Valor do produto',   value: 'Centralizar e automatizar dados de inspeção para reduzir erros e economizar tempo' },
+              { label: 'Escopo do MVP',      value: 'Focado nas necessidades de três áreas operacionais específicas' },
+              { label: 'Métricas de sucesso',value: 'Menos erros, tempo economizado, automação de processos e adoção pelos usuários' },
+            ].map(item => (
+              <div key={item.label} style={{ background: 'white', border: `1px solid ${ROSE_LIGHT}`, borderRadius: 10, padding: '12px 14px' }}>
+                <div style={{ fontSize: 9, color: ROSE, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1.2, marginBottom: 5 }}>{item.label}</div>
+                <div style={{ fontSize: 12, color: '#333', lineHeight: 1.6 }}>{item.value}</div>
+              </div>
+            ))}
+          </div>
+        </>
+      ),
+      media: <img src={hdProductFraming} alt="Artefato da sessão de Lean Canvas" style={{ width: '75%', borderRadius: 10, margin: '12px auto', display: 'block' }} />,
+    },
+    {
+      id: 'research', num: '03', title: 'Entendendo os Usuários',
+      body: (
+        <>
+          {para('Para enraizar o projeto em necessidades reais dos usuários, realizei uma imersão profunda nos fluxos atuais de dados de inspeção. Por meio de <strong>entrevistas, sessões de pesquisa e discussões estratégicas</strong>, descobri como as informações eram acessadas, compartilhadas e interpretadas nas diferentes áreas da empresa.')}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 14 }}>
+            <div>
+              <div style={{ fontSize: 10, fontWeight: 700, color: ROSE, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 10 }}>Objetivos</div>
+              {['Mapear perfis e responsabilidades dos usuários nas três áreas-alvo', 'Entender como cada área experienciava e valorizava os dados de inspeção', 'Identificar quais perspectivas de usuário deveriam ser priorizadas no MVP'].map((t, i) => (
+                <div key={i} style={{ display: 'flex', gap: 8, fontSize: 12, color: '#444', lineHeight: 1.7, paddingBottom: 8, borderBottom: i < 2 ? '1px solid #E5EFF8' : 'none', marginBottom: 8 }}>
+                  <span style={{ color: ROSE, flexShrink: 0 }}>✦</span>{t}
+                </div>
+              ))}
+            </div>
+            <div>
+              <div style={{ fontSize: 10, fontWeight: 700, color: ROSE, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 10 }}>Principais Achados</div>
+              {['Falta de acesso centralizado aos resultados de inspeção entre os times', 'Baixa automação na formatação e gestão de relatórios de inspeção', 'Dependência de outros departamentos e ferramentas externas para recuperar dados', 'Alto esforço manual para criar e compartilhar visuais ou resumos'].map((t, i) => (
+                <div key={i} style={{ display: 'flex', gap: 8, fontSize: 12, color: '#444', lineHeight: 1.6, paddingBottom: 7, borderBottom: i < 3 ? '1px solid #E5EFF8' : 'none', marginBottom: 7 }}>
+                  <span style={{ color: '#CCC', flexShrink: 0 }}>·</span>{t}
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
+      ),
+      media: <img src={hdUnderstanding} alt="Pesquisa de entendimento dos usuários" style={{ width: '75%', borderRadius: 10, margin: '12px auto', display: 'block' }} />,
+    },
+    {
+      id: 'synthesis', num: '04', title: 'Síntese & Priorização',
+      body: (
+        <>
+          {para('Para consolidar os insights da fase de imersão, criei um <strong>mapa de jornada cross-funcional</strong> que visualizou os fluxos atuais e evidenciou pontos de atrito nos três times. Os problemas foram categorizados por papel, frequência e impacto.')}
+          {bullet(['A fragmentação entre ferramentas dificultava o acesso consistente aos dados', 'A falta de automação aumentava o esforço manual e as taxas de erro nos times', 'A ausência de acesso unificado aos resultados de inspeção atrasava decisões e reduzia a visibilidade'])}
+          <div style={{ background: `linear-gradient(135deg, ${ROSE_BG} 0%, #EEF5FC 100%)`, border: `1px solid ${ROSE_LIGHT}`, borderRadius: 10, padding: '12px 16px', fontSize: 12, color: '#555', lineHeight: 1.8, fontStyle: 'italic', marginBottom: 14 }}>
+            Esta etapa transformou a pesquisa em um entendimento compartilhado que guiou a conversa sobre o escopo do MVP.
+          </div>
+        </>
+      ),
+      media: <img src={hdUnderstandingUsers} alt="Artefatos de síntese" style={{ width: '75%', borderRadius: 10, margin: '12px auto', display: 'block' }} />,
+    },
+    {
+      id: 'decisions', num: '05', title: 'Decisões de Design',
+      body: (
+        <>
+          {para('Um <strong>workshop de três dias</strong> combinando ferramentas de Lean Inception e Design Sprint foi realizado para definir colaborativamente o escopo do MVP.')}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10, marginBottom: 14 }}>
+            {[{ day: 'Dia 01', focus: 'Visão de produto, mapeamento de dores, papéis dos usuários' }, { day: 'Dia 02', focus: 'Ideação, card sorting, sketchstorming' }, { day: 'Dia 03', focus: 'Revisão técnica, de negócio e UX: sequenciamento de escopo' }].map(item => (
+              <div key={item.day} style={{ background: 'white', border: `1px solid ${ROSE_LIGHT}`, borderRadius: 10, padding: '14px', textAlign: 'center' }}>
+                <div style={{ fontSize: 12, fontWeight: 800, color: ROSE, marginBottom: 6 }}>{item.day}</div>
+                <div style={{ fontSize: 11, color: '#666', lineHeight: 1.6 }}>{item.focus}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 14 }}>
+            <div style={{ background: 'white', border: `1px solid ${ROSE_LIGHT}`, borderRadius: 10, padding: '14px 16px' }}>
+              <div style={{ fontSize: 9, fontWeight: 700, color: ROSE, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 10 }}>Funcionalidades priorizadas</div>
+              {['Acesso centralizado aos resultados de inspeção', 'Geração mais rápida de relatórios visuais', 'Redução da dependência de planilhas'].map((f, i) => (
+                <div key={i} style={{ display: 'flex', gap: 8, fontSize: 12, color: '#444', lineHeight: 1.6, marginBottom: 6 }}><span style={{ color: ROSE }}>✓</span>{f}</div>
+              ))}
+            </div>
+            <div style={{ background: 'white', border: `1px solid ${ROSE_LIGHT}`, borderRadius: 10, padding: '14px 16px' }}>
+              <div style={{ fontSize: 9, fontWeight: 700, color: '#AAA', fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 10 }}>Adiado: e por quê</div>
+              {[{ f: 'Edição em tempo real', r: 'mudanças arquiteturais inviáveis para v1' }, { f: 'Análise preditiva', r: 'precisava de mais dados históricos para ser relevante' }, { f: 'Integrações via API', r: 'times ainda em transição de fluxos manuais' }].map((item, i) => (
+                <div key={i} style={{ marginBottom: 8 }}>
+                  <div style={{ fontSize: 12, color: '#777', fontWeight: 600 }}>– {item.f}</div>
+                  <div style={{ fontSize: 11, color: '#AAA', paddingLeft: 12 }}>{item.r}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
+      ),
+      media: <img src={hdDecisions} alt="Workshop de decisões de design" style={{ width: '75%', borderRadius: 10, margin: '12px auto', display: 'block' }} />,
+    },
+    {
+      id: 'execution', num: '06', title: 'Prototipação & Execução',
+      body: (
+        <>
+          {para('Minha abordagem foi <strong>co-participativa e iterativa</strong>. Facilitei sessões de sketching e rodadas rápidas de critique com stakeholders e desenvolvedores, testando continuamente a viabilidade e a usabilidade.')}
+          {para('Os conceitos iniciais evoluíram para protótipos de alta fidelidade usando o Design System da empresa, garantindo consistência visual e alinhamento com os padrões internos da plataforma. Como <strong>designer solo</strong>, criei todos os fluxos no Figma e trabalhei lado a lado com os desenvolvedores.')}
+        </>
+      ),
+      media: (
+        <>
+          <div style={{ marginBottom: 28 }}>
+            <div style={{ fontSize: 9, fontWeight: 700, color: ROSE, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1.8, marginBottom: 10, display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span style={{ display: 'inline-block', width: 18, height: 1.5, background: ROSE_LIGHT }} />
+              Baixa Fidelidade
+              <span style={{ display: 'inline-block', flex: 1, height: 1.5, background: ROSE_LIGHT }} />
+            </div>
+            <SimpleCarousel images={[hdLofi1, hdLofi2]} accentColor={ROSE} borderColor={ROSE_LIGHT} />
+          </div>
+          <div style={{ marginBottom: 8 }}>
+            <div style={{ fontSize: 9, fontWeight: 700, color: ROSE, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1.8, marginBottom: 10, display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span style={{ display: 'inline-block', width: 18, height: 1.5, background: ROSE_LIGHT }} />
+              Alta Fidelidade
+              <span style={{ display: 'inline-block', flex: 1, height: 1.5, background: ROSE_LIGHT }} />
+            </div>
+            <img src={hdHifi1} alt="Tela de alta fidelidade 1" style={{ width: '75%', borderRadius: 10, margin: '6px auto', display: 'block' }} />
+            <img src={hdHifi2} alt="Tela de alta fidelidade 2" style={{ width: '75%', borderRadius: 10, margin: '6px auto', display: 'block' }} />
+            <img src={hdHifi3} alt="Tela de alta fidelidade 3" style={{ width: '75%', borderRadius: 10, margin: '6px auto', display: 'block' }} />
+          </div>
+        </>
+      ),
+    },
+    {
+      id: 'testing', num: '07', title: 'Testes & Validação',
+      body: (
+        <>
+          {para('Para garantir usabilidade e adoção entre os segmentos de usuários, projetei e conduzi <strong>duas rodadas de testes</strong>.')}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 16 }}>
+            <div style={{ background: 'white', border: `1px solid ${ROSE_LIGHT}`, borderRadius: 10, padding: '16px' }}>
+              <div style={{ fontSize: 9, fontWeight: 700, color: ROSE, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12 }}>Moderado: Usuários Primários</div>
+              <div style={{ fontSize: 28, fontWeight: 900, color: ROSE, lineHeight: 1 }}>100%</div>
+              <div style={{ fontSize: 11, color: '#888', fontFamily: MAC.font, marginBottom: 10 }}>taxa de sucesso nas tarefas</div>
+              <div style={{ fontSize: 12, color: '#555', lineHeight: 1.7, borderTop: '1px solid #E5EFF8', paddingTop: 10 }}>Todas as 13 tarefas concluídas. Usuários identificaram inconsistências no comportamento dos filtros e na terminologia.</div>
+            </div>
+            <div style={{ background: 'white', border: `1px solid ${ROSE_LIGHT}`, borderRadius: 10, padding: '16px' }}>
+              <div style={{ fontSize: 9, fontWeight: 700, color: '#AAA', fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12 }}>Não moderado: via Useberry</div>
+              <div style={{ fontSize: 28, fontWeight: 900, color: '#90C4A8', lineHeight: 1 }}>67%</div>
+              <div style={{ fontSize: 11, color: '#888', fontFamily: MAC.font, marginBottom: 10 }}>sucesso na conclusão de tarefas</div>
+              <div style={{ fontSize: 12, color: '#555', lineHeight: 1.7, borderTop: '1px solid #E5EFF8', paddingTop: 10 }}>Identificou lacunas na clareza do dashboard e na interpretação de dados, informando as prioridades da v2.</div>
+            </div>
+          </div>
+          {pullquote('"A ferramenta é muito intuitiva e bem organizada."', 'Usuário 01')}
+          {pullquote('"Agora eu não preciso esperar alguém me mandar os dados de inspeção."', 'Usuário 02')}
+        </>
+      ),
+      media: null,
+    },
+    {
+      id: 'impact', num: '08', title: 'Impacto',
+      body: (
+        <>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10, marginBottom: 12 }}>
+            {[
+              { metric: '~3h',  sub: 'economizadas por usuário por semana' },
+              { metric: '100%', sub: 'sucesso nas tarefas, testes moderados' },
+              { metric: 'Total', sub: 'adoção do MVP, todos os times-alvo' },
+            ].map(item => (
+              <div key={item.metric} style={{ background: `linear-gradient(135deg, #E0ECF8 0%, ${ROSE_BG} 100%)`, border: `1.5px solid ${ROSE_LIGHT}`, borderRadius: 12, padding: '20px 16px', textAlign: 'center' }}>
+                <div style={{ fontSize: 28, fontWeight: 900, color: ROSE, marginBottom: 6 }}>{item.metric}</div>
+                <div style={{ fontSize: 11, color: '#888', fontFamily: MAC.font, lineHeight: 1.5 }}>{item.sub}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{ background: `linear-gradient(135deg, #E0ECF8 0%, ${ROSE_BG} 100%)`, border: `1.5px solid ${ROSE_LIGHT}`, borderRadius: 12, padding: '20px 24px', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 16 }}>
+            <div style={{ fontSize: 32, fontWeight: 900, color: ROSE, flexShrink: 0 }}>R$300M</div>
+            <div style={{ fontSize: 12, color: '#555', lineHeight: 1.7 }}>em <strong>redução de riscos</strong> ao longo de 10 anos na Petrobras, viabilizados pela capacidade da plataforma de centralizar dados de inspeção e apoiar decisões estratégicas em escala</div>
+          </div>
+          {bullet(['Eliminou completamente os processos baseados em planilhas', 'Usuários relataram maior autonomia e mais confiança nas decisões operacionais'])}
+        </>
+      ),
+      media: null,
+    },
+    {
+      id: 'learnings', num: '09', title: 'Aprendizados',
+      body: (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {[
+            { num: '01', title: 'Síntese antes da solução',    body: 'Alinhar sobre o valor para o usuário antes de ir para o design foi fundamental para a clareza estratégica.' },
+            { num: '02', title: 'Designing com restrições',    body: 'Equilibrar necessidades dos usuários e limitações da plataforma interna exige negociação constante.' },
+            { num: '03', title: 'Discovery nunca para',        body: 'Ciclos contínuos de feedback devem guiar iterações futuras, especialmente em dashboards em evolução.' },
+            { num: '04', title: 'Combinar frameworks funciona',body: 'Combinar Lean Inception com ferramentas do Design Sprint deu a mistura certa de estrutura e criatividade.' },
+          ].map(item => (
+            <div key={item.num} style={{ background: 'white', border: `1px solid ${ROSE_LIGHT}`, borderLeft: `3px solid ${ROSE}`, borderRadius: '0 10px 10px 0', padding: '14px 16px' }}>
+              <div style={{ display: 'flex', gap: 8, alignItems: 'baseline', marginBottom: 5 }}>
+                <span style={{ fontSize: 9, fontWeight: 700, color: ROSE, fontFamily: MAC.font }}>{item.num}</span>
+                <span style={{ fontSize: 13, fontWeight: 700, color: '#1A1A1A' }}>{item.title}</span>
+              </div>
+              <p style={{ fontSize: 12, color: '#555', lineHeight: 1.75, margin: 0 }}>{item.body}</p>
+            </div>
+          ))}
+        </div>
+      ),
+      media: null,
+    },
+  ]
+
+  const scrollTo = (id) => {
+    setActiveTab(id)
+    if (!splitView) {
+      const el = singleRefs.current[id]
+      if (el && scrollRef.current) scrollRef.current.scrollTo({ top: el.offsetTop - 40, behavior: 'smooth' })
+    } else {
+      const el = splitRefs.current[id]
+      if (el && textPaneRef.current) textPaneRef.current.scrollTo({ top: el.offsetTop - 40, behavior: 'smooth' })
+    }
+  }
+  const trackActive = (container, refs) => {
+    const offset = container.scrollTop + 70
+    let current = SECTION_CONTENT[0].id
+    for (const s of SECTION_CONTENT) {
+      const el = refs.current[s.id]
+      if (el && el.offsetTop <= offset) current = s.id
+    }
+    setActiveTab(current)
+  }
+  useEffect(() => {
+    const container = splitView ? textPaneRef.current : scrollRef.current
+    if (!container) return
+    const refs = splitView ? splitRefs : singleRefs
+    const onScroll = () => { trackActive(container, refs); setTabScrolled(container.scrollTop > 60) }
+    container.addEventListener('scroll', onScroll, { passive: true })
+    return () => container.removeEventListener('scroll', onScroll)
+  }, [splitView])
+  const updateTabArrows = () => {
+    const el = tabBarRef.current
+    if (!el) return
+    setCanScrollLeft(el.scrollLeft > 4)
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4)
+  }
+  const shiftTabs = (dir) => { tabBarRef.current?.scrollBy({ left: dir * 160, behavior: 'smooth' }) }
+  useEffect(() => {
+    const el = tabBarRef.current
+    if (!el) return
+    updateTabArrows()
+    el.addEventListener('scroll', updateTabArrows, { passive: true })
+    const ro = new ResizeObserver(updateTabArrows)
+    ro.observe(el)
+    return () => { el.removeEventListener('scroll', updateTabArrows); ro.disconnect() }
+  }, [])
+
+  const SectionHead = ({ num, title }) => (
+    <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: 18 }}>
+      <span style={{ fontSize: 10, fontWeight: 700, color: ROSE, fontFamily: MAC.font }}>{num}</span>
+      <h2 style={{ fontSize: 17, fontWeight: 800, color: '#1A1A1A', margin: 0 }}>{title}</h2>
+    </div>
+  )
+  const sectionDiv = (last = false) => ({ paddingTop: 34, paddingBottom: 34, borderBottom: last ? 'none' : '1px solid #E4F2EA' })
+
+  const Hero = () => (
+    <div style={{ padding: '32px 40px 24px', background: `linear-gradient(150deg, ${ROSE_BG} 0%, #EEF5FC 55%, white 100%)`, borderBottom: `1px solid ${ROSE_LIGHT}` }}>
+      <div style={{ fontSize: 9, fontFamily: MAC.font, color: ROSE, letterSpacing: 2.5, textTransform: 'uppercase', marginBottom: 10 }}>Case Study 01 · Product Design + Pesquisa · Petrobras</div>
+      <h1 style={{ fontSize: 24, fontWeight: 900, color: '#1A1A1A', margin: '0 0 20px', lineHeight: 1.2 }}>Dados Históricos <span style={{ color: ROSE }}>✦</span></h1>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px 32px' }}>
+        {[{ label: 'Papel', value: 'Product Designer (designer solo)' }, { label: 'Período', value: 'Fev 2024 – Ago 2024' }, { label: 'Impacto', value: '~3h economizadas/usuário/semana · 100% sucesso nas tarefas · Adoção total' }].map(item => (
+          <div key={item.label}>
+            <div style={{ fontSize: 9, fontFamily: MAC.font, color: ROSE, textTransform: 'uppercase', letterSpacing: 1.2, marginBottom: 3 }}>{item.label}</div>
+            <div style={{ fontSize: 12, color: '#333', lineHeight: 1.6 }}>{item.value}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+
+  const nextCaseDefs = [{ id: 'proj-search', onOpen: onOpenSearch }, { id: 'proj-glist', onOpen: onOpenGlist }]
+  const TabArrow = ({ label, dir, scrolled }) => (
+    <button onClick={() => shiftTabs(dir)} style={{ flexShrink: 0, border: 'none', background: 'transparent', borderBottom: '2px solid transparent', padding: '0 8px', cursor: 'pointer', color: scrolled ? 'white' : ROSE, fontSize: 14, fontWeight: 700, zIndex: 2 }}>{label}</button>
+  )
+
+  return (
+    <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', fontFamily: "'Montserrat', sans-serif" }}>
+      <div style={{ flexShrink: 0, background: tabScrolled ? ROSE : 'white', borderBottom: tabScrolled ? 'none' : `1px solid ${ROSE_LIGHT}`, display: 'flex', alignItems: 'stretch', zIndex: 10, transition: 'background 0.25s ease' }}>
+        {canScrollLeft && <TabArrow label="‹" dir={-1} scrolled={tabScrolled} />}
+        <div ref={tabBarRef} style={{ flex: 1, display: 'flex', overflowX: 'auto', scrollbarWidth: 'none' }}>
+          {HD_SECTIONS_PT.map(s => {
+            const active = activeTab === s.id
+            return <button key={s.id} onClick={() => scrollTo(s.id)} style={{ background: 'none', border: 'none', borderBottom: active ? `2px solid ${tabScrolled ? 'white' : ROSE}` : '2px solid transparent', padding: '9px 12px', fontSize: 11, fontFamily: MAC.font, color: active ? (tabScrolled ? 'white' : ROSE) : (tabScrolled ? 'rgba(255,255,255,0.6)' : '#999'), fontWeight: active ? 700 : 400, cursor: 'pointer', whiteSpace: 'nowrap', transition: 'color 0.2s', marginBottom: -1 }}>{s.title}</button>
+          })}
+        </div>
+        {canScrollRight && <TabArrow label="›" dir={1} scrolled={tabScrolled} />}
+        <button onClick={() => setSplitView(v => !v)} title={splitView ? 'Coluna única' : 'Visão dividida'} style={{ flexShrink: 0, border: 'none', borderLeft: `1px solid ${tabScrolled ? 'rgba(255,255,255,0.2)' : ROSE_LIGHT}`, borderBottom: '2px solid transparent', padding: '0 13px', background: 'transparent', color: splitView ? (tabScrolled ? 'white' : ROSE) : (tabScrolled ? 'rgba(255,255,255,0.5)' : '#BBB'), cursor: 'pointer', fontSize: 15, transition: 'all 0.2s' }}>⊞</button>
+      </div>
+      {!splitView && (
+        <div ref={scrollRef} style={{ flex: 1, minHeight: 0, overflowY: 'auto', background: '#FDFCFA' }}>
+          <Hero />
+          <div style={{ padding: '0 40px 20px' }}>
+            {SECTION_CONTENT.map((s, i) => (
+              <div key={s.id} ref={el => { singleRefs.current[s.id] = el }} style={sectionDiv(i === SECTION_CONTENT.length - 1)}>
+                <SectionHead num={s.num} title={s.title} />
+                {s.body}
+                {s.media}
+              </div>
+            ))}
+          </div>
+          <CaseNavCards cases={nextCaseDefs} lang="pt" />
+        </div>
+      )}
+      {splitView && (
+        <div style={{ flex: 1, minHeight: 0, display: 'flex' }}>
+          <div ref={textPaneRef} style={{ flex: 1, minWidth: 0, overflowY: 'auto', background: '#FDFCFA', borderRight: `1px solid ${ROSE_LIGHT}` }}>
+            <Hero />
+            <div style={{ padding: '0 28px 20px' }}>
+              {SECTION_CONTENT.map((s, i) => (
+                <div key={s.id} ref={el => { splitRefs.current[s.id] = el }} style={sectionDiv(i === SECTION_CONTENT.length - 1)}>
+                  <SectionHead num={s.num} title={s.title} />
+                  {s.body}
+                </div>
+              ))}
+            </div>
+            <CaseNavCards cases={nextCaseDefs} lang="pt" />
+          </div>
+          <div style={{ width: '44%', minWidth: 200, overflowY: 'auto', background: '#F5FBF7', padding: '20px 16px 48px' }}>
+            <div style={{ fontSize: 9, fontFamily: MAC.font, color: '#90C4A8', textTransform: 'uppercase', letterSpacing: 2, marginBottom: 16 }}>Telas & evidências</div>
+            {SECTION_CONTENT.filter(s => s.media).map(s => (
+              <div key={s.id} style={{ marginBottom: 22 }}>
+                <div style={{ fontSize: 9, fontFamily: MAC.font, color: ROSE, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 4 }}>{s.num}: {s.title}</div>
+                {s.media}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function DocumentsSearchEngineCaseStudyPt({ onOpenPetrobras, onOpenGlist }) {
+  const [activeTab,      setActiveTab]      = useState('context')
+  const [splitView,      setSplitView]      = useState(false)
+  const [canScrollLeft,  setCanScrollLeft]  = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(true)
+  const scrollRef   = useRef(null)
+  const textPaneRef = useRef(null)
+  const tabBarRef   = useRef(null)
+  const singleRefs  = useRef({})
+  const splitRefs   = useRef({})
+  const G = DSE_GREEN
+  const GL = DSE_GREEN_LIGHT
+  const GB = DSE_GREEN_BG
+
+  const para = (html) => (
+    <p style={{ fontSize: 13, color: '#444', lineHeight: 1.9, marginBottom: 14, marginTop: 0 }} dangerouslySetInnerHTML={{ __html: html }} />
+  )
+  const bullet = (items) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 16 }}>
+      {items.map((item, i) => (
+        <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', background: 'white', border: `1px solid ${GL}`, borderRadius: 8, padding: '9px 13px' }}>
+          <span style={{ color: G, fontSize: 13, flexShrink: 0, marginTop: 1 }}>✦</span>
+          <span style={{ fontSize: 12, color: '#444', lineHeight: 1.7 }}>{item}</span>
+        </div>
+      ))}
+    </div>
+  )
+  const callout = (text) => (
+    <div style={{ background: `linear-gradient(135deg, ${GB} 0%, #EFF8F3 100%)`, borderLeft: `3px solid ${G}`, borderRadius: '0 10px 10px 0', padding: '12px 16px', marginBottom: 16, fontSize: 12, color: '#555', lineHeight: 1.8, fontStyle: 'italic' }}>{text}</div>
+  )
+
+  const DSE_SECTION_CONTENT = [
+    {
+      id: 'context', num: '01', title: 'Contexto',
+      body: (
+        <>
+          {para('A plataforma era utilizada para <strong>pesquisar e analisar documentos geológicos e administrativos complexos</strong>, uma ferramenta crítica para times geocientíficos tomando decisões sensíveis ao tempo.')}
+          {para('Apesar de sua importância, os usuários enfrentavam <strong>resultados de busca imprecisos, filtros confusos e fluxos ineficientes</strong>, especialmente ao buscar dados de poços. Esses pontos de atrito estavam atrasando decisões críticas e criando contornos manuais desnecessários.')}
+        </>
+      ),
+      media: null,
+    },
+    {
+      id: 'framing', num: '02', title: 'Framing do Produto',
+      body: (
+        <>
+          {para('Para alinhar o time em torno de uma visão compartilhada de produto, facilitei uma sessão de <strong>Lean Canvas</strong> para definir dores dos usuários, valor do produto e prioridades. Complementei isso com um Team Alignment Board e um canvas de Value Proposition para guiar decisões além do framing inicial.')}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 14 }}>
+            {[
+              { label: 'Alinhamento de time & visão',     value: 'Sessões com desenvolvedores, cientistas de dados e times do cliente para alinhar objetivos e restrições' },
+              { label: 'Valor do produto definido',        value: 'Melhorar a precisão da busca e reduzir contornos manuais em fluxos geológicos críticos' },
+              { label: 'Foco nos usuários prioritários',   value: 'Soluções direcionadas às necessidades das principais áreas operacionais' },
+              { label: 'Métricas de sucesso',              value: 'Menos erros, tempo economizado, automação de processos e adoção pelos usuários' },
+            ].map(item => (
+              <div key={item.label} style={{ background: 'white', border: `1px solid ${GL}`, borderRadius: 10, padding: '12px 14px' }}>
+                <div style={{ fontSize: 9, color: G, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1.2, marginBottom: 5 }}>{item.label}</div>
+                <div style={{ fontSize: 12, color: '#333', lineHeight: 1.6 }}>{item.value}</div>
+              </div>
+            ))}
+          </div>
+        </>
+      ),
+      media: <SimpleCarousel images={[dseLeanCanvas, dseValueProp, dseResearch]} accentColor={DSE_GREEN} borderColor={DSE_GREEN_LIGHT} />,
+    },
+    {
+      id: 'research', num: '03', title: 'Entendendo os Usuários',
+      body: (
+        <>
+          {para('Para enraizar o projeto no comportamento real dos usuários, foquei em entender como diferentes perfis <strong>buscavam e acessavam dados geológicos e administrativos</strong>. Por meio de entrevistas e avaliações na plataforma, identifiquei onde a experiência de busca estava falhando e quais casos de uso precisavam de atenção imediata.')}
+          {callout('Em paralelo às entrevistas, 3 designers conduziram uma avaliação heurística usando os princípios de Nielsen Norman e critérios de WCAG. Depois, cruzei o que os usuários relatavam como problemas nas buscas com as percepções dos designers, chegando a um mapa de fricções validado por dois ângulos diferentes.')}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 14 }}>
+            <div>
+              <div style={{ fontSize: 10, fontWeight: 700, color: G, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 10 }}>Objetivos</div>
+              {['Mapear diferentes perfis de usuários e seus comportamentos de busca', 'Entender como os usuários navegavam nas ferramentas internas e quais hacks haviam desenvolvido no emaranhado de documentos', 'Identificar cenários críticos de busca para priorizar nas decisões de design'].map((t, i) => (
+                <div key={i} style={{ display: 'flex', gap: 8, fontSize: 12, color: '#444', lineHeight: 1.7, paddingBottom: 8, borderBottom: i < 2 ? `1px solid ${GB}` : 'none', marginBottom: 8 }}>
+                  <span style={{ color: G, flexShrink: 0 }}>✦</span>{t}
+                </div>
+              ))}
+            </div>
+            <div>
+              <div style={{ fontSize: 10, fontWeight: 700, color: G, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 10 }}>Principais Achados</div>
+              {['Resultados de busca imprecisos, especialmente para dados de poços, dificultavam encontrar documentos relevantes', 'Lógica de filtros inconsistente criava confusão e reduzia a confiança nos resultados', 'Elementos de interface pouco claros (ex: "Documentos Similares") limitavam a descoberta', 'Usuários não conseguiam solicitar acesso a documentos restritos dentro da própria plataforma'].map((t, i) => (
+                <div key={i} style={{ display: 'flex', gap: 8, fontSize: 12, color: '#444', lineHeight: 1.6, paddingBottom: 7, borderBottom: i < 3 ? `1px solid ${GB}` : 'none', marginBottom: 7 }}>
+                  <span style={{ color: '#CCC', flexShrink: 0 }}>·</span>{t}
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
+      ),
+      media: null,
+    },
+    {
+      id: 'synthesis', num: '04', title: 'Síntese & Priorização',
+      body: (
+        <>
+          {para('Os achados da pesquisa foram sintetizados em temas e traduzidos em oportunidades por meio de uma <strong>Árvore de Oportunidades</strong>. Levei isso para os Product Owners priorizarem junto com desenvolvedores e cientistas de dados, garantindo que o que seria endereçado fosse relevante tanto tecnicamente quanto para os usuários.')}
+
+          <div style={{ marginBottom: 16 }}>
+            <div style={{ fontSize: 10, fontWeight: 700, color: G, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1.2, marginBottom: 12 }}>Antes → Depois</div>
+            {[
+              { before: 'Resultados imprecisos',    after: 'Taxonomia clara e ranking de relevância consistente' },
+              { before: 'Filtros confusos',         after: 'Lógica e interações de filtros padronizadas' },
+              { before: 'Contornos manuais',        after: 'Fluxos simplificados dentro da plataforma' },
+            ].map((item, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, background: 'white', border: `1px solid ${GL}`, borderRadius: 10, padding: '11px 14px', marginBottom: 8 }}>
+                <span style={{ fontSize: 12, color: '#999', lineHeight: 1.5, flex: 1 }}>{item.before}</span>
+                <span style={{ fontSize: 14, color: G, fontWeight: 700, flexShrink: 0 }}>→</span>
+                <span style={{ fontSize: 12, color: '#333', lineHeight: 1.5, flex: 1, fontWeight: 600 }}>{item.after}</span>
+              </div>
+            ))}
+          </div>
+        </>
+      ),
+      media: (
+        <div style={{ overflowX: 'auto', borderRadius: 10, border: `1px solid ${DSE_GREEN_LIGHT}` }}>
+          <img src={dseIa} alt="Diagrama de arquitetura da informação" style={{ width: 900, maxWidth: 'none', display: 'block' }} />
+        </div>
+      ),
+    },
+    {
+      id: 'decisions', num: '05', title: 'Decisões de Design',
+      body: (
+        <>
+          {para('Os achados consolidados guiaram um conjunto de decisões de design claras em <strong>três áreas</strong>:')}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 14 }}>
+            {[
+              { area: 'Comportamento da busca',    icon: '🔍', desc: 'Definiu mudanças para melhorar a relevância em buscas relacionadas a poços; priorizou clareza e consistência no ranking de resultados.' },
+              { area: 'Filtros & taxonomia',       icon: '🗂', desc: 'Padronizou a lógica e interações de filtros; refinou as categorias de taxonomia para reduzir ambiguidade.' },
+              { area: 'Fluxo de acesso',           icon: '🔓', desc: 'Projetou um fluxo de solicitação de acesso a documentos dentro da plataforma; eliminou contornos manuais e externos.' },
+            ].map(item => (
+              <div key={item.area} style={{ background: 'white', border: `1px solid ${GL}`, borderLeft: `3px solid ${G}`, borderRadius: '0 10px 10px 0', padding: '14px 16px', display: 'flex', gap: 14, alignItems: 'flex-start' }}>
+                <span style={{ fontSize: 20, flexShrink: 0 }}>{item.icon}</span>
+                <div>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: G, marginBottom: 5 }}>{item.area}</div>
+                  <div style={{ fontSize: 12, color: '#555', lineHeight: 1.7 }}>{item.desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <img src={dseFilterTree} alt="Comportamento da árvore de filtros" style={{ width: '100%', borderRadius: 10, display: 'block' }} />
+        </>
+      ),
+      media: null,
+    },
+    {
+      id: 'execution', num: '06', title: 'Prototipação & Execução',
+      body: (
+        <>
+          {callout('O ponto forte deste case é pesquisa e estratégia. A execução de UI foi feita por uma designer de UI dedicada com base nas decisões e especificações de design produzidas na fase anterior.')}
+          {para('Com base nas decisões de design definidas, produzi <strong>especificações detalhadas</strong> para cada área: comportamento da busca, lógica de filtros, estrutura de taxonomia e fluxos de acesso. Essas especificações foram passadas para uma designer de UI responsável pela implementação visual, garantindo que a intenção do design fosse preservada durante toda a execução.')}
+          {para('Esse modelo de colaboração permitiu que a pesquisa e a estratégia de produto guiassem o design, com a execução visual avançando rapidamente porque as decisões já estavam solidamente fundamentadas nas necessidades dos usuários.')}
+        </>
+      ),
+      media: <SimpleCarousel images={[dseAccess, dseUi]} accentColor={DSE_GREEN} borderColor={DSE_GREEN_LIGHT} />,
+    },
+    {
+      id: 'testing', num: '07', title: 'Testes & Validação',
+      body: (
+        <>
+          <div style={{ background: 'white', border: `1px solid ${GL}`, borderRadius: 10, padding: '20px', textAlign: 'center', marginBottom: 16 }}>
+            <div style={{ fontSize: 9, fontWeight: 700, color: G, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1.2, marginBottom: 10 }}>Pós-lançamento · Pontuação UMUX</div>
+            <div style={{ fontSize: 48, fontWeight: 900, color: G, lineHeight: 1 }}>83</div>
+            <div style={{ fontSize: 11, color: '#888', fontFamily: MAC.font, marginTop: 6 }}>de 100</div>
+            <div style={{ fontSize: 12, color: '#555', lineHeight: 1.7, borderTop: `1px solid ${GB}`, paddingTop: 12, marginTop: 12 }}>As melhorias abordaram significativamente os principais problemas de usabilidade identificados anteriormente. Os usuários também relataram buscas mais rápidas e precisas.</div>
+          </div>
+        </>
+      ),
+      media: null,
+    },
+    {
+      id: 'impact', num: '08', title: 'Impacto',
+      body: (
+        <>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 16 }}>
+            <div style={{ background: `linear-gradient(135deg, ${GB} 0%, #EFF8F3 100%)`, border: `1.5px solid ${GL}`, borderRadius: 12, padding: '20px 16px', textAlign: 'center', gridColumn: '1 / -1' }}>
+              <div style={{ fontSize: 9, color: G, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 6 }}>Negócio</div>
+              <div style={{ fontSize: 26, fontWeight: 900, color: G, marginBottom: 4 }}>$1.2M</div>
+              <div style={{ fontSize: 11, color: '#888', fontFamily: MAC.font }}>renovação de contrato garantida, diretamente ligada às melhorias da plataforma</div>
+            </div>
+            <div style={{ background: `linear-gradient(135deg, ${GB} 0%, #EFF8F3 100%)`, border: `1.5px solid ${GL}`, borderRadius: 12, padding: '20px 16px', textAlign: 'center' }}>
+              <div style={{ fontSize: 9, color: G, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 6 }}>Usuário</div>
+              <div style={{ fontSize: 36, fontWeight: 900, color: G, lineHeight: 1, marginBottom: 4 }}>83</div>
+              <div style={{ fontSize: 11, color: '#888', fontFamily: MAC.font }}>pontuação de satisfação UMUX</div>
+            </div>
+            <div style={{ background: 'white', border: `1px solid ${GL}`, borderRadius: 12, padding: '16px' }}>
+              <div style={{ fontSize: 9, color: G, fontFamily: MAC.font, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 10 }}>Produto</div>
+              {['Taxonomias simplificadas e comportamento de filtros mais claro', 'Ambiguidade reduzida nos resultados de busca', 'Fluxo de solicitação de acesso na plataforma substituiu contornos manuais'].map((t, i) => (
+                <div key={i} style={{ display: 'flex', gap: 8, fontSize: 12, color: '#444', lineHeight: 1.6, marginBottom: 6 }}>
+                  <span style={{ color: G, flexShrink: 0 }}>✓</span>{t}
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
+      ),
+      media: null,
+    },
+    {
+      id: 'learnings', num: '09', title: 'Aprendizados',
+      body: (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {[
+            { num: '01', title: 'Estratégia também é trabalho de design',  body: 'Pesquisa e framing guiaram decisões de produto antes da execução visual, provando que o trabalho upstream tem impacto direto e mensurável.' },
+            { num: '02', title: 'Liderança cross-funcional',               body: 'Liderou workshops e alinhamento entre times técnicos (desenvolvedores, cientistas de dados e product owners) para evidenciar objetivos compartilhados.' },
+            { num: '03', title: 'Pesquisa que gera resultados comprovados', body: 'Demonstrou resultados claros em usabilidade, eficiência operacional e continuidade do negócio por meio de uma abordagem orientada pela pesquisa.' },
+          ].map(item => (
+            <div key={item.num} style={{ background: 'white', border: `1px solid ${GL}`, borderLeft: `3px solid ${G}`, borderRadius: '0 10px 10px 0', padding: '14px 16px' }}>
+              <div style={{ display: 'flex', gap: 8, alignItems: 'baseline', marginBottom: 5 }}>
+                <span style={{ fontSize: 9, fontWeight: 700, color: G, fontFamily: MAC.font }}>{item.num}</span>
+                <span style={{ fontSize: 13, fontWeight: 700, color: '#1A1A1A' }}>{item.title}</span>
+              </div>
+              <p style={{ fontSize: 12, color: '#555', lineHeight: 1.75, margin: 0 }}>{item.body}</p>
+            </div>
+          ))}
+        </div>
+      ),
+      media: null,
+    },
+  ]
+
+  const scrollTo = (id) => {
+    setActiveTab(id)
+    if (!splitView) {
+      const el = singleRefs.current[id]
+      if (el && scrollRef.current) scrollRef.current.scrollTo({ top: el.offsetTop - 40, behavior: 'smooth' })
+    } else {
+      const el = splitRefs.current[id]
+      if (el && textPaneRef.current) textPaneRef.current.scrollTo({ top: el.offsetTop - 40, behavior: 'smooth' })
+    }
+  }
+  const trackActive = (container, refs) => {
+    const offset = container.scrollTop + 70
+    let current = DSE_SECTION_CONTENT[0].id
+    for (const s of DSE_SECTION_CONTENT) {
+      const el = refs.current[s.id]
+      if (el && el.offsetTop <= offset) current = s.id
+    }
+    setActiveTab(current)
+  }
+  useEffect(() => {
+    const container = splitView ? textPaneRef.current : scrollRef.current
+    if (!container) return
+    const refs = splitView ? splitRefs : singleRefs
+    const onScroll = () => trackActive(container, refs)
+    container.addEventListener('scroll', onScroll, { passive: true })
+    return () => container.removeEventListener('scroll', onScroll)
+  }, [splitView])
+  const updateTabArrows = () => {
+    const el = tabBarRef.current
+    if (!el) return
+    setCanScrollLeft(el.scrollLeft > 4)
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4)
+  }
+  const shiftTabs = (dir) => { tabBarRef.current?.scrollBy({ left: dir * 160, behavior: 'smooth' }) }
+  useEffect(() => {
+    const el = tabBarRef.current
+    if (!el) return
+    updateTabArrows()
+    el.addEventListener('scroll', updateTabArrows, { passive: true })
+    const ro = new ResizeObserver(updateTabArrows)
+    ro.observe(el)
+    return () => { el.removeEventListener('scroll', updateTabArrows); ro.disconnect() }
+  }, [])
+
+  const SectionHead = ({ num, title }) => (
+    <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: 18 }}>
+      <span style={{ fontSize: 10, fontWeight: 700, color: G, fontFamily: MAC.font }}>{num}</span>
+      <h2 style={{ fontSize: 17, fontWeight: 800, color: '#1A1A1A', margin: 0 }}>{title}</h2>
+    </div>
+  )
+  const sectionDiv = (last = false) => ({ paddingTop: 34, paddingBottom: 34, borderBottom: last ? 'none' : '1px solid #D8EDE1' })
+
+  const Hero = () => (
+    <div style={{ padding: '32px 40px 24px', background: `linear-gradient(150deg, ${GB} 0%, #EFF8F3 55%, white 100%)`, borderBottom: `1px solid ${GL}` }}>
+      <div style={{ fontSize: 9, fontFamily: MAC.font, color: G, letterSpacing: 2.5, textTransform: 'uppercase', marginBottom: 10 }}>Case Study 02 · Product Design + Pesquisa · Petrobras</div>
+      <h1 style={{ fontSize: 24, fontWeight: 900, color: '#1A1A1A', margin: '0 0 20px', lineHeight: 1.2 }}>Buscador de Documentos <span style={{ color: G }}>✦</span></h1>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px 32px' }}>
+        {[{ label: 'Papel', value: 'Product Designer' }, { label: 'Período', value: 'Fev 2024 – Ago 2024' }, { label: 'Impacto', value: 'Renovação de contrato de $1.2M garantida · UMUX score: 83' }].map(item => (
+          <div key={item.label}>
+            <div style={{ fontSize: 9, fontFamily: MAC.font, color: G, textTransform: 'uppercase', letterSpacing: 1.2, marginBottom: 3 }}>{item.label}</div>
+            <div style={{ fontSize: 12, color: '#333', lineHeight: 1.6 }}>{item.value}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+
+  const TabArrow = ({ label, dir }) => (
+    <button onClick={() => shiftTabs(dir)} style={{ flexShrink: 0, border: 'none', background: 'white', borderBottom: '2px solid transparent', padding: '0 8px', cursor: 'pointer', color: G, fontSize: 14, fontWeight: 700, boxShadow: dir < 0 ? '4px 0 8px rgba(255,255,255,0.9)' : '-4px 0 8px rgba(255,255,255,0.9)', zIndex: 2 }}>{label}</button>
+  )
+
+  return (
+    <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', fontFamily: "'Montserrat', sans-serif" }}>
+      <div style={{ flexShrink: 0, background: 'white', borderBottom: `1px solid ${GL}`, display: 'flex', alignItems: 'stretch', zIndex: 10 }}>
+        {canScrollLeft && <TabArrow label="‹" dir={-1} />}
+        <div ref={tabBarRef} style={{ flex: 1, display: 'flex', overflowX: 'auto', scrollbarWidth: 'none' }}>
+          {HD_SECTIONS_PT.map(s => {
+            const active = activeTab === s.id
+            return <button key={s.id} onClick={() => scrollTo(s.id)} style={{ background: 'none', border: 'none', borderBottom: active ? `2px solid ${G}` : '2px solid transparent', padding: '9px 12px', fontSize: 11, fontFamily: MAC.font, color: active ? G : '#999', fontWeight: active ? 700 : 400, cursor: 'pointer', whiteSpace: 'nowrap', transition: 'color 0.15s', marginBottom: -1 }}>{s.title}</button>
+          })}
+        </div>
+        {canScrollRight && <TabArrow label="›" dir={1} />}
+        <button onClick={() => setSplitView(v => !v)} title={splitView ? 'Coluna única' : 'Visão dividida'} style={{ flexShrink: 0, border: 'none', borderLeft: `1px solid ${GL}`, borderBottom: '2px solid transparent', padding: '0 13px', background: splitView ? GB : 'white', color: splitView ? G : '#BBB', cursor: 'pointer', fontSize: 15, transition: 'all 0.15s' }}>⊞</button>
+      </div>
+      {!splitView && (
+        <div ref={scrollRef} style={{ flex: 1, minHeight: 0, overflowY: 'auto', background: '#FDFCFA' }}>
+          <Hero />
+          <div style={{ padding: '0 40px 20px' }}>
+            {DSE_SECTION_CONTENT.map((s, i) => (
+              <div key={s.id} ref={el => { singleRefs.current[s.id] = el }} style={sectionDiv(i === DSE_SECTION_CONTENT.length - 1)}>
+                <SectionHead num={s.num} title={s.title} />
+                {s.body}
+                {s.media}
+              </div>
+            ))}
+          </div>
+          <CaseNavCards cases={[{ id: 'proj-petrobras', onOpen: onOpenPetrobras }, { id: 'proj-glist', onOpen: onOpenGlist }]} lang="pt" />
+        </div>
+      )}
+      {splitView && (
+        <div style={{ flex: 1, minHeight: 0, display: 'flex' }}>
+          <div ref={textPaneRef} style={{ flex: 1, minWidth: 0, overflowY: 'auto', background: '#FDFCFA', borderRight: `1px solid ${GL}` }}>
+            <Hero />
+            <div style={{ padding: '0 28px 20px' }}>
+              {DSE_SECTION_CONTENT.map((s, i) => (
+                <div key={s.id} ref={el => { splitRefs.current[s.id] = el }} style={sectionDiv(i === DSE_SECTION_CONTENT.length - 1)}>
+                  <SectionHead num={s.num} title={s.title} />
+                  {s.body}
+                </div>
+              ))}
+            </div>
+            <CaseNavCards cases={[{ id: 'proj-petrobras', onOpen: onOpenPetrobras }, { id: 'proj-glist', onOpen: onOpenGlist }]} lang="pt" />
+          </div>
+          <div style={{ width: '44%', minWidth: 200, overflowY: 'auto', background: '#F2F9F5', padding: '20px 16px 48px' }}>
+            <div style={{ fontSize: 9, fontFamily: MAC.font, color: GL, textTransform: 'uppercase', letterSpacing: 2, marginBottom: 16 }}>Telas & evidências</div>
+            {DSE_SECTION_CONTENT.filter(s => s.media).map(s => (
+              <div key={s.id} style={{ marginBottom: 22 }}>
+                <div style={{ fontSize: 9, fontFamily: MAC.font, color: G, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 4 }}>{s.num}: {s.title}</div>
+                {s.media}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function GlistCaseStudyPt({ onOpenPetrobras, onOpenSearch }) {
+  const OR       = '#F4841A'
+  const GR       = '#5AB482'
+  const OR_LIGHT = '#FFF3E8'
+  const OR_BG    = '#FFF8F2'
+  const f        = MAC.font
+
+  const [expandedImg,    setExpandedImg]    = useState(null)
+  const [activeTab,      setActiveTab]      = useState('problem')
+  const [canScrollLeft,  setCanScrollLeft]  = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(false)
+  const scrollRef   = useRef(null)
+  const tabBarRef   = useRef(null)
+  const sectionRefs = useRef({})
+
+  const scrollTo = (id) => {
+    setActiveTab(id)
+    const el = sectionRefs.current[id]
+    const container = scrollRef.current
+    if (el && container) container.scrollTo({ top: el.offsetTop - 44, behavior: 'smooth' })
+  }
+  const updateTabArrows = useCallback(() => {
+    const el = tabBarRef.current
+    if (!el) return
+    setCanScrollLeft(el.scrollLeft > 4)
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4)
+  }, [])
+  useEffect(() => {
+    const container = scrollRef.current
+    if (!container) return
+    const onScroll = () => {
+      let current = GLIST_SECTIONS_PT[0].id
+      for (const s of GLIST_SECTIONS_PT) {
+        const el = sectionRefs.current[s.id]
+        if (el && el.getBoundingClientRect().top - container.getBoundingClientRect().top < 80) current = s.id
+      }
+      setActiveTab(current)
+    }
+    container.addEventListener('scroll', onScroll)
+    return () => container.removeEventListener('scroll', onScroll)
+  }, [])
+  useEffect(() => {
+    updateTabArrows()
+    const el = tabBarRef.current
+    if (!el) return
+    el.addEventListener('scroll', updateTabArrows)
+    const ro = new ResizeObserver(updateTabArrows)
+    ro.observe(el)
+    return () => { el.removeEventListener('scroll', updateTabArrows); ro.disconnect() }
+  }, [updateTabArrows])
+
+  const shiftTabs = (dir) => { tabBarRef.current?.scrollBy({ left: dir * 120, behavior: 'smooth' }) }
+  const anchor    = (id) => <div ref={el => { sectionRefs.current[id] = el }} />
+  const SectionLabel = ({ n, label }) => (
+    <div style={{ fontSize: 9, fontWeight: 700, color: OR, fontFamily: f, textTransform: 'uppercase', letterSpacing: 2.5, marginBottom: 14, marginTop: 34, display: 'flex', alignItems: 'center', gap: 8 }}>
+      {n && <span style={{ opacity: 0.5 }}>{n} ·</span>} {label}
+      <span style={{ flex: 1, height: 1, background: 'linear-gradient(to right, #FFD4A8, transparent)' }} />
+    </div>
+  )
+  const SubLabel = ({ children }) => (
+    <div style={{ fontSize: 13, fontWeight: 700, color: '#2A2A2A', fontFamily: f, marginBottom: 10, marginTop: 26, letterSpacing: -0.2 }}>{children}</div>
+  )
+  const Para = ({ children }) => (
+    <p style={{ fontSize: 12, color: '#555', lineHeight: 1.8, margin: '0 0 10px', fontFamily: f }}>{children}</p>
+  )
+  const Quote = ({ text }) => (
+    <div style={{ background: OR_BG, border: '1px solid rgba(244,132,26,0.2)', borderLeft: `3px solid ${OR}`, borderRadius: '0 10px 10px 0', padding: '12px 16px', margin: '8px 0', fontFamily: f, fontSize: 12, color: '#555', lineHeight: 1.7, fontStyle: 'italic' }}>
+      "{text}"
+    </div>
+  )
+  const img = (src, alt = '') => (
+    <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 0 }}>
+      <div role="button" tabIndex={0} aria-label={`Expandir imagem: ${alt}`}
+        onClick={() => setExpandedImg({ src, alt })}
+        onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && setExpandedImg({ src, alt })}
+        style={{ position: 'relative', width: '55%', cursor: 'zoom-in', flexShrink: 0 }}
+      >
+        <img src={src} alt={alt} style={{ width: '100%', borderRadius: 10, display: 'block' }} />
+        <div style={{ position: 'absolute', bottom: 6, right: 6, background: 'rgba(0,0,0,0.4)', borderRadius: 5, padding: '2px 7px', fontSize: 9, color: 'rgba(255,255,255,0.88)', fontFamily: f, letterSpacing: 0.5, backdropFilter: 'blur(4px)', WebkitBackdropFilter: 'blur(4px)', pointerEvents: 'none' }}>↗ expandir</div>
+      </div>
+    </div>
+  )
+  const chip = (text) => (
+    <span key={text} style={{ background: OR_LIGHT, border: '1px solid rgba(244,132,26,0.25)', borderRadius: 20, padding: '3px 12px', fontSize: 11, fontFamily: f, color: OR }}>{text}</span>
+  )
+
+  const imgLightbox = expandedImg && createPortal(
+    <div onClick={() => setExpandedImg(null)} style={{ position: 'fixed', inset: 0, background: 'rgba(10,6,12,0.78)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', zIndex: 999996, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'zoom-out' }}>
+      <div onClick={e => e.stopPropagation()} style={{ animation: 'window-open 0.2s cubic-bezier(0.34,1.56,0.64,1) forwards', position: 'relative', maxWidth: '88vw', maxHeight: '88vh' }}>
+        <img src={expandedImg.src} alt={expandedImg.alt} style={{ maxWidth: '88vw', maxHeight: '84vh', borderRadius: 12, display: 'block', boxShadow: '0 32px 80px rgba(0,0,0,0.5)', objectFit: 'contain' }} />
+        <button onClick={() => setExpandedImg(null)} aria-label="Fechar imagem" style={{ position: 'absolute', top: -14, right: -14, width: 30, height: 30, borderRadius: '50%', background: 'white', border: 'none', cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 12px rgba(0,0,0,0.3)' }}>✕</button>
+      </div>
+    </div>,
+    document.body
+  )
+
+  return (
+    <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', fontFamily: f }}>
+      {imgLightbox}
+      <div style={{ flexShrink: 0, background: 'white', borderBottom: 'rgba(244,132,26,0.2) 1px solid', display: 'flex', alignItems: 'stretch', zIndex: 10 }}>
+        {canScrollLeft && <button onClick={() => shiftTabs(-1)} style={{ flexShrink: 0, border: 'none', background: 'white', borderBottom: '2px solid transparent', padding: '0 8px', cursor: 'pointer', color: OR, fontSize: 14, fontWeight: 700 }}>‹</button>}
+        <div ref={tabBarRef} style={{ flex: 1, display: 'flex', overflowX: 'auto', scrollbarWidth: 'none' }}>
+          {GLIST_SECTIONS_PT.map(s => {
+            const active = activeTab === s.id
+            return <button key={s.id} onClick={() => scrollTo(s.id)} style={{ background: 'none', border: 'none', borderBottom: active ? `2px solid ${OR}` : '2px solid transparent', padding: '9px 12px', fontSize: 11, fontFamily: f, color: active ? OR : '#999', fontWeight: active ? 700 : 400, cursor: 'pointer', whiteSpace: 'nowrap', transition: 'color 0.2s', marginBottom: -1 }}>{s.title}</button>
+          })}
+        </div>
+        {canScrollRight && <button onClick={() => shiftTabs(1)} style={{ flexShrink: 0, border: 'none', background: 'white', borderBottom: '2px solid transparent', padding: '0 8px', cursor: 'pointer', color: OR, fontSize: 14, fontWeight: 700 }}>›</button>}
+      </div>
+
+      <div ref={scrollRef} style={{ flex: 1, minHeight: 0, overflowY: 'auto', fontFamily: f }}>
+        <div style={{ position: 'relative', background: `linear-gradient(150deg, ${OR_BG} 0%, #FFF8EC 60%, white 100%)`, borderBottom: '1px solid #FFD4A8', overflow: 'hidden' }}>
+          <div style={{ padding: '32px 40px 28px', maxWidth: 460 }}>
+            <div style={{ fontSize: 9, fontFamily: f, color: OR, letterSpacing: 2.5, textTransform: 'uppercase', marginBottom: 10 }}>Case Study · Desafio UX & UI · 2021</div>
+            <h1 style={{ fontSize: 24, fontWeight: 900, color: '#1A1A1A', margin: '0 0 6px', lineHeight: 1.2 }}>Glist <span style={{ color: OR }}>✦</span></h1>
+            <p style={{ fontSize: 13, color: '#666', fontFamily: f, margin: '0 0 22px', lineHeight: 1.6 }}>Um app para calcular facilmente a quantidade de alimentos que sua família precisa e parar de desperdiçar comida.</p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px 32px' }}>
+              {[{ label: 'Papel', value: 'Designer UX/UI (designer solo)' }, { label: 'Período', value: '2021' }, { label: 'Tipo', value: 'Desafio Pessoal' }, { label: 'Plataforma', value: 'Mobile · iOS' }].map(item => (
+                <div key={item.label}>
+                  <div style={{ fontSize: 9, fontFamily: f, color: OR, textTransform: 'uppercase', letterSpacing: 1.2, marginBottom: 3 }}>{item.label}</div>
+                  <div style={{ fontSize: 12, color: '#333', lineHeight: 1.6 }}>{item.value}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <img src={glistHero} alt="Mockup do app Glist" style={{ position: 'absolute', right: -10, bottom: 0, height: '112%', objectFit: 'cover', objectPosition: 'left center', maxWidth: '50%', display: 'block' }} />
+        </div>
+
+        <div style={{ padding: '0 40px 56px' }}>
+          {anchor('problem')}
+          <SectionLabel n="01" label="Problema" />
+          <Para>
+            O Glist começou como um desafio para descobrir uma forma de ajudar as pessoas a <strong>reduzir o desperdício de comida</strong> por meio de um planejamento de compras mais inteligente. A maioria das pessoas não percebe o quanto de comida joga fora diariamente — de sobras não consumidas a produtos estragados.
+          </Para>
+
+          {anchor('research')}
+          <SectionLabel n="02" label="Pesquisa" />
+          <Para>Antes de definir qualquer solução, precisei entender como as pessoas realmente fazem compras. Comecei com uma Matriz CSD para separar o que eu sabia do que estava assumindo.</Para>
+          <div style={{ marginBottom: 16 }}>{img(glistMatriz, 'Matriz CSD')}</div>
+
+          <SubLabel>Pesquisa Quantitativa</SubLabel>
+          <Para>Um survey com <strong>68 pessoas em todo o Brasil</strong> explorou o comportamento de consumo em compras de supermercado: com que frequência vão, se fazem listas e se têm dificuldade com quantidades.</Para>
+          <div style={{ display: 'flex', gap: 10, marginBottom: 16, flexWrap: 'wrap' }}>
+            {[{ value: '68', label: 'Participantes' }, { value: 'Brasil', label: 'Local' }, { value: 'Quantitativo', label: 'Método' }].map(item => (
+              <div key={item.label} style={{ background: OR_BG, border: 'rgba(244,132,26,0.25) 1px solid', borderRadius: 12, padding: '10px 18px', display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <div style={{ fontSize: 18, fontWeight: 900, color: OR, fontFamily: f, lineHeight: 1 }}>{item.value}</div>
+                <div style={{ fontSize: 9, color: '#999', fontFamily: f, textTransform: 'uppercase', letterSpacing: 1.5 }}>{item.label}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 16 }}>
+            {[
+              { pct: '86,8%', label: 'Usam o celular para manter uma lista de compras' },
+              { pct: '65,2%', label: 'São responsáveis pelas compras do supermercado em casa' },
+              { pct: '60%',   label: 'Tiveram problemas para calcular quanto de comida comprar' },
+              { pct: '46%',   label: 'Frequentemente esquecem de comprar itens importantes sem lista' },
+            ].map(item => (
+              <div key={item.pct} style={{ background: OR_BG, border: 'rgba(244,132,26,0.2) 1px solid', borderRadius: 12, padding: '14px 16px', display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+                <div style={{ fontSize: 22, fontWeight: 900, color: OR, fontFamily: f, lineHeight: 1, flexShrink: 0 }}>{item.pct}</div>
+                <div style={{ fontSize: 11, color: '#666', fontFamily: f, lineHeight: 1.55, paddingTop: 2 }}>{item.label}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{ background: OR_BG, border: 'rgba(244,132,26,0.2) 1px solid', borderRadius: 12, padding: '16px 18px', marginBottom: 10 }}>
+            <div style={{ fontSize: 10, fontWeight: 700, color: '#888', fontFamily: f, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 12 }}>Com que frequência você vai ao supermercado?</div>
+            {[{ label: '1–4 vezes por semana', pct: 36.8 }, { label: 'Semanalmente', pct: 26.5 }, { label: 'Quinzenalmente', pct: 23.5 }, { label: 'Mensalmente', pct: 22.1 }, { label: 'Compras grandes + pequenas', pct: 3 }].map(row => (
+              <div key={row.label} style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 7 }}>
+                <div style={{ fontSize: 10, fontFamily: f, color: '#666', width: 150, flexShrink: 0, lineHeight: 1.3 }}>{row.label}</div>
+                <div style={{ flex: 1, height: 8, background: 'rgba(244,132,26,0.12)', borderRadius: 99 }}>
+                  <div style={{ height: '100%', width: `${row.pct * (100 / 37)}%`, background: `linear-gradient(to right, ${OR}, #FFB347)`, borderRadius: 99 }} />
+                </div>
+                <div style={{ fontSize: 10, fontWeight: 700, color: OR, fontFamily: f, width: 36, textAlign: 'right' }}>{row.pct}%</div>
+              </div>
+            ))}
+          </div>
+
+          <SubLabel>Entrevistas Qualitativas</SubLabel>
+          <Para>Realizei <strong>5 entrevistas em profundidade</strong> com pessoas responsáveis pelas compras em suas casas. Três falas que ficaram comigo:</Para>
+          <Quote text="Moramos juntos desde novembro e até hoje não conseguimos fazer compras para o mês inteiro. Sempre calculamos algo errado." />
+          <Quote text="Normalmente faço a lista em 10 minutos dentro do carro antes de entrar no mercado. Quando lembro de coisas, escrevo num grupo do WhatsApp que tenho comigo mesma." />
+          <Quote text="Compramos em pequenas quantidades. A gente não calcula e geralmente fica sem carne até alguém comprar mais." />
+
+          <SubLabel>Mapa de Empatia</SubLabel>
+          <div style={{ marginBottom: 16 }}>{img(glistEmpathy, 'Mapa de empatia')}</div>
+
+          {anchor('define')}
+          <SectionLabel n="03" label="Definir" />
+          <Para>Com a pesquisa concluída, sintetizei o que aprendi em personas e uma jornada do usuário para alinhar para quem estava desenhando e onde vivia a dor real.</Para>
+          <div style={{ marginBottom: 16 }}>{img(glistPersonas, 'Personas de usuário')}</div>
+          <div style={{ marginBottom: 16 }}>{img(glistJourney, 'Mapa de jornada do usuário')}</div>
+
+          {anchor('goal')}
+          <SectionLabel n="04" label="Objetivo do Projeto" />
+          <div style={{ background: `linear-gradient(135deg, ${OR_BG}, white)`, border: 'rgba(244,132,26,0.25) 1px solid', borderLeft: `4px solid ${OR}`, borderRadius: '0 12px 12px 0', padding: '18px 20px', marginBottom: 4 }}>
+            <Para>A pesquisa deixou claro: as pessoas precisavam de <strong>uma forma fácil e rápida de planejar as compras</strong> antes de ir ao supermercado, onde pudessem informar o tamanho da família, definir para quantos dias planejar e compartilhar a lista com outras pessoas.</Para>
+            <Para>O problema com as quantidades não era falta de força de vontade ou memória. Era simplesmente não ter uma ferramenta que ajudasse a calculá-las.</Para>
+          </div>
+
+          {anchor('solution')}
+          <SectionLabel n="05" label="Solução" />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 4 }}>
+            {[
+              { n: '01', text: 'Informe o número de pessoas que dividem as compras e defina por quantos dias elas devem durar' },
+              { n: '02', text: 'O app calcula automaticamente as quantidades dos itens com base no tamanho da família' },
+              { n: '03', text: 'Os usuários podem editar individualmente as quantidades, porque nem todo mundo come as mesmas coisas' },
+              { n: '04', text: 'Crie e compartilhe listas com os membros da família para compras colaborativas' },
+            ].map(item => (
+              <div key={item.n} style={{ display: 'flex', gap: 14, alignItems: 'flex-start', background: OR_BG, border: 'rgba(244,132,26,0.15) 1px solid', borderLeft: `3px solid ${OR}`, borderRadius: '0 10px 10px 0', padding: '11px 16px' }}>
+                <span style={{ fontSize: 9, fontWeight: 700, color: OR, fontFamily: f, flexShrink: 0, marginTop: 2 }}>{item.n}</span>
+                <span style={{ fontSize: 12, color: '#555', fontFamily: f, lineHeight: 1.6 }}>{item.text}</span>
+              </div>
+            ))}
+          </div>
+
+          {anchor('ideate')}
+          <SectionLabel n="06" label="Ideação" />
+          <Para>Um moodboard definiu o tom: <strong>Rápido, Prático, Fácil, Conveniente, Útil, Prático</strong>. Isso guiou todas as decisões visuais e de interação.</Para>
+          <div style={{ marginBottom: 16 }}>{img(glistMoodboard, 'Moodboard')}</div>
+
+          {anchor('prototype')}
+          <SectionLabel n="07" label="Protótipo" />
+          <Para>Sketches ajudaram a transmitir ideias rapidamente, demonstrando funcionalidades e visualizando o fluxo do usuário antes de investir em trabalho de maior fidelidade.</Para>
+          <div onClick={() => setExpandedImg({ src: glistSketches, alt: 'Sketches à mão' })} style={{ cursor: 'zoom-in', marginBottom: 16, marginLeft: -40, marginRight: -40 }}>
+            <img src={glistSketches} alt="Sketches à mão" style={{ width: '100%', display: 'block' }} />
+          </div>
+          <Para>Wireframes combinados com o fluxo do usuário ajudaram a planejar como o conteúdo seria exibido na tela, dando visibilidade à estrutura antes de qualquer decisão de design visual.</Para>
+          <div style={{ marginBottom: 16 }}>{img(glistWireframes, 'Wireframes e fluxo do usuário')}</div>
+
+          <SubLabel>Style Guide</SubLabel>
+          <Para>O sistema visual usou <strong>Poppins</strong> como tipografia principal, com um laranja quente (#EB8034) como cor da marca, refletindo a personalidade prática e amigável do app.</Para>
+          <div style={{ position: 'relative', height: 340, marginBottom: 24, overflow: 'hidden' }}>
+            <div onClick={() => setExpandedImg({ src: glistStyle03, alt: 'Cores' })} style={{ position: 'absolute', left: 0, top: 0, width: '44%', height: '100%', cursor: 'zoom-in', overflow: 'hidden' }}>
+              <img src={glistStyle03} alt="Cores" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', display: 'block' }} />
+            </div>
+            <div onClick={() => setExpandedImg({ src: glistStyle01, alt: 'Tipografia' })} style={{ position: 'absolute', left: '46%', top: 0, right: -40, height: '48%', cursor: 'zoom-in', overflow: 'hidden' }}>
+              <img src={glistStyle01} alt="Tipografia" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'left top', display: 'block' }} />
+            </div>
+            <div onClick={() => setExpandedImg({ src: glistStyle02, alt: 'Componentes' })} style={{ position: 'absolute', left: '46%', bottom: 0, right: -40, height: '48%', cursor: 'zoom-in', overflow: 'hidden' }}>
+              <img src={glistStyle02} alt="Componentes" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'left top', display: 'block' }} />
+            </div>
+          </div>
+
+          <SubLabel>Telas de Alta Fidelidade</SubLabel>
+          <HiFiScreens screens={[glistProto05, glistProto06]} spread={glistProto04} animation={glistAnimation} onExpand={(src, alt) => setExpandedImg({ src, alt })} f={f} />
+
+          {anchor('testing')}
+          <SectionLabel n="08" label="Testes" />
+          <Para>Conduzi <strong>5 sessões moderadas de usabilidade</strong> online, com câmera e microfone ligados. Os participantes receberam tarefas para completar enquanto pensavam em voz alta. Observei onde hesitavam, onde se perdiam e o que esperavam encontrar mas não encontravam.</Para>
+          <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
+            {[{ value: '5', label: 'Sessões' }, { value: 'Online', label: 'Formato' }, { value: 'Think-aloud', label: 'Método' }, { value: '4 KPIs', label: 'Sucesso na missão · Duração · Saídas · Misclicks' }].map(item => (
+              <div key={item.label} style={{ flex: 1, background: OR_BG, border: 'rgba(244,132,26,0.15) 1px solid', borderRadius: 10, padding: '12px 14px' }}>
+                <div style={{ fontSize: 18, fontWeight: 900, color: GR, fontFamily: f, lineHeight: 1, marginBottom: 4 }}>{item.value}</div>
+                <div style={{ fontSize: 10, color: '#777', fontFamily: f, letterSpacing: 0.5, lineHeight: 1.4 }}>{item.label}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 4 }}>
+            {[
+              { observed: 'Os usuários ficavam tocando no centro da barra inferior esperando adicionar itens, mas aquele botão abria a tela inicial.', change: 'Alterado o ícone principal da barra inferior para um botão + de adição rápida de itens.' },
+              { observed: 'No mercado, os usuários não tinham como acompanhar o que já tinham colocado no carrinho. Ficavam rolando para cima para verificar novamente.', change: 'Adicionado um checkbox antes de cada item para que o usuário possa marcá-lo como comprado enquanto faz as compras.' },
+              { observed: 'Usuários com listas longas tinham dificuldade para encontrar itens específicos. Esperavam uma barra de busca no topo da visualização de categorias.', change: 'Adicionada uma barra de busca acima das categorias para localizar rapidamente itens já na lista.' },
+            ].map((item, i) => (
+              <div key={i} style={{ border: '1px solid rgba(0,0,0,0.07)', borderRadius: 12, overflow: 'hidden', background: 'linear-gradient(to right, white 0%, white 48%, rgba(90,180,130,0.10) 58%, rgba(90,180,130,0.13) 100%)' }}>
+                <div style={{ display: 'flex', gap: 0 }}>
+                  <div style={{ flex: 1, padding: '14px 16px' }}>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: '#888', fontFamily: f, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 6 }}>👁 Observado</div>
+                    <div style={{ fontSize: 11, color: '#555', fontFamily: f, lineHeight: 1.65 }}>{item.observed}</div>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', padding: '0 10px', color: GR, fontSize: 16 }}>→</div>
+                  <div style={{ flex: 1, padding: '14px 16px' }}>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: '#3D8B61', fontFamily: f, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 6 }}>✦ Alterado</div>
+                    <div style={{ fontSize: 11, color: '#444', fontFamily: f, lineHeight: 1.65, fontWeight: 500 }}>{item.change}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {anchor('learnings')}
+          <SectionLabel n="09" label="Aprendizados" />
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginBottom: 4 }}>
+            {[
+              { title: 'Não reinvente a roda', body: 'Os usuários esperam certos comportamentos. Respeite-os para evitar erros cognitivos e fricção desnecessária.' },
+              { title: 'As pessoas precisam encontrar as coisas facilmente', body: 'Fluxos simples criam alegria. Não faça os usuários trabalhar quando estão com pressa para ir ao mercado.' },
+              { title: 'Sempre pergunte como elas já fazem', body: 'As pessoas já estão resolvendo seu problema. Entenda como e por quê, depois construa em cima disso.' },
+            ].map(item => (
+              <div key={item.title} style={{ background: OR_BG, border: 'rgba(244,132,26,0.2) 1px solid', borderRadius: 12, padding: '16px 14px' }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: '#1A1A1A', marginBottom: 8, lineHeight: 1.4 }}>{item.title}</div>
+                <div style={{ fontSize: 11, color: '#666', fontFamily: f, lineHeight: 1.65 }}>{item.body}</div>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7, marginTop: 28 }}>
+            {['UX Research', 'UI Design', 'Testes de Usabilidade', 'Double Diamond', 'Design Mobile', 'Desafio Pessoal'].map(t => chip(t))}
+          </div>
+        </div>
+        <CaseNavCards cases={[{ id: 'proj-petrobras', onOpen: onOpenPetrobras }, { id: 'proj-search', onOpen: onOpenSearch }]} lang="pt" />
       </div>
     </div>
   )
@@ -3669,6 +5203,7 @@ function EnterScreen({ onEnter }) {
 
 export default function Portfolio() {
   const [entered, setEntered] = useState(false)
+  const [lang, setLang] = useState('en')
   const { windows, positions, openWindow, closeWindow, minimizeWindow, focusWindow, setPosition } = useWindowManager()
   const [snappedWindows, setSnappedWindows] = useState({})
   const [snapPreview, setSnapPreview] = useState(null) // 'left' | 'right' | null
@@ -3732,12 +5267,16 @@ export default function Portfolio() {
     setSnappedWindows({})
   }, [])
 
-  if (!entered) return <EnterScreen onEnter={() => setEntered(true)} />
+  if (!entered) return <EnterScreen onEnter={(l) => { setLang(l); setEntered(true) }} />
+
+  const ptTitles = { about: 'sobre.txt', resume: 'curriculo.pdf', projects: 'projetos/', 'proj-petrobras': 'Dados Históricos', 'proj-search': 'Buscador de Docs', 'proj-glist': 'Glist' }
+  const getTitle = (w) => lang === 'pt' && ptTitles[w.id] ? ptTitles[w.id] : w.title
+  const getPtUrl = (id) => id === 'proj-petrobras' ? 'tha.design/dados-historicos' : id === 'proj-search' ? 'tha.design/buscador-docs' : null
 
   return (
     <div style={{ cursor: 'default', width: '100vw', height: '100vh', overflow: 'hidden' }}>
-      <MacMenuBar />
-      <Desktop windows={windows} onOpen={openWindow} />
+      <MacMenuBar lang={lang} onLangChange={setLang} />
+      <Desktop windows={windows} onOpen={openWindow} lang={lang} />
 
       {/* Snap preview overlay */}
       {snapPreview && (
@@ -3778,7 +5317,7 @@ export default function Portfolio() {
         <MacWindow
           key={w.id}
           id={w.id}
-          title={w.title}
+          title={getTitle(w)}
           isMinimized={w.isMinimized}
           z={w.z}
           pos={positions[w.id]}
@@ -3810,24 +5349,24 @@ export default function Portfolio() {
           }
           toolbar={
             w.id === 'home'           ? <BrowserToolbar url="tha.design" /> :
-            w.id === 'proj-petrobras' ? <BrowserToolbar url="tha.design/historical-data" /> :
-            w.id === 'proj-search'    ? <BrowserToolbar url="tha.design/documents-search-engine" /> :
+            w.id === 'proj-petrobras' ? <BrowserToolbar url={lang === 'pt' ? getPtUrl(w.id) : 'tha.design/historical-data'} /> :
+            w.id === 'proj-search'    ? <BrowserToolbar url={lang === 'pt' ? getPtUrl(w.id) : 'tha.design/documents-search-engine'} /> :
             null
           }
         >
-          {w.id === 'home'              && <HomeContent />}
-          {w.id === 'about'             && <AboutContent />}
-          {w.id === 'resume'            && <ResumeContent />}
-          {w.id === 'projects'          && <ProjectsContent onOpenProject={openWindow} />}
-          {w.id === 'proj-petrobras' && <PasswordGate><PetrobrasCaseStudy onOpenSearch={() => openWindow('proj-search')} onOpenGlist={() => openWindow('proj-glist')} /></PasswordGate>}
-          {w.id === 'proj-search'    && <PasswordGate><DocumentsSearchEngineCaseStudy onOpenPetrobras={() => openWindow('proj-petrobras')} onOpenGlist={() => openWindow('proj-glist')} /></PasswordGate>}
-          {w.id === 'proj-glist'     && <GlistCaseStudy onOpenPetrobras={() => openWindow('proj-petrobras')} onOpenSearch={() => openWindow('proj-search')} />}
-                    {w.id.startsWith('proj-') && w.id !== 'proj-petrobras' && w.id !== 'proj-search' && w.id !== 'proj-glist' && <ProjectDetailContent projectId={w.id} />}
+          {w.id === 'home'    && (lang === 'pt' ? <HomeContentPt /> : <HomeContent />)}
+          {w.id === 'about'   && (lang === 'pt' ? <AboutContentPt /> : <AboutContent />)}
+          {w.id === 'resume'  && (lang === 'pt' ? <ResumeContentPt /> : <ResumeContent />)}
+          {w.id === 'projects' && <ProjectsContent onOpenProject={openWindow} lang={lang} />}
+          {w.id === 'proj-petrobras' && <PasswordGate lang={lang}>{lang === 'pt' ? <PetrobrasCaseStudyPt onOpenSearch={() => openWindow('proj-search')} onOpenGlist={() => openWindow('proj-glist')} /> : <PetrobrasCaseStudy onOpenSearch={() => openWindow('proj-search')} onOpenGlist={() => openWindow('proj-glist')} />}</PasswordGate>}
+          {w.id === 'proj-search'    && <PasswordGate lang={lang}>{lang === 'pt' ? <DocumentsSearchEngineCaseStudyPt onOpenPetrobras={() => openWindow('proj-petrobras')} onOpenGlist={() => openWindow('proj-glist')} /> : <DocumentsSearchEngineCaseStudy onOpenPetrobras={() => openWindow('proj-petrobras')} onOpenGlist={() => openWindow('proj-glist')} />}</PasswordGate>}
+          {w.id === 'proj-glist'     && (lang === 'pt' ? <GlistCaseStudyPt onOpenPetrobras={() => openWindow('proj-petrobras')} onOpenSearch={() => openWindow('proj-search')} /> : <GlistCaseStudy onOpenPetrobras={() => openWindow('proj-petrobras')} onOpenSearch={() => openWindow('proj-search')} />)}
+          {w.id.startsWith('proj-') && w.id !== 'proj-petrobras' && w.id !== 'proj-search' && w.id !== 'proj-glist' && <ProjectDetailContent projectId={w.id} />}
         </MacWindow>
       ))}
 
       {/* Floating dock — rendered last so it's above everything */}
-      <MacDock projects={PROJECT_DATA} windows={windows} onOpen={openWindow} />
+      <MacDock projects={PROJECT_DATA} windows={windows} onOpen={openWindow} lang={lang} />
 
       {/* ✦ Sparkle cursor trail */}
       <SparkleTrail />
