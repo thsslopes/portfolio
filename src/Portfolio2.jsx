@@ -1429,7 +1429,7 @@ function ResumeContent() {
               in LinkedIn
             </a>
             <a
-              href="https://drive.google.com/file/d/1VJu33U0_8JfcbyE5tr4GKkH9nxf1bA_t/view?usp=sharing"
+              href="https://drive.google.com/file/d/1pv0ZSBbh2NhwdF4IZlYmr2StltgX9HYc/view?usp=sharing"
               target="_blank"
               rel="noreferrer"
               style={{
@@ -4148,7 +4148,7 @@ function ResumeContentPt() {
               style={{ display: 'flex', alignItems: 'center', gap: 5, background: `linear-gradient(135deg, ${P} 0%, ${R} 100%)`, color: 'white', fontSize: 11, fontWeight: 700, fontFamily: MAC.font, textDecoration: 'none', padding: '7px 14px', borderRadius: 20, boxShadow: '0 3px 12px rgba(232,96,154,0.3)' }}>
               in LinkedIn
             </a>
-            <a href="https://drive.google.com/file/d/1XuCq_Po46CAk2Fr-04SMm19VXyeUDDK1/view?usp=sharing" target="_blank" rel="noreferrer"
+            <a href="https://drive.google.com/file/d/1KfWu1B7WvqhsROp7ujxoS8TlBS93htIo/view?usp=sharing" target="_blank" rel="noreferrer"
               style={{ display: 'flex', alignItems: 'center', gap: 5, background: `linear-gradient(135deg, ${P} 0%, ${R} 100%)`, color: 'white', fontSize: 11, fontWeight: 700, fontFamily: MAC.font, textDecoration: 'none', padding: '7px 14px', borderRadius: 20, boxShadow: '0 3px 12px rgba(232,96,154,0.3)' }}>
               ↓ Baixar CV
             </a>

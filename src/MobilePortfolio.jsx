@@ -672,8 +672,8 @@ const ABOUT = {
 }
 
 const CV = {
-  en: 'https://drive.google.com/file/d/1VJu33U0_8JfcbyE5tr4GKkH9nxf1bA_t/view?usp=sharing',
-  pt: 'https://drive.google.com/file/d/1XuCq_Po46CAk2Fr-04SMm19VXyeUDDK1/view?usp=sharing',
+  en: 'https://drive.google.com/file/d/1pv0ZSBbh2NhwdF4IZlYmr2StltgX9HYc/view?usp=sharing',
+  pt: 'https://drive.google.com/file/d/1KfWu1B7WvqhsROp7ujxoS8TlBS93htIo/view?usp=sharing',
 }
 
 const CASE_PASSWORD = 'welcome14'
