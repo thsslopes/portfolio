@@ -629,7 +629,7 @@ const CASES = {
 const ABOUT = {
   en: {
     greeting: "Hi, I'm Thaís ✦",
-    role: 'Product Design · UX/UI',
+    role: 'Product Design (UX/UI) • Service Design • Design Strategy',
     location: '📍 Recife, Brazil — Remote, Open to Relocate',
     paras: [
       'I design at the intersection of people, systems, and complexity — which more often than not means I\'m the one in the room asking "but why does it work this way?" before anyone opens Figma.',
@@ -650,7 +650,7 @@ const ABOUT = {
   },
   pt: {
     greeting: 'Olá, eu sou a Thaís ✦',
-    role: 'Product Design · UX/UI',
+    role: 'Product Design (UX/UI) • Service Design • Design Strategy',
     location: '📍 Recife, Brasil — Remoto, Aberta a Realocação',
     paras: [
       'Eu faço design na interseção de pessoas, sistemas e complexidade — o que, na maioria das vezes, significa que sou eu quem está na sala perguntando "mas por que funciona assim?" antes de alguém abrir o Figma.',
@@ -840,7 +840,7 @@ function EnterScreen({ onEnter }) {
       <div style={{ background: 'rgba(255,255,255,0.88)', backdropFilter: 'blur(24px)', borderRadius: 24, padding: '44px 36px 36px', textAlign: 'center', border: '1px solid rgba(255,255,255,0.65)', boxShadow: '0 12px 48px rgba(232,96,154,0.18)', maxWidth: 340, width: '100%', transform: exiting ? 'translateY(-110vh)' : 'translateY(0)', opacity: exiting ? 0 : 1, transition: exiting ? 'transform 0.48s cubic-bezier(0.4,0,0.2,1), opacity 0.3s' : 'none' }}>
         <div style={{ fontFamily: SANS, fontWeight: 900, fontSize: 30, color: '#1a1a2e', letterSpacing: -1, lineHeight: 1.1 }}>thais lopes</div>
         <div style={{ fontFamily: SANS, fontWeight: 900, fontSize: 30, color: PINK, letterSpacing: -1, lineHeight: 1.15, marginBottom: 6 }}>portfolio ✦</div>
-        <div style={{ fontFamily: MONO, fontSize: 10, color: '#AAA', letterSpacing: 1.8, textTransform: 'uppercase', marginBottom: 32 }}>product design · ux/ui</div>
+        <div style={{ fontFamily: MONO, fontSize: 10, color: '#AAA', letterSpacing: 1.2, marginBottom: 32 }}>Product Design (UX/UI) • Service Design • Design Strategy</div>
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
           {[{ lang: 'en', label: '🇺🇸 EN' }, { lang: 'pt', label: '🇧🇷 PT' }].map(({ lang, label }) => (
             <button key={lang} onClick={() => handleClick(lang)} onMouseEnter={() => setHovered(lang)} onMouseLeave={() => setHovered(null)}
@@ -928,7 +928,7 @@ function HomeTab({ lang, onGoWork, onGoAbout }) {
             <div>
               <div style={{ fontFamily: SANS, fontWeight: 900, fontSize: 20, color: '#1a1a2e', marginBottom: 3, lineHeight: 1.1 }}>thais lopes</div>
               <div style={{ fontFamily: MONO, fontSize: 10, color: PINK, letterSpacing: 1.2, textTransform: 'uppercase', marginBottom: 6 }}>
-                product design · ux/ui
+                Product Design (UX/UI) • Service Design • Design Strategy
               </div>
               <div style={{ fontFamily: MONO, fontSize: 10, color: '#888' }}>
                 📍 {isEn ? 'Recife, Brazil — Remote, Open to Relocate' : 'Recife, Brasil — Remoto, Aberta a Realocação'}
@@ -1261,7 +1261,7 @@ function CvTab({ lang }) {
         <div style={{ background: 'rgba(255,255,255,0.88)', backdropFilter: 'blur(12px)', borderRadius: 14, padding: '20px 16px' }}>
           <div style={{ fontSize: 32, marginBottom: 10 }}>📄</div>
           <div style={{ fontFamily: SANS, fontWeight: 800, fontSize: 16, color: '#1a1a2e', marginBottom: 6 }}>thais lopes</div>
-          <div style={{ fontFamily: MONO, fontSize: 10, color: '#888', marginBottom: 20 }}>product designer · ux/ui</div>
+          <div style={{ fontFamily: MONO, fontSize: 10, color: '#888', marginBottom: 20 }}>Product Design (UX/UI) • Service Design • Design Strategy</div>
           <a href={CV[lang]} target="_blank" rel="noreferrer"
             style={{ display: 'inline-block', background: PINK, color: '#fff', borderRadius: 10, padding: '11px 28px', fontFamily: MONO, fontSize: 12, fontWeight: 700, letterSpacing: 0.8, textDecoration: 'none' }}>
             ↓ {isEn ? 'Download CV' : 'Baixar CV'}
