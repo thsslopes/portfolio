@@ -9,38 +9,38 @@ import aboutMuseum       from './assets/about-4.jpg'
 import aboutFunny        from './assets/about-1.jpg'
 
 import hdContext          from './assets/hd-context.png'
-import hdProductFraming  from './assets/hd-product-framing.png'
-import hdUnderstanding   from './assets/hd-understanding.png'
-import hdUnderstandingUsers from './assets/hd-understanding-users.png'
+import hdProductFraming  from './assets/hd-product-framing.jpg'
+import hdUnderstanding   from './assets/hd-understanding.jpg'
+import hdUnderstandingUsers from './assets/hd-understanding-users.jpg'
 import hdLofi1           from './assets/hd-lofi1.jpg'
 import hdLofi2           from './assets/hd-lofi2.jpg'
 import hdHifi1           from './assets/hd-hifi1.jpg'
 import hdHifi2           from './assets/hd-hifi2.jpg'
 import hdHifi3           from './assets/hd-hifi3.jpg'
 
-import dseLeanCanvas     from './assets/dse/dse-lean-canvas.png'
-import dseValueProp      from './assets/dse/dse-value-prop.png'
-import dseResearch       from './assets/dse/dse-research.png'
-import dseIa             from './assets/dse/dse-ia.png'
-import dseAccess         from './assets/dse/dse-access.png'
-import dseUi             from './assets/dse/dse-ui.png'
+import dseLeanCanvas     from './assets/dse/dse-lean-canvas.jpg'
+import dseValueProp      from './assets/dse/dse-value-prop.jpg'
+import dseResearch       from './assets/dse/dse-research.jpg'
+import dseIa             from './assets/dse/dse-ia.jpg'
+import dseAccess         from './assets/dse/dse-access.jpg'
+import dseUi             from './assets/dse/dse-ui.jpg'
 import dseFilterTree     from './assets/dse/dse-filter-tree.png'
 
-import glistHero         from './assets/glist/hero.png'
-import glistMatriz       from './assets/glist/matriz-csd.png'
+import glistHero         from './assets/glist/hero.jpg'
+import glistMatriz       from './assets/glist/matriz-csd.jpg'
 import glistEmpathy      from './assets/glist/empathy-map.png'
-import glistPersonas     from './assets/glist/personas.png'
-import glistJourney      from './assets/glist/user-journey.png'
-import glistMoodboard    from './assets/glist/moodboard.png'
-import glistSketches     from './assets/glist/sketches.png'
-import glistWireframes   from './assets/glist/wireframes.png'
-import glistProto01      from './assets/glist/prototype01.png'
-import glistProto02      from './assets/glist/prototype02.png'
-import glistProto03      from './assets/glist/prototype03.png'
-import glistProto04      from './assets/glist/prototype04.png'
-import glistProto05      from './assets/glist/prototype05.png'
-import glistProto06      from './assets/glist/prototype06.png'
-import glistUsertest     from './assets/glist/usertest.png'
+import glistPersonas     from './assets/glist/personas.jpg'
+import glistJourney      from './assets/glist/user-journey.jpg'
+import glistMoodboard    from './assets/glist/moodboard.jpg'
+import glistSketches     from './assets/glist/sketches.jpg'
+import glistWireframes   from './assets/glist/wireframes.jpg'
+import glistProto01      from './assets/glist/prototype01.jpg'
+import glistProto02      from './assets/glist/prototype02.jpg'
+import glistProto03      from './assets/glist/prototype03.jpg'
+import glistProto04      from './assets/glist/prototype04.jpg'
+import glistProto05      from './assets/glist/prototype05.jpg'
+import glistProto06      from './assets/glist/prototype06.jpg'
+import glistUsertest     from './assets/glist/usertest.jpg'
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 const PINK     = '#E8609A'
@@ -885,16 +885,18 @@ function StatusBar({ lang, onLangChange, onGoHome }) {
 // ─── Tab bar ──────────────────────────────────────────────────────────────────
 const TAB_DEFS = {
   en: [
-    { id: 'home',  icon: '✦', label: 'home'   },
-    { id: 'work',  icon: '⊞', label: 'work'   },
-    { id: 'about', icon: '◉', label: 'about'  },
-    { id: 'cv',    icon: '↓', label: 'resume' },
+    { id: 'home',    icon: '✦', label: 'home'    },
+    { id: 'work',    icon: '⊞', label: 'work'    },
+    { id: 'about',   icon: '◉', label: 'about'   },
+    { id: 'cv',      icon: '↓', label: 'resume'  },
+    { id: 'contact', icon: '✉', label: 'contact' },
   ],
   pt: [
-    { id: 'home',  icon: '✦', label: 'início'    },
-    { id: 'work',  icon: '⊞', label: 'work'      },
-    { id: 'about', icon: '◉', label: 'sobre'     },
-    { id: 'cv',    icon: '↓', label: 'currículo' },
+    { id: 'home',    icon: '✦', label: 'início'   },
+    { id: 'work',    icon: '⊞', label: 'work'     },
+    { id: 'about',   icon: '◉', label: 'sobre'    },
+    { id: 'cv',      icon: '↓', label: 'currículo'},
+    { id: 'contact', icon: '✉', label: 'contato'  },
   ],
 }
 
@@ -1314,6 +1316,90 @@ function CvTab({ lang }) {
   )
 }
 
+// ─── Contact tab ─────────────────────────────────────────────────────────────
+function ContactTab({ lang }) {
+  const isEn = lang === 'en'
+  const [status, setStatus] = useState('idle')
+  const [form, setForm]     = useState({ name: '', email: '', message: '' })
+
+  const t = isEn
+    ? { heading: 'say hello ✦', sub: "I'd love to hear from you.", namePh: 'your name', emailPh: 'your email', msgPh: 'your message...', btn: 'send message', sending: 'sending...', done: "message sent! I'll get back to you soon ✦", err: 'something went wrong — try again?' }
+    : { heading: 'diga olá ✦',  sub: 'Adoraria ouvir de você.',   namePh: 'seu nome',   emailPh: 'seu e-mail',  msgPh: 'sua mensagem...', btn: 'enviar mensagem', sending: 'enviando...', done: 'mensagem enviada! Te respondo em breve ✦', err: 'algo deu errado — tenta de novo?' }
+
+  const handleChange = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }))
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setStatus('sending')
+    try {
+      const res = await fetch('https://formspree.io/f/xvzdnyvr', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(form),
+      })
+      setStatus(res.ok ? 'done' : 'error')
+    } catch {
+      setStatus('error')
+    }
+  }
+
+  const inputStyle = {
+    width: '100%', boxSizing: 'border-box',
+    border: `1.5px solid rgba(232,96,154,0.25)`, borderRadius: 12, outline: 'none',
+    padding: '11px 14px', fontSize: 13, fontFamily: MONO,
+    background: '#FFF9FC', color: '#333', transition: 'border-color 0.2s',
+  }
+
+  return (
+    <div style={{ padding: '20px 16px 100px' }}>
+      <div style={{ fontFamily: MONO, fontSize: 9, color: '#AAA', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>
+        ✉ {isEn ? 'contact' : 'contato'}
+      </div>
+
+      <div style={{ background: CHECKER, borderRadius: 18, padding: '24px 20px', marginBottom: 20, border: `1px solid rgba(232,96,154,0.2)` }}>
+        <div style={{ background: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(12px)', borderRadius: 14, padding: '20px 16px' }}>
+          <div style={{ fontFamily: SANS, fontWeight: 800, fontSize: 18, color: '#1a1a2e', marginBottom: 4 }}>{t.heading}</div>
+          <div style={{ fontFamily: MONO, fontSize: 11, color: '#888', marginBottom: 0 }}>{t.sub}</div>
+        </div>
+      </div>
+
+      {status === 'done' ? (
+        <div style={{ background: PINK_BG, border: `1px solid rgba(232,96,154,0.3)`, borderRadius: 14, padding: '24px', textAlign: 'center', fontFamily: MONO, fontSize: 13, color: PINK, lineHeight: 1.6 }}>
+          {t.done}
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <input name="name" placeholder={t.namePh} value={form.name} onChange={handleChange} required style={inputStyle} />
+          <input name="email" type="email" placeholder={t.emailPh} value={form.email} onChange={handleChange} required style={inputStyle} />
+          <textarea name="message" placeholder={t.msgPh} value={form.message} onChange={handleChange} required rows={5}
+            style={{ ...inputStyle, resize: 'vertical', minHeight: 110 }} />
+          {status === 'error' && <div style={{ fontFamily: MONO, fontSize: 11, color: '#C00' }}>{t.err}</div>}
+          <button type="submit" disabled={status === 'sending'}
+            style={{ background: PINK, color: '#fff', border: 'none', borderRadius: 12, padding: '13px', fontFamily: MONO, fontSize: 13, fontWeight: 700, cursor: status === 'sending' ? 'wait' : 'pointer', opacity: status === 'sending' ? 0.7 : 1, WebkitTapHighlightColor: 'transparent' }}>
+            {status === 'sending' ? t.sending : t.btn}
+          </button>
+        </form>
+      )}
+
+      <div style={{ marginTop: 24, paddingTop: 20, borderTop: `1px solid ${PINK_DIM}` }}>
+        <div style={{ fontFamily: MONO, fontSize: 9, color: '#BBB', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>
+          {isEn ? 'or reach me directly' : 'ou me encontre diretamente'}
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <a href="mailto:thaislopesdesign@gmail.com"
+            style={{ display: 'block', textDecoration: 'none', background: '#fff', border: `1px solid ${PINK_DIM}`, borderRadius: 12, padding: '12px 16px', fontFamily: MONO, fontSize: 12, color: PINK, fontWeight: 600 }}>
+            ✉ thaislopesdesign@gmail.com
+          </a>
+          <a href="https://www.linkedin.com/in/thaiss-lopes/" target="_blank" rel="noreferrer"
+            style={{ display: 'block', textDecoration: 'none', background: '#fff', border: `1px solid ${PINK_DIM}`, borderRadius: 12, padding: '12px 16px', fontFamily: MONO, fontSize: 12, color: PINK, fontWeight: 600 }}>
+            ↗ LinkedIn
+          </a>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // ─── Root ─────────────────────────────────────────────────────────────────────
 export default function MobilePortfolio() {
   const [entered,      setEntered]      = useState(false)
@@ -1347,7 +1433,8 @@ export default function MobilePortfolio() {
         {activeTab === 'work' && !selectedCase && <WorkTab lang={lang} onSelectCase={handleSelectCase} />}
         {activeTab === 'work' && caseData && <CaseDetail c={caseData} lang={lang} onBack={() => setSelectedCase(null)} />}
         {activeTab === 'about' && <AboutTab lang={lang} />}
-        {activeTab === 'cv' && <CvTab lang={lang} />}
+        {activeTab === 'cv'      && <CvTab lang={lang} />}
+        {activeTab === 'contact' && <ContactTab lang={lang} />}
       </div>
       <TabBar activeTab={activeTab} onTabChange={handleTabChange} lang={lang} />
     </div>

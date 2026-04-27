@@ -18,30 +18,30 @@ import aboutFunny   from './assets/about-1.jpg'
 import aboutTeach   from './assets/about-5.jpg'
 import aboutGroup   from './assets/about-6.jpg'
 
-import glistHero        from './assets/glist/hero.png'
+import glistHero        from './assets/glist/hero.jpg'
 import glistEmpathy    from './assets/glist/empathy-map.png'
-import glistPersonas   from './assets/glist/personas.png'
-import glistMatriz     from './assets/glist/matriz-csd.png'
-import glistJourney    from './assets/glist/user-journey.png'
-import glistMoodboard  from './assets/glist/moodboard.png'
-import glistSketches   from './assets/glist/sketches.png'
-import glistWireframes from './assets/glist/wireframes.png'
+import glistPersonas   from './assets/glist/personas.jpg'
+import glistMatriz     from './assets/glist/matriz-csd.jpg'
+import glistJourney    from './assets/glist/user-journey.jpg'
+import glistMoodboard  from './assets/glist/moodboard.jpg'
+import glistSketches   from './assets/glist/sketches.jpg'
+import glistWireframes from './assets/glist/wireframes.jpg'
 import glistStyle01    from './assets/glist/styleguide-01.png'
-import glistStyle02    from './assets/glist/styleguide-02.png'
-import glistStyle03    from './assets/glist/styleguide-03.png'
-import glistProto01    from './assets/glist/prototype01.png'
-import glistProto02    from './assets/glist/prototype02.png'
-import glistProto03    from './assets/glist/prototype03.png'
-import glistProto04    from './assets/glist/prototype04.png'
-import glistProto05    from './assets/glist/prototype05.png'
-import glistProto06    from './assets/glist/prototype06.png'
-import glistUsertest   from './assets/glist/usertest.png'
+import glistStyle02    from './assets/glist/styleguide-02.jpg'
+import glistStyle03    from './assets/glist/styleguide-03.jpg'
+import glistProto01    from './assets/glist/prototype01.jpg'
+import glistProto02    from './assets/glist/prototype02.jpg'
+import glistProto03    from './assets/glist/prototype03.jpg'
+import glistProto04    from './assets/glist/prototype04.jpg'
+import glistProto05    from './assets/glist/prototype05.jpg'
+import glistProto06    from './assets/glist/prototype06.jpg'
+import glistUsertest   from './assets/glist/usertest.jpg'
 import glistAnimation  from './assets/glist/animation-transparent.webm'
 
 import hdContext           from './assets/hd-context.png'
-import hdProductFraming    from './assets/hd-product-framing.png'
-import hdUnderstandingUsers from './assets/hd-understanding-users.png'
-import hdUnderstanding      from './assets/hd-understanding.png'
+import hdProductFraming    from './assets/hd-product-framing.jpg'
+import hdUnderstandingUsers from './assets/hd-understanding-users.jpg'
+import hdUnderstanding      from './assets/hd-understanding.jpg'
 import hdDecisions          from './assets/hd-decisions.gif'
 import hdHifi1              from './assets/hd-hifi1.jpg'
 import hdHifi2              from './assets/hd-hifi2.jpg'
@@ -49,12 +49,12 @@ import hdHifi3              from './assets/hd-hifi3.jpg'
 import hdLofi1              from './assets/hd-lofi1.jpg'
 import hdLofi2              from './assets/hd-lofi2.jpg'
 
-import dseLeanCanvas  from './assets/dse/dse-lean-canvas.png'
-import dseValueProp   from './assets/dse/dse-value-prop.png'
-import dseResearch    from './assets/dse/dse-research.png'
-import dseIa          from './assets/dse/dse-ia.png'
-import dseAccess      from './assets/dse/dse-access.png'
-import dseUi          from './assets/dse/dse-ui.png'
+import dseLeanCanvas  from './assets/dse/dse-lean-canvas.jpg'
+import dseValueProp   from './assets/dse/dse-value-prop.jpg'
+import dseResearch    from './assets/dse/dse-research.jpg'
+import dseIa          from './assets/dse/dse-ia.jpg'
+import dseAccess      from './assets/dse/dse-access.jpg'
+import dseUi          from './assets/dse/dse-ui.jpg'
 import dseFilterTree  from './assets/dse/dse-filter-tree.png'
 
 // ─── Design tokens (girly pink palette) ──────────────────────────────────────
@@ -90,6 +90,7 @@ function useWindowManager() {
     'proj-petrobras':{ id: 'proj-petrobras',title: 'Historical Data',      isOpen: false, isMinimized: false, z: 10 },
     'proj-search':   { id: 'proj-search',   title: 'Documents Search Engine', isOpen: false, isMinimized: false, z: 10 },
     'proj-glist':    { id: 'proj-glist',    title: 'Glist',                   isOpen: false, isMinimized: false, z: 10 },
+    contact:         { id: 'contact',       title: 'contact.txt',             isOpen: false, isMinimized: false, z: 10 },
   })
 
   const [positions, setPositions] = useState(() => {
@@ -3377,6 +3378,88 @@ function DesktopIcon({ label, onClick, isOpen, isHome = false, fileType = null, 
   )
 }
 
+// ─── Contact ──────────────────────────────────────────────────────────────────
+
+function ContactForm({ lang }) {
+  const isEn = lang !== 'pt'
+  const [status, setStatus] = useState('idle') // idle | sending | done | error
+  const [form, setForm]     = useState({ name: '', email: '', message: '' })
+  const P = MAC.rose
+  const f = MAC.font
+
+  const t = isEn
+    ? { heading: 'say hello ✦', sub: "I'd love to hear from you.", namePh: 'your name', emailPh: 'your email', msgPh: 'your message...', btn: 'send message', sending: 'sending...', done: "message sent! I'll get back to you soon ✦", err: 'something went wrong. try again?' }
+    : { heading: 'diga olá ✦',  sub: 'Adoraria ouvir de você.',   namePh: 'seu nome',   emailPh: 'seu e-mail',  msgPh: 'sua mensagem...', btn: 'enviar mensagem', sending: 'enviando...', done: 'mensagem enviada! Te respondo em breve ✦', err: 'algo deu errado. tenta de novo?' }
+
+  const handleChange = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }))
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setStatus('sending')
+    try {
+      const res = await fetch('https://formspree.io/f/xvzdnyvr', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ name: form.name, email: form.email, message: form.message }),
+      })
+      setStatus(res.ok ? 'done' : 'error')
+    } catch {
+      setStatus('error')
+    }
+  }
+
+  const inputStyle = {
+    width: '100%', boxSizing: 'border-box',
+    border: '1.5px solid rgba(232,96,154,0.25)', borderRadius: 10, outline: 'none',
+    padding: '9px 12px', fontSize: 12, fontFamily: f,
+    background: '#FFF9FC', color: '#333',
+    transition: 'border-color 0.2s',
+  }
+
+  return (
+    <div style={{ padding: '24px 28px 32px', overflowY: 'auto', flex: 1 }}>
+      <div style={{ fontSize: 9, fontFamily: f, color: P, letterSpacing: 2.5, textTransform: 'uppercase', marginBottom: 6 }}>contact.txt</div>
+      <h2 style={{ fontFamily: f, fontSize: 18, fontWeight: 700, color: '#1A1A1A', margin: '0 0 4px' }}>{t.heading}</h2>
+      <p style={{ fontFamily: f, fontSize: 12, color: '#888', margin: '0 0 22px' }}>{t.sub}</p>
+
+      {status === 'done' ? (
+        <div style={{ background: '#FFF0F6', border: '1px solid rgba(232,96,154,0.3)', borderRadius: 12, padding: '20px', textAlign: 'center', fontFamily: f, fontSize: 13, color: P }}>
+          {t.done}
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <input name="name" placeholder={t.namePh} value={form.name} onChange={handleChange} required style={inputStyle}
+            onFocus={e => e.target.style.borderColor = P} onBlur={e => e.target.style.borderColor = 'rgba(232,96,154,0.25)'} />
+          <input name="email" type="email" placeholder={t.emailPh} value={form.email} onChange={handleChange} required style={inputStyle}
+            onFocus={e => e.target.style.borderColor = P} onBlur={e => e.target.style.borderColor = 'rgba(232,96,154,0.25)'} />
+          <textarea name="message" placeholder={t.msgPh} value={form.message} onChange={handleChange} required rows={5}
+            style={{ ...inputStyle, resize: 'vertical', minHeight: 100 }}
+            onFocus={e => e.target.style.borderColor = P} onBlur={e => e.target.style.borderColor = 'rgba(232,96,154,0.25)'} />
+          {status === 'error' && <div style={{ fontFamily: f, fontSize: 11, color: '#C00' }}>{t.err}</div>}
+          <button type="submit" disabled={status === 'sending'}
+            style={{ background: P, color: '#fff', border: 'none', borderRadius: 10, padding: '10px 20px', fontFamily: f, fontSize: 12, fontWeight: 700, cursor: status === 'sending' ? 'wait' : 'pointer', opacity: status === 'sending' ? 0.7 : 1, alignSelf: 'flex-start', transition: 'opacity 0.15s' }}>
+            {status === 'sending' ? t.sending : t.btn}
+          </button>
+        </form>
+      )}
+
+      <div style={{ marginTop: 28, paddingTop: 20, borderTop: '1px solid #F0E0EC' }}>
+        <div style={{ fontFamily: f, fontSize: 9, color: '#BBB', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>
+          {isEn ? 'or reach me directly' : 'ou me encontre diretamente'}
+        </div>
+        <div style={{ display: 'flex', gap: 10 }}>
+          <a href="mailto:thaislopesdesign@gmail.com" style={{ fontFamily: f, fontSize: 11, color: P, textDecoration: 'none', background: '#FFF0F6', border: '1px solid rgba(232,96,154,0.2)', borderRadius: 8, padding: '6px 12px' }}>
+            ✉ thaislopesdesign@gmail.com
+          </a>
+          <a href="https://www.linkedin.com/in/thaiss-lopes/" target="_blank" rel="noreferrer" style={{ fontFamily: f, fontSize: 11, color: P, textDecoration: 'none', background: '#FFF0F6', border: '1px solid rgba(232,96,154,0.2)', borderRadius: 8, padding: '6px 12px' }}>
+            ↗ LinkedIn
+          </a>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // ─── macOS menu bar ───────────────────────────────────────────────────────────
 
 function MacMenuBar({ lang = 'en', onLangChange }) {
@@ -3554,14 +3637,16 @@ function Desktop({ windows, onOpen, lang = 'en' }) {
 
   const leftIcons = lang === 'pt'
     ? [
-        { id: 'home',   label: 'tha.design',    isHome: true,  fileType: null  },
-        { id: 'about',  label: 'sobre.txt',      isHome: false, fileType: 'txt' },
-        { id: 'resume', label: 'curriculo.pdf',  isHome: false, fileType: 'pdf' },
+        { id: 'home',    label: 'tha.design',    isHome: true,  fileType: null  },
+        { id: 'about',   label: 'sobre.txt',      isHome: false, fileType: 'txt' },
+        { id: 'resume',  label: 'curriculo.pdf',  isHome: false, fileType: 'pdf' },
+        { id: 'contact', label: 'contato.txt',    isHome: false, fileType: 'txt' },
       ]
     : [
-        { id: 'home',   label: 'tha.design',  isHome: true,  fileType: null  },
-        { id: 'about',  label: 'about.txt',   isHome: false, fileType: 'txt' },
-        { id: 'resume', label: 'resume.pdf',  isHome: false, fileType: 'pdf' },
+        { id: 'home',    label: 'tha.design',  isHome: true,  fileType: null  },
+        { id: 'about',   label: 'about.txt',   isHome: false, fileType: 'txt' },
+        { id: 'resume',  label: 'resume.pdf',  isHome: false, fileType: 'pdf' },
+        { id: 'contact', label: 'contact.txt', isHome: false, fileType: 'txt' },
       ]
 
   const handleDesktopClick = (e) => {
@@ -5269,7 +5354,7 @@ export default function Portfolio() {
 
   if (!entered) return <EnterScreen onEnter={(l) => { setLang(l); setEntered(true) }} />
 
-  const ptTitles = { about: 'sobre.txt', resume: 'curriculo.pdf', projects: 'projetos/', 'proj-petrobras': 'Dados Históricos', 'proj-search': 'Buscador de Docs', 'proj-glist': 'Glist' }
+  const ptTitles = { about: 'sobre.txt', resume: 'curriculo.pdf', projects: 'projetos/', contact: 'contato.txt', 'proj-petrobras': 'Dados Históricos', 'proj-search': 'Buscador de Docs', 'proj-glist': 'Glist' }
   const getTitle = (w) => lang === 'pt' && ptTitles[w.id] ? ptTitles[w.id] : w.title
   const getPtUrl = (id) => id === 'proj-petrobras' ? 'tha.design/dados-historicos' : id === 'proj-search' ? 'tha.design/buscador-docs' : null
 
@@ -5333,6 +5418,7 @@ export default function Portfolio() {
           width={
             w.id === 'home'          ? 700 :
             w.id === 'projects'      ? 580 :
+            w.id === 'contact'       ? 480 :
             w.id === 'proj-petrobras'? 780 :
             w.id === 'proj-search'   ? 780 :
             w.id === 'proj-glist'    ? 720 :
@@ -5342,6 +5428,7 @@ export default function Portfolio() {
             w.id === 'home'          ? 520 :
             w.id === 'about'         ? 560 :
             w.id === 'projects'      ? 340 :
+            w.id === 'contact'       ? 500 :
             w.id === 'proj-petrobras'? 580 :
             w.id === 'proj-search'   ? 580 :
             w.id === 'proj-glist'    ? 560 :
@@ -5355,6 +5442,7 @@ export default function Portfolio() {
           }
         >
           {w.id === 'home'    && (lang === 'pt' ? <HomeContentPt /> : <HomeContent />)}
+          {w.id === 'contact' && <ContactForm lang={lang} />}
           {w.id === 'about'   && (lang === 'pt' ? <AboutContentPt /> : <AboutContent />)}
           {w.id === 'resume'  && (lang === 'pt' ? <ResumeContentPt /> : <ResumeContent />)}
           {w.id === 'projects' && <ProjectsContent onOpenProject={openWindow} lang={lang} />}
