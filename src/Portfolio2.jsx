@@ -3408,16 +3408,17 @@ function DesktopIcon({ label, onClick, isOpen, isHome = false, fileType = null, 
 
 function ContactForm({ lang }) {
   const isEn = lang !== 'pt'
-  const [status, setStatus] = useState('idle') // idle | sending | done | error
+  const [status, setStatus] = useState('idle')
   const [form, setForm]     = useState({ name: '', email: '', message: '' })
-  const P = MAC.rose
-  const f = MAC.font
+  const P  = MAC.rose
+  const f  = MAC.font
+  const RULED_LINE = 'rgba(232,96,154,0.13)'
 
   const t = isEn
-    ? { heading: 'say hello ✦', sub: "I'd love to hear from you.", namePh: 'your name', emailPh: 'your email', msgPh: 'your message...', btn: 'send message', sending: 'sending...', done: "message sent! I'll get back to you soon ✦", err: 'something went wrong. try again?' }
-    : { heading: 'oie, feliz de ter você aqui! ✦',  sub: 'vamos trabalhar juntos? vai ser massa!',   namePh: 'seu nome',   emailPh: 'seu e-mail',  msgPh: 'sua mensagem...', btn: 'enviar mensagem', sending: 'enviando...', done: 'mensagem enviada! Te respondo em breve ✦', err: 'algo deu errado. tenta de novo?' }
+    ? { heading: 'say hello ✦', sub: "let's work together? it'll be awesome!", namePh: 'your name', emailPh: 'your email', msgPh: 'write your message here...', btn: 'send', sending: 'sending...', done: "message sent! i'll get back to you soon ✦", err: 'something went wrong. try again?' }
+    : { heading: 'oie, feliz de ter você aqui! ✦', sub: 'vamos trabalhar juntos? vai ser massa!', namePh: 'seu nome', emailPh: 'seu e-mail', msgPh: 'escreva sua mensagem aqui...', btn: 'enviar', sending: 'enviando...', done: 'mensagem enviada! te respondo em breve ✦', err: 'algo deu errado. tenta de novo?' }
 
-  const handleChange = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }))
+  const handleChange = e => setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -3434,52 +3435,127 @@ function ContactForm({ lang }) {
     }
   }
 
-  const inputStyle = {
+  const lineStyle = {
     width: '100%', boxSizing: 'border-box',
-    border: '1.5px solid rgba(232,96,154,0.25)', borderRadius: 10, outline: 'none',
-    padding: '9px 12px', fontSize: 12, fontFamily: f,
-    background: '#FFF9FC', color: '#333',
-    transition: 'border-color 0.2s',
+    border: 'none', borderBottom: `1.5px solid ${RULED_LINE}`,
+    outline: 'none', background: 'transparent',
+    padding: '6px 0 5px', fontSize: 13, fontFamily: 'Georgia, serif',
+    color: '#3A1A2A', lineHeight: 1.8,
   }
 
+  const labelStyle = {
+    fontSize: 8, fontFamily: f, color: P,
+    letterSpacing: 2.5, textTransform: 'uppercase', marginBottom: 2, display: 'block',
+  }
+
+  // Ruler tick marks
+  const ticks = Array.from({ length: 9 }, (_, i) => i)
+
   return (
-    <div style={{ padding: '24px 28px 32px', overflowY: 'auto', flex: 1 }}>
-      <div style={{ fontSize: 9, fontFamily: f, color: P, letterSpacing: 2.5, textTransform: 'uppercase', marginBottom: 6 }}>contact.txt</div>
-      <h2 style={{ fontFamily: f, fontSize: 18, fontWeight: 700, color: '#1A1A1A', margin: '0 0 4px' }}>{t.heading}</h2>
-      <p style={{ fontFamily: f, fontSize: 12, color: '#888', margin: '0 0 22px' }}>{t.sub}</p>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: '#FFF8FB', overflowY: 'auto' }}>
 
-      {status === 'done' ? (
-        <div style={{ background: '#FFF0F6', border: '1px solid rgba(232,96,154,0.3)', borderRadius: 12, padding: '20px', textAlign: 'center', fontFamily: f, fontSize: 13, color: P }}>
-          {t.done}
-        </div>
-      ) : (
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          <input name="name" placeholder={t.namePh} value={form.name} onChange={handleChange} required style={inputStyle}
-            onFocus={e => e.target.style.borderColor = P} onBlur={e => e.target.style.borderColor = 'rgba(232,96,154,0.25)'} />
-          <input name="email" type="email" placeholder={t.emailPh} value={form.email} onChange={handleChange} required style={inputStyle}
-            onFocus={e => e.target.style.borderColor = P} onBlur={e => e.target.style.borderColor = 'rgba(232,96,154,0.25)'} />
-          <textarea name="message" placeholder={t.msgPh} value={form.message} onChange={handleChange} required rows={5}
-            style={{ ...inputStyle, resize: 'vertical', minHeight: 100 }}
-            onFocus={e => e.target.style.borderColor = P} onBlur={e => e.target.style.borderColor = 'rgba(232,96,154,0.25)'} />
-          {status === 'error' && <div style={{ fontFamily: f, fontSize: 11, color: '#C00' }}>{t.err}</div>}
-          <button type="submit" disabled={status === 'sending'}
-            style={{ background: P, color: '#fff', border: 'none', borderRadius: 10, padding: '10px 20px', fontFamily: f, fontSize: 12, fontWeight: 700, cursor: status === 'sending' ? 'wait' : 'pointer', opacity: status === 'sending' ? 0.7 : 1, alignSelf: 'flex-start', transition: 'opacity 0.15s' }}>
-            {status === 'sending' ? t.sending : t.btn}
-          </button>
-        </form>
-      )}
+      {/* Ruler */}
+      <div style={{
+        flexShrink: 0,
+        background: 'linear-gradient(to bottom, #F9EEF4 0%, #F2E2EC 100%)',
+        borderBottom: `2px solid ${P}`,
+        padding: '0 20px',
+        height: 32,
+        display: 'flex',
+        alignItems: 'flex-end',
+        position: 'relative',
+        userSelect: 'none',
+      }}>
+        {/* Ruler triangle marker */}
+        <div style={{
+          position: 'absolute', left: 20, top: 4,
+          width: 0, height: 0,
+          borderLeft: '5px solid transparent', borderRight: '5px solid transparent',
+          borderTop: `8px solid ${P}`,
+        }} />
+        {ticks.map(i => (
+          <div key={i} style={{
+            position: 'absolute',
+            left: `calc(20px + ${i * 12.5}%)`,
+            bottom: 0, display: 'flex', flexDirection: 'column', alignItems: 'center',
+          }}>
+            <span style={{ fontSize: 7, fontFamily: f, color: 'rgba(232,96,154,0.5)', marginBottom: 1 }}>{i * 2}</span>
+            <div style={{ width: 1, height: i % 2 === 0 ? 8 : 5, background: `rgba(232,96,154,${i % 2 === 0 ? 0.4 : 0.2})` }} />
+          </div>
+        ))}
+      </div>
 
-      <div style={{ marginTop: 28, paddingTop: 20, borderTop: '1px solid #F0E0EC' }}>
-        <div style={{ fontFamily: f, fontSize: 9, color: '#BBB', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>
-          {isEn ? 'or reach me directly' : 'ou me encontre diretamente'}
-        </div>
-        <div style={{ display: 'flex', gap: 10 }}>
-          <a href="mailto:thaislopesdesign@gmail.com" style={{ fontFamily: f, fontSize: 11, color: P, textDecoration: 'none', background: '#FFF0F6', border: '1px solid rgba(232,96,154,0.2)', borderRadius: 8, padding: '6px 12px' }}>
-            ✉ thaislopesdesign@gmail.com
-          </a>
-          <a href="https://www.linkedin.com/in/thaiss-lopes/" target="_blank" rel="noreferrer" style={{ fontFamily: f, fontSize: 11, color: P, textDecoration: 'none', background: '#FFF0F6', border: '1px solid rgba(232,96,154,0.2)', borderRadius: 8, padding: '6px 12px' }}>
-            ↗ LinkedIn
-          </a>
+      {/* Page body with margin line */}
+      <div style={{ display: 'flex', flex: 1, minHeight: 0 }}>
+
+        {/* Pink left margin */}
+        <div style={{ width: 36, flexShrink: 0, borderRight: `2px solid rgba(232,96,154,0.35)`, background: 'rgba(255,200,225,0.08)' }} />
+
+        {/* Lined content area */}
+        <div style={{ flex: 1, padding: '18px 24px 24px 18px', backgroundImage: `repeating-linear-gradient(to bottom, transparent, transparent 27px, ${RULED_LINE} 27px, ${RULED_LINE} 28px)`, backgroundSize: '100% 28px' }}>
+
+          {/* Heading + sub */}
+          <div style={{ fontFamily: 'Georgia, serif', fontSize: 15, fontWeight: 700, color: P, marginBottom: 2, lineHeight: 1.8 }}>
+            {t.heading}
+          </div>
+          <div style={{ fontFamily: 'Georgia, serif', fontSize: 12, color: 'rgba(58,26,42,0.55)', marginBottom: 20, fontStyle: 'italic', lineHeight: 1.8 }}>
+            {t.sub}
+          </div>
+
+          {status === 'done' ? (
+            <div style={{ fontFamily: 'Georgia, serif', fontSize: 13, color: P, lineHeight: 1.8, fontStyle: 'italic' }}>
+              ✦ {t.done}
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+              <div>
+                <label style={labelStyle}>{isEn ? 'name' : 'nome'}</label>
+                <input name="name" placeholder={t.namePh} value={form.name} onChange={handleChange} required style={lineStyle}
+                  onFocus={e => e.target.style.borderBottomColor = P}
+                  onBlur={e => e.target.style.borderBottomColor = RULED_LINE} />
+              </div>
+              <div>
+                <label style={labelStyle}>{isEn ? 'e-mail' : 'e-mail'}</label>
+                <input name="email" type="email" placeholder={t.emailPh} value={form.email} onChange={handleChange} required style={lineStyle}
+                  onFocus={e => e.target.style.borderBottomColor = P}
+                  onBlur={e => e.target.style.borderBottomColor = RULED_LINE} />
+              </div>
+              <div>
+                <label style={labelStyle}>{isEn ? 'message' : 'mensagem'}</label>
+                <textarea name="message" placeholder={t.msgPh} value={form.message} onChange={handleChange} required rows={4}
+                  style={{ ...lineStyle, resize: 'none', width: '100%', borderBottom: 'none',
+                    backgroundImage: `repeating-linear-gradient(to bottom, transparent, transparent 27px, ${RULED_LINE} 27px, ${RULED_LINE} 28px)`,
+                    backgroundSize: '100% 28px', paddingBottom: 0 }}
+                  onFocus={e => { e.target.style.outline = 'none' }}
+                  onBlur={() => {}} />
+              </div>
+              {status === 'error' && (
+                <div style={{ fontFamily: f, fontSize: 11, color: '#C00', fontStyle: 'italic' }}>{t.err}</div>
+              )}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 4 }}>
+                <button type="submit" disabled={status === 'sending'} style={{
+                  background: P, color: '#fff', border: 'none',
+                  padding: '7px 20px', fontFamily: f, fontSize: 11, fontWeight: 700,
+                  cursor: status === 'sending' ? 'wait' : 'pointer',
+                  opacity: status === 'sending' ? 0.7 : 1,
+                  letterSpacing: 1.5, textTransform: 'uppercase',
+                  clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))',
+                  transition: 'opacity 0.15s',
+                }}>
+                  {status === 'sending' ? t.sending : t.btn}
+                </button>
+                <div style={{ display: 'flex', gap: 8 }}>
+                  <a href="mailto:thaislopesdesign@gmail.com" style={{ fontFamily: f, fontSize: 10, color: P, textDecoration: 'underline', letterSpacing: 0.5 }}>
+                    ✉ email
+                  </a>
+                  <span style={{ color: RULED_LINE }}>·</span>
+                  <a href="https://www.linkedin.com/in/thaiss-lopes/" target="_blank" rel="noreferrer" style={{ fontFamily: f, fontSize: 10, color: P, textDecoration: 'underline', letterSpacing: 0.5 }}>
+                    ↗ linkedin
+                  </a>
+                </div>
+              </div>
+            </form>
+          )}
         </div>
       </div>
     </div>
