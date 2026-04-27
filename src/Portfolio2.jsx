@@ -1526,6 +1526,7 @@ function ResumeContent() {
               { cat: 'Research & Strategy', items: 'User Research, Product Strategy, Hypothesis Validation, Data Analysis' },
               { cat: 'Design & Delivery', items: 'Product Design (UX/UI), Design Systems, Prototyping (Figma), Usability Testing, Interaction Design' },
               { cat: 'Collaboration', items: 'Agile Workflows, Cross-functional Teams, Stakeholder Alignment' },
+              { cat: 'Tools & AI', items: 'Figma, LLMs, Vibe Coding (Cursor, Claude Code)' },
             ].map(s => (
               <div key={s.cat} style={{ marginBottom: 10 }}>
                 <span style={{ fontSize: 11, fontWeight: 700, color: '#333' }}>{s.cat}: </span>
@@ -4223,6 +4224,7 @@ function ResumeContentPt() {
               { cat: 'Pesquisa & Estratégia', items: 'Pesquisa com Usuários, Estratégia de Produto, Validação de Hipóteses, Análise de Dados' },
               { cat: 'Design & Entrega', items: 'Product Design (UX/UI), Design Systems, Prototipação (Figma), Testes de Usabilidade, Design de Interação' },
               { cat: 'Colaboração', items: 'Fluxos Ágeis, Times Multidisciplinares, Alinhamento com Stakeholders' },
+              { cat: 'Ferramentas & IA', items: 'Figma, LLMs, Vibe Coding (Cursor, Claude Code)' },
             ].map(s => (
               <div key={s.cat} style={{ marginBottom: 10 }}>
                 <span style={{ fontSize: 11, fontWeight: 700, color: '#333' }}>{s.cat}: </span>

@@ -637,7 +637,7 @@ const ABOUT = {
       'My Master\'s research brought me into AI in healthcare, using Design Futures and Transition Design to imagine what comes next, not just what exists now.',
       'I lead the Digital Agents Program with the Government of Pernambuco, where non-technical civil servants design ideas to bring public services into the digital world. I also coordinate FAST, a data-driven design program. We won the Brazilian Design Award 2025.',
     ],
-    skills: ['Design Strategy', 'Product Design', 'User Research', 'Prototyping', 'Facilitation', 'UX Writing', 'Data-Driven Design', 'Design Futures', 'Mentoring', 'Public Sector'],
+    skills: ['Design Strategy', 'Product Design', 'User Research', 'Prototyping', 'Facilitation', 'UX Writing', 'Data-Driven Design', 'Design Futures', 'Mentoring', 'Public Sector', 'Figma', 'LLMs', 'Vibe Coding'],
     photos: [
       { src: aboutManaus, label: 'Manaus 🌅' },
       { src: aboutDogs,   label: 'the babies 🐶' },
@@ -658,7 +658,7 @@ const ABOUT = {
       'No Mestrado, pesquisei IA na saúde, usando Design de Futuros e Transition Design para imaginar o que vem a seguir em áreas como experiência, sistema, processo e cultura.',
       'Lidero o Programa de Agentes Digitais com o Governo de Pernambuco, onde servidores públicos sem perfil técnico criam ideias para digitalizar serviços públicos. Também coordeno o FAST, um programa de design orientado a dados. Ganhamos o Prêmio Brasileiro de Design 2025.',
     ],
-    skills: ['Estratégia de Design', 'Product Design', 'Pesquisa com Usuários', 'Prototipação', 'Facilitação', 'UX Writing', 'Design Orientado a Dados', 'Design Futuros', 'Mentoria', 'Setor Público'],
+    skills: ['Estratégia de Design', 'Product Design', 'Pesquisa com Usuários', 'Prototipação', 'Facilitação', 'UX Writing', 'Design Orientado a Dados', 'Design Futuros', 'Mentoria', 'Setor Público', 'Figma', 'LLMs', 'Vibe Coding'],
     photos: [
       { src: aboutManaus, label: 'Manaus 🌅' },
       { src: aboutDogs,   label: 'os bebês 🐶' },
