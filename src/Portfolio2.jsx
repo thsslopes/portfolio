@@ -1241,7 +1241,7 @@ function AboutContent() {
               Hello, I'm Thaís <span style={{ color: MAC.pink }}>✦</span>
             </h2>
             <div style={{ fontFamily: MAC.font, color: MAC.rose, fontSize: 11, marginBottom: 8 }}>
-              Product Designer · UX Strategist
+              Product Design (UX/UI) · Service Design · Design Strategy
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 14px' }}>
               {[
@@ -3781,7 +3781,7 @@ function EnterScreen({ onEnter }) {
           letterSpacing: 3.5, textTransform: 'uppercase',
           marginBottom: 44,
         }}>
-          product design · ux/ui
+          product design (ux/ui) · service design · design strategy
         </div>
 
         {/* Divider */}
@@ -3933,7 +3933,7 @@ function AboutContentPt() {
             <h2 style={{ fontSize: 19, fontWeight: 800, color: '#1A1A1A', margin: '0 0 4px', lineHeight: 1.2 }}>
               Olá, eu sou a Thaís <span style={{ color: MAC.pink }}>✦</span>
             </h2>
-            <div style={{ fontFamily: MAC.font, color: MAC.rose, fontSize: 11, marginBottom: 8 }}>Product Designer · Estrategista de UX</div>
+            <div style={{ fontFamily: MAC.font, color: MAC.rose, fontSize: 11, marginBottom: 8 }}>Product Design (UX/UI) · Service Design · Design Strategy</div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 14px' }}>
               {[{ emoji: '📍', text: 'Manaus → Recife, Brasil' }, { emoji: '🐶', text: 'dog mom' }, { emoji: '📷', text: 'fotografia' }].map(f => (
                 <span key={f.text} style={{ fontSize: 11, fontFamily: MAC.font, color: '#888', display: 'flex', alignItems: 'center', gap: 4 }}>{f.emoji} {f.text}</span>
