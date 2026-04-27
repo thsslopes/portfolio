@@ -2866,8 +2866,8 @@ const CASE_META_PT = {
   },
   'proj-search': {
     title: 'Buscador de Documentos',
-    summary: 'Busca com IA que ajudou times da Petrobras a encontrar documentos críticos 3× mais rápido.',
-    badges: ['Product Design', 'Pesquisa', 'Ferramentas de IA'],
+    summary: 'Redesign da experiência de busca que ajudou times da Petrobras a encontrar documentos críticos 3× mais rápido.',
+    badges: ['Product Design', 'Pesquisa', 'Estratégia de UX'],
     color: '#3D8B61', bg: '#EFF8F3', border: 'rgba(61,139,97,0.2)',
   },
   'proj-glist': {

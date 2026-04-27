@@ -450,11 +450,11 @@ const CASES = {
       id: 'proj-search',
       title: 'Buscador de Documentos',
       subtitle: 'Product Design + Pesquisa · 2023–Atual',
-      summary: 'Busca com IA que ajudou times de geociências a encontrar documentos críticos 3× mais rápido.',
+      summary: 'Redesign da experiência de busca que ajudou times de geociências a encontrar documentos críticos 3× mais rápido.',
       outcome: 'Renovação de $1,2M · UMUX 83/100',
       color: '#3D8B61', bg: '#EFF8F3', border: 'rgba(61,139,97,0.2)',
       img: dseUi, logo: logoPetrobras,
-      tags: ['Product Design', 'Pesquisa', 'Ferramentas de IA'],
+      tags: ['Product Design', 'Pesquisa', 'Estratégia de UX'],
       about: [
         { label: 'Papel', value: 'Product Designer' },
         { label: 'Cliente', value: 'Óleo & Gás · CESAR' },
