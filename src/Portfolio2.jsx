@@ -3415,7 +3415,7 @@ function ContactForm({ lang }) {
 
   const t = isEn
     ? { heading: 'say hello ✦', sub: "I'd love to hear from you.", namePh: 'your name', emailPh: 'your email', msgPh: 'your message...', btn: 'send message', sending: 'sending...', done: "message sent! I'll get back to you soon ✦", err: 'something went wrong. try again?' }
-    : { heading: 'diga olá ✦',  sub: 'Vamos trabalhar juntos? Vai ser massa!',   namePh: 'seu nome',   emailPh: 'seu e-mail',  msgPh: 'sua mensagem...', btn: 'enviar mensagem', sending: 'enviando...', done: 'mensagem enviada! Te respondo em breve ✦', err: 'algo deu errado. tenta de novo?' }
+    : { heading: 'oie, feliz de ter você aqui! ✦',  sub: 'vamos trabalhar juntos? vai ser massa!',   namePh: 'seu nome',   emailPh: 'seu e-mail',  msgPh: 'sua mensagem...', btn: 'enviar mensagem', sending: 'enviando...', done: 'mensagem enviada! Te respondo em breve ✦', err: 'algo deu errado. tenta de novo?' }
 
   const handleChange = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }))
 
