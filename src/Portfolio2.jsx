@@ -2845,8 +2845,8 @@ const CASE_META = {
   },
   'proj-search': {
     title: 'Documents Search Engine',
-    summary: 'AI-powered search that helped Petrobras teams find critical documents 3× faster.',
-    badges: ['Product Design', 'Research', 'AI Tools'],
+    summary: 'Search experience redesign that helped Petrobras teams find critical documents 3× faster.',
+    badges: ['Product Design', 'Research', 'UX Strategy'],
     color: '#3D8B61', bg: '#EFF8F3', border: 'rgba(61,139,97,0.2)',
   },
   'proj-glist': {

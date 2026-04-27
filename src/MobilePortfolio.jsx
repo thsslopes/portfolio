@@ -164,11 +164,11 @@ const CASES = {
       id: 'proj-search',
       title: 'Documents Search Engine',
       subtitle: 'Product Design + Research · 2023–Present',
-      summary: 'AI-powered search that helped geoscientific teams find critical documents 3× faster.',
+      summary: 'Search experience redesign that helped geoscientific teams find critical documents 3× faster.',
       outcome: '$1.2M contract renewal · UMUX score 83',
       color: '#3D8B61', bg: '#EFF8F3', border: 'rgba(61,139,97,0.2)',
       img: dseUi, logo: logoPetrobras,
-      tags: ['Product Design', 'Research', 'AI Tools'],
+      tags: ['Product Design', 'Research', 'UX Strategy'],
       about: [
         { label: 'Role', value: 'Product Designer' },
         { label: 'Client', value: 'Oil & Gas · CESAR' },
