@@ -109,6 +109,7 @@ function useWindowManager() {
       'proj-petrobras':{ x: cx(780), y: cy(580) },
       'proj-search':   { x: cx(780), y: cy(580) },
       'proj-glist':    { x: cx(720), y: cy(560) },
+      contact:         { x: cx(480), y: cy(500) },
     }
   })
 
@@ -389,6 +390,31 @@ function FileIcon({ type = 'txt', size = 46 }) {
       >
         {label}
       </text>
+    </svg>
+  )
+}
+
+// ─── ✦ ChatBubbleIcon — Y2K messenger style ──────────────────────────────────
+
+function ChatBubbleIcon({ size = 46 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg"
+      style={{ filter: 'drop-shadow(1px 2px 4px rgba(232,96,154,0.45))' }}
+    >
+      {/* Big bubble */}
+      <rect x="2" y="4" width="32" height="22" rx="7" fill="#E8609A" />
+      <path d="M8 26 L5 33 L16 27" fill="#E8609A" />
+      {/* Dot trio */}
+      <circle cx="10" cy="15" r="2.2" fill="white" />
+      <circle cx="18" cy="15" r="2.2" fill="white" />
+      <circle cx="26" cy="15" r="2.2" fill="white" />
+      {/* Small bubble (reply) */}
+      <rect x="16" y="22" width="27" height="17" rx="6" fill="#FFB6D9" />
+      <path d="M38 39 L43 44 L32 40" fill="#FFB6D9" />
+      {/* Dot duo */}
+      <circle cx="23" cy="30.5" r="1.8" fill="white" />
+      <circle cx="30" cy="30.5" r="1.8" fill="white" />
+      <circle cx="37" cy="30.5" r="1.8" fill="white" />
     </svg>
   )
 }
@@ -3637,16 +3663,16 @@ function Desktop({ windows, onOpen, lang = 'en' }) {
 
   const leftIcons = lang === 'pt'
     ? [
-        { id: 'home',    label: 'tha.design',    isHome: true,  fileType: null  },
-        { id: 'about',   label: 'sobre.txt',      isHome: false, fileType: 'txt' },
-        { id: 'resume',  label: 'curriculo.pdf',  isHome: false, fileType: 'pdf' },
-        { id: 'contact', label: 'contato.txt',    isHome: false, fileType: 'txt' },
+        { id: 'home',    label: 'tha.design',    isHome: true,  fileType: null,  customIcon: null },
+        { id: 'about',   label: 'sobre.txt',      isHome: false, fileType: 'txt',  customIcon: null },
+        { id: 'resume',  label: 'curriculo.pdf',  isHome: false, fileType: 'pdf',  customIcon: null },
+        { id: 'contact', label: 'contato.txt',    isHome: false, fileType: null,   customIcon: <ChatBubbleIcon size={46} /> },
       ]
     : [
-        { id: 'home',    label: 'tha.design',  isHome: true,  fileType: null  },
-        { id: 'about',   label: 'about.txt',   isHome: false, fileType: 'txt' },
-        { id: 'resume',  label: 'resume.pdf',  isHome: false, fileType: 'pdf' },
-        { id: 'contact', label: 'contact.txt', isHome: false, fileType: 'txt' },
+        { id: 'home',    label: 'tha.design',  isHome: true,  fileType: null,  customIcon: null },
+        { id: 'about',   label: 'about.txt',   isHome: false, fileType: 'txt', customIcon: null },
+        { id: 'resume',  label: 'resume.pdf',  isHome: false, fileType: 'pdf', customIcon: null },
+        { id: 'contact', label: 'contact.txt', isHome: false, fileType: null,  customIcon: <ChatBubbleIcon size={46} /> },
       ]
 
   const handleDesktopClick = (e) => {
@@ -3689,6 +3715,7 @@ function Desktop({ windows, onOpen, lang = 'en' }) {
             onClick={() => onOpen(icon.id)}
             isHome={icon.isHome}
             fileType={icon.fileType}
+            customIcon={icon.customIcon}
           />
         ))}
       </div>
