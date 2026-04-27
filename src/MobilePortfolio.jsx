@@ -629,7 +629,7 @@ const CASES = {
 const ABOUT = {
   en: {
     greeting: "Hi, I'm Thaís ✦",
-    role: 'Product Designer · UX Strategist',
+    role: 'Product Design · UX/UI',
     location: '📍 Recife, Brazil — Remote, Open to Relocate',
     paras: [
       'I design at the intersection of people, systems, and complexity — which more often than not means I\'m the one in the room asking "but why does it work this way?" before anyone opens Figma.',
@@ -650,7 +650,7 @@ const ABOUT = {
   },
   pt: {
     greeting: 'Olá, eu sou a Thaís ✦',
-    role: 'Product Designer · Estrategista de UX',
+    role: 'Product Design · UX/UI',
     location: '📍 Recife, Brasil — Remoto, Aberta a Realocação',
     paras: [
       'Eu faço design na interseção de pessoas, sistemas e complexidade — o que, na maioria das vezes, significa que sou eu quem está na sala perguntando "mas por que funciona assim?" antes de alguém abrir o Figma.',
@@ -859,7 +859,7 @@ function EnterScreen({ onEnter }) {
 }
 
 // ─── Status bar ───────────────────────────────────────────────────────────────
-function StatusBar({ lang, onLangChange }) {
+function StatusBar({ lang, onLangChange, onGoHome }) {
   const [time, setTime] = useState('')
   useEffect(() => {
     const tick = () => setTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }))
@@ -870,7 +870,7 @@ function StatusBar({ lang, onLangChange }) {
 
   return (
     <div style={{ position: 'sticky', top: 0, zIndex: 100, background: 'rgba(255,255,255,0.92)', backdropFilter: 'blur(16px)', borderBottom: `1px solid ${PINK_DIM}`, height: 44, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 16px' }}>
-      <span style={{ fontFamily: MONO, fontSize: 11, fontWeight: 700, color: PINK, letterSpacing: 0.5 }}>thais.design</span>
+      <button onClick={onGoHome} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, fontFamily: MONO, fontSize: 11, fontWeight: 700, color: PINK, letterSpacing: 0.5, WebkitTapHighlightColor: 'transparent' }}>thais.design</button>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         <button onClick={() => onLangChange(lang === 'en' ? 'pt' : 'en')}
           style={{ background: PINK_DIM, border: `1px solid rgba(232,96,154,0.3)`, borderRadius: 6, padding: '2px 8px', fontFamily: MONO, fontSize: 10, fontWeight: 700, color: PINK, cursor: 'pointer', letterSpacing: 0.5, lineHeight: '18px', WebkitTapHighlightColor: 'transparent' }}>
@@ -928,7 +928,7 @@ function HomeTab({ lang, onGoWork, onGoAbout }) {
             <div>
               <div style={{ fontFamily: SANS, fontWeight: 900, fontSize: 20, color: '#1a1a2e', marginBottom: 3, lineHeight: 1.1 }}>thais lopes</div>
               <div style={{ fontFamily: MONO, fontSize: 10, color: PINK, letterSpacing: 1.2, textTransform: 'uppercase', marginBottom: 6 }}>
-                {isEn ? 'product designer · ux researcher' : 'product designer · pesquisadora ux'}
+                product design · ux/ui
               </div>
               <div style={{ fontFamily: MONO, fontSize: 10, color: '#888' }}>
                 📍 {isEn ? 'Recife, Brazil — Remote, Open to Relocate' : 'Recife, Brasil — Remoto, Aberta a Realocação'}
@@ -1003,7 +1003,7 @@ function SectionBlock({ s, color, lang }) {
 
       {/* callout */}
       {s.callout && (
-        <div style={{ background: `${color}12`, borderLeft: `3px solid ${accent}`, borderRadius: '0 10px 10px 0', padding: '10px 14px', marginBottom: 12, fontFamily: MONO, fontSize: 11, color: '#555', lineHeight: 1.75, fontStyle: 'italic' }}>
+        <div style={{ background: `${color}12`, borderLeft: `3px solid ${accent}`, borderRadius: '0 10px 10px 0', padding: '10px 14px', marginBottom: 12, fontFamily: MONO, fontSize: 12, color: '#444', lineHeight: 1.75, fontStyle: 'italic' }}>
           {s.callout}
         </div>
       )}
@@ -1014,7 +1014,7 @@ function SectionBlock({ s, color, lang }) {
           {s.bullets.map((b, i) => (
             <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'flex-start', background: '#fff', border: dimBorder, borderRadius: 8, padding: '8px 12px' }}>
               <span style={{ color: accent, fontSize: 11, flexShrink: 0, marginTop: 1 }}>·</span>
-              <span style={{ fontFamily: MONO, fontSize: 11, color: '#555', lineHeight: 1.65 }}>{b}</span>
+              <span style={{ fontFamily: MONO, fontSize: 12, color: '#444', lineHeight: 1.65 }}>{b}</span>
             </div>
           ))}
         </div>
@@ -1026,7 +1026,7 @@ function SectionBlock({ s, color, lang }) {
           {s.metrics.map((m, i) => (
             <div key={i} style={{ background: `${color}10`, border: `1px solid ${color}30`, borderRadius: 12, padding: '14px 16px', textAlign: 'center' }}>
               <div style={{ fontFamily: SANS, fontWeight: 900, fontSize: 24, color: accent, lineHeight: 1 }}>{m.num}</div>
-              <div style={{ fontFamily: MONO, fontSize: 10, color: '#888', marginTop: 4, lineHeight: 1.4 }}>{m.label}</div>
+              <div style={{ fontFamily: MONO, fontSize: 11, color: '#666', marginTop: 4, lineHeight: 1.4 }}>{m.label}</div>
             </div>
           ))}
         </div>
@@ -1037,9 +1037,9 @@ function SectionBlock({ s, color, lang }) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 12 }}>
           {s.beforeAfter.map((item, i) => (
             <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, background: '#fff', border: dimBorder, borderRadius: 10, padding: '10px 12px' }}>
-              <span style={{ fontFamily: MONO, fontSize: 11, color: '#AAA', flex: 1, lineHeight: 1.5 }}>{item.before}</span>
+              <span style={{ fontFamily: MONO, fontSize: 12, color: '#666', flex: 1, lineHeight: 1.5 }}>{item.before}</span>
               <span style={{ fontFamily: MONO, fontSize: 14, color: accent, fontWeight: 700, flexShrink: 0 }}>→</span>
-              <span style={{ fontFamily: MONO, fontSize: 11, color: '#333', fontWeight: 600, flex: 1, lineHeight: 1.5 }}>{item.after}</span>
+              <span style={{ fontFamily: MONO, fontSize: 12, color: '#333', fontWeight: 600, flex: 1, lineHeight: 1.5 }}>{item.after}</span>
             </div>
           ))}
         </div>
@@ -1050,8 +1050,8 @@ function SectionBlock({ s, color, lang }) {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8, marginBottom: 12 }}>
           {s.workshopDays.map(d => (
             <div key={d.day} style={{ background: '#fff', border: dimBorder, borderRadius: 10, padding: '12px 10px', textAlign: 'center' }}>
-              <div style={{ fontFamily: MONO, fontSize: 10, fontWeight: 800, color: accent, marginBottom: 4 }}>{d.day}</div>
-              <div style={{ fontFamily: MONO, fontSize: 10, color: '#666', lineHeight: 1.55 }}>{d.focus}</div>
+              <div style={{ fontFamily: MONO, fontSize: 11, fontWeight: 800, color: accent, marginBottom: 4 }}>{d.day}</div>
+              <div style={{ fontFamily: MONO, fontSize: 11, color: '#555', lineHeight: 1.55 }}>{d.focus}</div>
             </div>
           ))}
         </div>
@@ -1064,8 +1064,8 @@ function SectionBlock({ s, color, lang }) {
             <div key={a.area} style={{ background: '#fff', border: dimBorder, borderLeft: `3px solid ${accent}`, borderRadius: '0 10px 10px 0', padding: '12px 14px', display: 'flex', gap: 12, alignItems: 'flex-start' }}>
               <span style={{ fontSize: 18, flexShrink: 0 }}>{a.icon}</span>
               <div>
-                <div style={{ fontFamily: MONO, fontSize: 11, fontWeight: 700, color: accent, marginBottom: 4 }}>{a.area}</div>
-                <div style={{ fontFamily: MONO, fontSize: 11, color: '#555', lineHeight: 1.65 }}>{a.desc}</div>
+                <div style={{ fontFamily: MONO, fontSize: 12, fontWeight: 700, color: accent, marginBottom: 4 }}>{a.area}</div>
+                <div style={{ fontFamily: MONO, fontSize: 12, color: '#444', lineHeight: 1.65 }}>{a.desc}</div>
               </div>
             </div>
           ))}
@@ -1077,8 +1077,8 @@ function SectionBlock({ s, color, lang }) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 12 }}>
           {s.learnings.map((l, i) => (
             <div key={i} style={{ background: '#fff', border: dimBorder, borderLeft: `3px solid ${accent}`, borderRadius: '0 10px 10px 0', padding: '12px 14px' }}>
-              <div style={{ fontFamily: MONO, fontSize: 10, fontWeight: 700, color: accent, marginBottom: 4 }}>{String(i + 1).padStart(2, '0')} · {l.title}</div>
-              <div style={{ fontFamily: MONO, fontSize: 11, color: '#555', lineHeight: 1.65 }}>{l.body}</div>
+              <div style={{ fontFamily: MONO, fontSize: 11, fontWeight: 700, color: accent, marginBottom: 4 }}>{String(i + 1).padStart(2, '0')} · {l.title}</div>
+              <div style={{ fontFamily: MONO, fontSize: 12, color: '#444', lineHeight: 1.65 }}>{l.body}</div>
             </div>
           ))}
         </div>
@@ -1089,7 +1089,7 @@ function SectionBlock({ s, color, lang }) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 12 }}>
           {s.quotes.map((q, i) => (
             <div key={i} style={{ background: `${color}10`, borderLeft: `3px solid ${accent}`, borderRadius: '0 10px 10px 0', padding: '10px 14px' }}>
-              <div style={{ fontFamily: MONO, fontSize: 11, color: '#444', lineHeight: 1.7, fontStyle: 'italic', marginBottom: 4 }}>"{q.text}"</div>
+              <div style={{ fontFamily: MONO, fontSize: 12, color: '#333', lineHeight: 1.7, fontStyle: 'italic', marginBottom: 4 }}>"{q.text}"</div>
               <div style={{ fontFamily: MONO, fontSize: 9, color: accent, fontWeight: 700 }}>· {q.attr}</div>
             </div>
           ))}
@@ -1123,7 +1123,7 @@ function CaseDetail({ c, lang, onBack }) {
           <div style={{ padding: '14px 16px 18px' }}>
             <div style={{ fontFamily: MONO, fontSize: 9, color: c.color, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 4 }}>{c.subtitle}</div>
             <div style={{ fontFamily: SANS, fontWeight: 800, fontSize: 20, color: '#1a1a2e', marginBottom: 6, lineHeight: 1.2 }}>{c.title}</div>
-            <div style={{ fontFamily: MONO, fontSize: 11, color: '#666', lineHeight: 1.65, marginBottom: 12 }}>{c.summary}</div>
+            <div style={{ fontFamily: MONO, fontSize: 12, color: '#444', lineHeight: 1.65, marginBottom: 12 }}>{c.summary}</div>
             <span style={{ background: c.color, color: '#fff', borderRadius: 8, padding: '5px 12px', fontFamily: MONO, fontSize: 10, fontWeight: 700 }}>{c.outcome}</span>
           </div>
         </div>
@@ -1134,7 +1134,7 @@ function CaseDetail({ c, lang, onBack }) {
         {c.about.map(m => (
           <div key={m.label} style={{ background: '#fff', border: `1px solid ${PINK_DIM}`, borderRadius: 10, padding: '8px 12px' }}>
             <div style={{ fontFamily: MONO, fontSize: 8, color: '#BBB', textTransform: 'uppercase', letterSpacing: 1 }}>{m.label}</div>
-            <div style={{ fontFamily: MONO, fontSize: 11, color: '#444', fontWeight: 700, marginTop: 2 }}>{m.value}</div>
+            <div style={{ fontFamily: MONO, fontSize: 12, color: '#333', fontWeight: 700, marginTop: 2 }}>{m.value}</div>
           </div>
         ))}
       </div>
@@ -1149,7 +1149,7 @@ function CaseDetail({ c, lang, onBack }) {
       {/* disclaimer */}
       <div style={{ margin: '14px 16px 0', background: '#FFFBEC', border: '1px solid rgba(200,160,0,0.25)', borderRadius: 12, padding: '10px 14px', display: 'flex', gap: 10, alignItems: 'flex-start' }}>
         <span style={{ fontSize: 14, flexShrink: 0 }}>💡</span>
-        <span style={{ fontFamily: MONO, fontSize: 10, color: '#7A6000', lineHeight: 1.65 }}>
+        <span style={{ fontFamily: MONO, fontSize: 11, color: '#7A6000', lineHeight: 1.65 }}>
           {isEn
             ? 'This is a shortened version of the case study. To read the full case, access the portfolio on a desktop browser.'
             : 'Esta é uma versão resumida do case. Para ler o case completo, acesse o portfólio pelo navegador em um computador.'}
@@ -1191,7 +1191,7 @@ function WorkTab({ lang, onSelectCase }) {
               {c.passwordProtected && <span style={{ fontFamily: MONO, fontSize: 9, color: '#BBB' }}>🔒</span>}
             </div>
             <div style={{ fontFamily: SANS, fontWeight: 800, fontSize: 16, color: '#1a1a2e', marginBottom: 6, lineHeight: 1.2 }}>{c.title}</div>
-            <div style={{ fontFamily: MONO, fontSize: 11, color: '#777', lineHeight: 1.65, marginBottom: 10 }}>{c.summary}</div>
+            <div style={{ fontFamily: MONO, fontSize: 12, color: '#555', lineHeight: 1.65, marginBottom: 10 }}>{c.summary}</div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
               {c.tags.map(t => (
                 <span key={t} style={{ background: c.bg, borderRadius: 20, padding: '3px 10px', fontFamily: MONO, fontSize: 9, color: c.color, fontWeight: 600 }}>{t}</span>
@@ -1341,7 +1341,7 @@ export default function MobilePortfolio() {
 
   return (
     <div style={{ minHeight: '100dvh', background: '#FAFAFA', maxWidth: 480, margin: '0 auto' }}>
-      <StatusBar lang={lang} onLangChange={setLang} />
+      <StatusBar lang={lang} onLangChange={setLang} onGoHome={() => handleTabChange('home')} />
       <div style={{ paddingBottom: 80 }}>
         {activeTab === 'home' && <HomeTab lang={lang} onGoWork={() => handleTabChange('work')} onGoAbout={() => handleTabChange('about')} />}
         {activeTab === 'work' && !selectedCase && <WorkTab lang={lang} onSelectCase={handleSelectCase} />}
