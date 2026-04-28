@@ -5351,8 +5351,8 @@ const TESTIMONIALS_DATA = [
     bg: '#FEF08A',
     tape: '#FDE047',
     initRotate: -5,
-    initX: 0.07,
-    initY: 0.17,
+    initX: 0.05,
+    initY: 0.20,
   },
   {
     id: 't2',
@@ -5365,7 +5365,7 @@ const TESTIMONIALS_DATA = [
     bg: '#BBF7D0',
     tape: '#86EFAC',
     initRotate: 4,
-    initX: 0.38,
+    initX: 0.28,
     initY: 0.12,
   },
   {
@@ -5379,8 +5379,22 @@ const TESTIMONIALS_DATA = [
     bg: '#FBCFE8',
     tape: '#F9A8D4',
     initRotate: -2,
-    initX: 0.62,
+    initX: 0.51,
     initY: 0.22,
+  },
+  {
+    id: 't4',
+    name: 'Giovanni Caldeira',
+    role: 'Tech Lead',
+    relationEn: 'Giovanni worked with Thais on the same team',
+    relationPt: 'Giovanni trabalhou com a Thaís no mesmo time',
+    en: 'Thaís is an exceptional professional — organised, committed, and with an impressive learning curve. She quickly dives into complex business topics and communicates effortlessly across technical discussions and stakeholder presentations alike. With a solid background in Design and Product, she leads multiple fronts with autonomy and excellence.',
+    pt: 'Thaís é uma profissional excepcional — organizada, comprometida e com uma curva de aprendizado impressionante. Ela mergulha rapidamente em temas de negócio complexos e transita com naturalidade entre discussões técnicas e apresentações para stakeholders. Com repertório sólido em Design e Produto, lidera diversas frentes com autonomia e excelência.',
+    bg: '#E9D5FF',
+    tape: '#C084FC',
+    initRotate: 3,
+    initX: 0.72,
+    initY: 0.14,
   },
 ]
 
@@ -5479,12 +5493,14 @@ function TestimonialsOverlay({ onClose, lang }) {
 
   return createPortal(
     <div style={{ position: 'fixed', inset: 0, zIndex: 99998, background: 'rgba(18,8,16,0.85)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)' }}>
-      <div style={{ position: 'absolute', top: 20, left: '50%', transform: 'translateX(-50%)', color: 'rgba(255,255,255,0.5)', fontSize: 10, letterSpacing: 3, textTransform: 'uppercase', fontFamily: f, pointerEvents: 'none', whiteSpace: 'nowrap' }}>
-        {lang === 'pt' ? 'depoimentos' : 'testimonials'}
+      <div style={{ position: 'absolute', top: 48, left: '50%', transform: 'translateX(-50%)', display: 'flex', alignItems: 'center', gap: 10, pointerEvents: 'none', whiteSpace: 'nowrap' }}>
+        <span style={{ color: 'rgba(255,170,210,0.55)', fontSize: 11 }}>✦</span>
+        <span style={{ color: 'rgba(255,255,255,0.55)', fontSize: 11, letterSpacing: 4, textTransform: 'uppercase', fontFamily: f }}>{lang === 'pt' ? 'depoimentos' : 'testimonials'}</span>
+        <span style={{ color: 'rgba(255,170,210,0.55)', fontSize: 11 }}>✦</span>
       </div>
       <button
         onClick={onClose}
-        style={{ position: 'absolute', top: 14, right: 18, zIndex: 100001, background: 'rgba(255,255,255,0.9)', border: 'none', borderRadius: '50%', width: 32, height: 32, fontSize: 13, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 10px rgba(0,0,0,0.25)', fontFamily: f }}
+        style={{ position: 'absolute', top: 42, right: 24, zIndex: 100001, background: 'rgba(255,255,255,0.9)', border: 'none', borderRadius: '50%', width: 32, height: 32, fontSize: 13, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 10px rgba(0,0,0,0.25)', fontFamily: f }}
       >✕</button>
 
       {small ? (
