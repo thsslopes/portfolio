@@ -5352,7 +5352,7 @@ const TESTIMONIALS_DATA = [
     tape: '#FDE047',
     initRotate: -5,
     initX: 0.05,
-    initY: 0.20,
+    initY: 0.32,
   },
   {
     id: 't2',
@@ -5366,7 +5366,7 @@ const TESTIMONIALS_DATA = [
     tape: '#86EFAC',
     initRotate: 4,
     initX: 0.28,
-    initY: 0.12,
+    initY: 0.24,
   },
   {
     id: 't3',
@@ -5380,7 +5380,7 @@ const TESTIMONIALS_DATA = [
     tape: '#F9A8D4',
     initRotate: -2,
     initX: 0.51,
-    initY: 0.22,
+    initY: 0.34,
   },
   {
     id: 't4',
@@ -5394,7 +5394,7 @@ const TESTIMONIALS_DATA = [
     tape: '#C084FC',
     initRotate: 3,
     initX: 0.72,
-    initY: 0.14,
+    initY: 0.26,
   },
 ]
 
