@@ -3101,8 +3101,8 @@ function GlistCaseStudy({ onOpenPetrobras, onOpenSearch }) {
       <div ref={scrollRef} style={{ flex: 1, minHeight: 0, overflowY: 'auto', fontFamily: f }}>
 
       {/* Hero */}
-      <div style={{ position: 'relative', background: `linear-gradient(150deg, ${OR_BG} 0%, #FFF8EC 60%, white 100%)`, borderBottom: `1px solid #FFD4A8`, overflow: 'hidden' }}>
-        <div style={{ padding: '32px 40px 28px', maxWidth: 460 }}>
+      <div style={{ position: 'relative', background: `linear-gradient(150deg, ${OR_BG} 0%, #FFF8EC 60%, white 100%)`, overflow: 'hidden', display: 'flex', alignItems: 'stretch', minHeight: 200 }}>
+        <div style={{ padding: '32px 40px 28px', flex: '0 0 auto', maxWidth: '55%', zIndex: 1 }}>
           <div style={{ fontSize: 9, fontFamily: f, color: OR, letterSpacing: 2.5, textTransform: 'uppercase', marginBottom: 10 }}>Case Study · UX & UI Challenge · 2021</div>
           <h1 style={{ fontSize: 24, fontWeight: 900, color: '#1A1A1A', margin: '0 0 6px', lineHeight: 1.2 }}>Glist <span style={{ color: OR }}>✦</span></h1>
           <p style={{ fontSize: 13, color: '#666', fontFamily: f, margin: '0 0 22px', lineHeight: 1.6 }}>An app to help you easily calculate the amount of food your family needs, and stop wasting it.</p>
@@ -3120,7 +3120,10 @@ function GlistCaseStudy({ onOpenPetrobras, onOpenSearch }) {
             ))}
           </div>
         </div>
-        <img src={glistHero} alt="Glist app mockup" style={{ position: 'absolute', right: -10, bottom: 0, height: '112%', objectFit: 'cover', objectPosition: 'left center', maxWidth: '50%', display: 'block' }} />
+        <div style={{ flex: 1, position: 'relative', minWidth: 0 }}>
+          <img src={glistHero} alt="Glist app mockup" style={{ position: 'absolute', right: -10, bottom: 0, height: '112%', objectFit: 'cover', objectPosition: 'left center', width: 'calc(100% + 10px)', display: 'block' }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, #FFF8EC 0%, transparent 50%)', pointerEvents: 'none', zIndex: 1 }} />
+        </div>
       </div>
 
       <div style={{ padding: '0 40px 56px' }}>
@@ -5123,8 +5126,8 @@ function GlistCaseStudyPt({ onOpenPetrobras, onOpenSearch }) {
       </div>
 
       <div ref={scrollRef} style={{ flex: 1, minHeight: 0, overflowY: 'auto', fontFamily: f }}>
-        <div style={{ position: 'relative', background: `linear-gradient(150deg, ${OR_BG} 0%, #FFF8EC 60%, white 100%)`, borderBottom: '1px solid #FFD4A8', overflow: 'hidden' }}>
-          <div style={{ padding: '32px 40px 28px', maxWidth: 460 }}>
+        <div style={{ position: 'relative', background: `linear-gradient(150deg, ${OR_BG} 0%, #FFF8EC 60%, white 100%)`, overflow: 'hidden', display: 'flex', alignItems: 'stretch', minHeight: 200 }}>
+          <div style={{ padding: '32px 40px 28px', flex: '0 0 auto', maxWidth: '55%', zIndex: 1 }}>
             <div style={{ fontSize: 9, fontFamily: f, color: OR, letterSpacing: 2.5, textTransform: 'uppercase', marginBottom: 10 }}>Case Study · Desafio UX & UI · 2021</div>
             <h1 style={{ fontSize: 24, fontWeight: 900, color: '#1A1A1A', margin: '0 0 6px', lineHeight: 1.2 }}>Glist <span style={{ color: OR }}>✦</span></h1>
             <p style={{ fontSize: 13, color: '#666', fontFamily: f, margin: '0 0 22px', lineHeight: 1.6 }}>Um app para calcular facilmente a quantidade de alimentos que sua família precisa e parar de desperdiçar comida.</p>
@@ -5137,7 +5140,10 @@ function GlistCaseStudyPt({ onOpenPetrobras, onOpenSearch }) {
               ))}
             </div>
           </div>
-          <img src={glistHero} alt="Mockup do app Glist" style={{ position: 'absolute', right: -10, bottom: 0, height: '112%', objectFit: 'cover', objectPosition: 'left center', maxWidth: '50%', display: 'block' }} />
+          <div style={{ flex: 1, position: 'relative', minWidth: 0 }}>
+            <img src={glistHero} alt="Mockup do app Glist" style={{ position: 'absolute', right: -10, bottom: 0, height: '112%', objectFit: 'cover', objectPosition: 'left center', width: 'calc(100% + 10px)', display: 'block' }} />
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, #FFF8EC 0%, transparent 50%)', pointerEvents: 'none', zIndex: 1 }} />
+          </div>
         </div>
 
         <div style={{ padding: '0 40px 56px' }}>
@@ -5385,7 +5391,7 @@ export default function Portfolio() {
 
   const ptTitles = { about: 'sobre.txt', resume: 'curriculo.pdf', projects: 'projetos/', contact: 'contato.txt', 'proj-petrobras': 'Dados Históricos', 'proj-search': 'Buscador de Docs', 'proj-glist': 'Glist' }
   const getTitle = (w) => lang === 'pt' && ptTitles[w.id] ? ptTitles[w.id] : w.title
-  const getPtUrl = (id) => id === 'proj-petrobras' ? 'tha.design/dados-historicos' : id === 'proj-search' ? 'tha.design/buscador-docs' : null
+  const getPtUrl = (id) => id === 'proj-petrobras' ? 'tha.design/dados-historicos' : id === 'proj-search' ? 'tha.design/buscador-docs' : id === 'proj-glist' ? 'tha.design/glist' : null
 
   return (
     <div style={{ cursor: 'default', width: '100vw', height: '100vh', overflow: 'hidden' }}>
@@ -5467,6 +5473,7 @@ export default function Portfolio() {
             w.id === 'home'           ? <BrowserToolbar url="tha.design" /> :
             w.id === 'proj-petrobras' ? <BrowserToolbar url={lang === 'pt' ? getPtUrl(w.id) : 'tha.design/historical-data'} /> :
             w.id === 'proj-search'    ? <BrowserToolbar url={lang === 'pt' ? getPtUrl(w.id) : 'tha.design/documents-search-engine'} /> :
+            w.id === 'proj-glist'    ? <BrowserToolbar url="tha.design/glist" /> :
             null
           }
         >
