@@ -3662,21 +3662,37 @@ function MacDock({ projects, windows, onOpen, lang = 'en' }) {
 
 // ─── Desktop ──────────────────────────────────────────────────────────────────
 
-function Desktop({ windows, onOpen, lang = 'en' }) {
+function StickyNoteIcon({ size = 46 }) {
+  const s = size
+  return (
+    <svg width={s} height={s} viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="6" y="6" width="36" height="36" rx="3" fill="#FEF08A" />
+      <rect x="6" y="6" width="36" height="8" rx="3" fill="#FDE047" />
+      <rect x="6" y="10" width="36" height="4" fill="#FDE047" />
+      <line x1="13" y1="22" x2="35" y2="22" stroke="#A89520" strokeWidth="2" strokeLinecap="round" />
+      <line x1="13" y1="28" x2="35" y2="28" stroke="#A89520" strokeWidth="2" strokeLinecap="round" />
+      <line x1="13" y1="34" x2="27" y2="34" stroke="#A89520" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+function Desktop({ windows, onOpen, lang = 'en', onOpenTestimonials }) {
   const [burst, setBurst] = useState(null)
 
   const leftIcons = lang === 'pt'
     ? [
-        { id: 'home',    label: 'tha.design',    isHome: true,  fileType: null,  customIcon: null },
-        { id: 'about',   label: 'sobre.txt',      isHome: false, fileType: 'txt',  customIcon: null },
-        { id: 'resume',  label: 'curriculo.pdf',  isHome: false, fileType: 'pdf',  customIcon: null },
-        { id: 'contact', label: 'contato.txt',    isHome: false, fileType: null,   customIcon: <ChatBubbleIcon size={46} /> },
+        { id: 'home',          label: 'tha.design',    isHome: true,  fileType: null,  customIcon: null },
+        { id: 'about',         label: 'sobre.txt',      isHome: false, fileType: 'txt',  customIcon: null },
+        { id: 'resume',        label: 'curriculo.pdf',  isHome: false, fileType: 'pdf',  customIcon: null },
+        { id: 'contact',       label: 'contato.txt',    isHome: false, fileType: null,   customIcon: <ChatBubbleIcon size={46} /> },
+        { id: 'testimonials',  label: 'depoimentos',    isHome: false, fileType: null,   customIcon: <StickyNoteIcon size={46} /> },
       ]
     : [
-        { id: 'home',    label: 'tha.design',  isHome: true,  fileType: null,  customIcon: null },
-        { id: 'about',   label: 'about.txt',   isHome: false, fileType: 'txt', customIcon: null },
-        { id: 'resume',  label: 'resume.pdf',  isHome: false, fileType: 'pdf', customIcon: null },
-        { id: 'contact', label: 'contact.txt', isHome: false, fileType: null,  customIcon: <ChatBubbleIcon size={46} /> },
+        { id: 'home',          label: 'tha.design',      isHome: true,  fileType: null,  customIcon: null },
+        { id: 'about',         label: 'about.txt',       isHome: false, fileType: 'txt', customIcon: null },
+        { id: 'resume',        label: 'resume.pdf',      isHome: false, fileType: 'pdf', customIcon: null },
+        { id: 'contact',       label: 'contact.txt',     isHome: false, fileType: null,  customIcon: <ChatBubbleIcon size={46} /> },
+        { id: 'testimonials',  label: 'testimonials',    isHome: false, fileType: null,  customIcon: <StickyNoteIcon size={46} /> },
       ]
 
   const handleDesktopClick = (e) => {
@@ -3716,7 +3732,7 @@ function Desktop({ windows, onOpen, lang = 'en' }) {
             key={icon.id}
             label={icon.label}
             isOpen={windows[icon.id]?.isOpen}
-            onClick={() => onOpen(icon.id)}
+            onClick={() => icon.id === 'testimonials' ? onOpenTestimonials?.() : onOpen(icon.id)}
             isHome={icon.isHome}
             fileType={icon.fileType}
             customIcon={icon.customIcon}
@@ -5321,6 +5337,181 @@ function GlistCaseStudyPt({ onOpenPetrobras, onOpenSearch }) {
   )
 }
 
+// ─── Testimonials ─────────────────────────────────────────────────────────────
+
+const TESTIMONIALS_DATA = [
+  {
+    id: 't1',
+    name: 'Davi Mateus',
+    role: 'Software Engineer',
+    relationEn: 'Davi worked with Thais on the same team',
+    relationPt: 'Davi trabalhou com a Thaís no mesmo time',
+    en: 'Thaís is a complete professional — meticulous about UI, UX and technical feasibility, with outstanding communication. In every project we worked on together, she turned ideas into solutions that truly delighted clients, blending strategic, technical and human thinking every day.',
+    pt: 'Thaís é uma profissional completa — atenciosa nos detalhes de UI, UX e viabilidade técnica, com comunicação impecável. Em todos os projetos que trabalhamos juntos, transformou ideias em soluções que encantavam os clientes, unindo visão estratégica, técnica e humana no dia a dia.',
+    bg: '#FEF08A',
+    tape: '#FDE047',
+    initRotate: -5,
+    initX: 0.07,
+    initY: 0.17,
+  },
+  {
+    id: 't2',
+    name: 'Igor Caetano',
+    role: 'Product Manager',
+    relationEn: 'Igor worked with Thais on the same team',
+    relationPt: 'Igor trabalhou com a Thaís no mesmo time',
+    en: 'Thaís stands out for her hybrid approach combining design and product management. Her organisation, curiosity and strategic vision are remarkable — from prioritisation and value propositions to coordinating complex initiatives. I\'m convinced her presence is essential in any team.',
+    pt: 'Thaís se destaca pela abordagem híbrida entre design e gestão de produto. Sua organização, curiosidade e visão estratégica são inigualáveis — desde priorização e proposta de valor até a coordenação de iniciativas complexas. Tenho plena convicção de que sua presença é essencial em qualquer equipe.',
+    bg: '#BBF7D0',
+    tape: '#86EFAC',
+    initRotate: 4,
+    initX: 0.38,
+    initY: 0.12,
+  },
+  {
+    id: 't3',
+    name: 'Tainah Valois',
+    role: 'Product Designer',
+    relationEn: 'Tainah worked with Thais on different teams',
+    relationPt: 'Tainah trabalhou com a Thaís em times diferentes',
+    en: 'Thaís is an excellent designer, always looking to learn and grow, open to feedback from people across disciplines. Communicative, creative and reliable — not just a key player on any team, but a true friend inside and outside of work.',
+    pt: 'Thaís é uma designer excelente, sempre buscando aprender e crescer, disposta a ouvir pessoas de todas as áreas. Comunicativa, criativa e responsável — é não só uma peça fundamental no time, mas também uma amiga dentro e fora do trabalho.',
+    bg: '#FBCFE8',
+    tape: '#F9A8D4',
+    initRotate: -2,
+    initX: 0.62,
+    initY: 0.22,
+  },
+]
+
+const arrowBtnStyle = {
+  background: 'rgba(255,255,255,0.15)',
+  border: '1px solid rgba(255,255,255,0.25)',
+  borderRadius: 8,
+  width: 42,
+  height: 42,
+  fontSize: 24,
+  color: 'white',
+  cursor: 'pointer',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  fontFamily: MAC.font,
+}
+
+function PostItNote({ t, lang, style, onMouseDown }) {
+  const text = lang === 'pt' ? t.pt : t.en
+  const relation = lang === 'pt' ? t.relationPt : t.relationEn
+  return (
+    <div
+      onMouseDown={onMouseDown}
+      style={{
+        width: 280,
+        background: t.bg,
+        borderRadius: 2,
+        boxShadow: '2px 4px 20px rgba(0,0,0,0.35), 0 1px 3px rgba(0,0,0,0.15)',
+        fontFamily: MAC.font,
+        ...style,
+      }}
+    >
+      <div style={{ height: 8, background: t.tape, borderRadius: '2px 2px 0 0', opacity: 0.75 }} />
+      <div style={{ padding: '14px 18px 16px' }}>
+        <p style={{ fontSize: 13, color: '#1A1A1A', lineHeight: 1.65, margin: '0 0 14px', fontStyle: 'italic' }}>
+          &ldquo;{text}&rdquo;
+        </p>
+        <div style={{ borderTop: '1px solid rgba(0,0,0,0.12)', paddingTop: 10 }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: '#1A1A1A', marginBottom: 2 }}>{t.name}</div>
+          <div style={{ fontSize: 10, color: '#444', letterSpacing: 0.5, textTransform: 'uppercase', marginBottom: 4 }}>{t.role}</div>
+          <div style={{ fontSize: 10, color: '#666', fontStyle: 'italic' }}>{relation}</div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function TestimonialsOverlay({ onClose, lang }) {
+  const [small, setSmall] = useState(() => window.innerWidth < 900)
+  const [carouselIdx, setCarouselIdx] = useState(0)
+  const [positions, setPositions] = useState(() =>
+    TESTIMONIALS_DATA.map(t => ({
+      x: Math.round(t.initX * window.innerWidth),
+      y: Math.round(t.initY * (window.innerHeight - 44)),
+      rotate: t.initRotate,
+      z: 1,
+    }))
+  )
+  const topZ = useRef(TESTIMONIALS_DATA.length)
+  const dragging = useRef(null)
+
+  useEffect(() => {
+    const onResize = () => setSmall(window.innerWidth < 900)
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
+
+  const startDrag = (i, e) => {
+    if (small) return
+    e.preventDefault()
+    topZ.current += 1
+    const newZ = topZ.current
+    const ox = e.clientX - positions[i].x
+    const oy = e.clientY - positions[i].y
+    setPositions(prev => prev.map((p, idx) => idx === i ? { ...p, z: newZ } : p))
+    dragging.current = { i, ox, oy }
+
+    const onMove = (e) => {
+      if (!dragging.current) return
+      const { i, ox, oy } = dragging.current
+      setPositions(prev => prev.map((p, idx) =>
+        idx === i ? { ...p, x: e.clientX - ox, y: e.clientY - oy } : p
+      ))
+    }
+    const onUp = () => {
+      dragging.current = null
+      document.removeEventListener('mousemove', onMove)
+      document.removeEventListener('mouseup', onUp)
+    }
+    document.addEventListener('mousemove', onMove)
+    document.addEventListener('mouseup', onUp)
+  }
+
+  const f = MAC.font
+
+  return createPortal(
+    <div style={{ position: 'fixed', inset: 0, zIndex: 99998, background: 'rgba(18,8,16,0.85)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)' }}>
+      <div style={{ position: 'absolute', top: 20, left: '50%', transform: 'translateX(-50%)', color: 'rgba(255,255,255,0.5)', fontSize: 10, letterSpacing: 3, textTransform: 'uppercase', fontFamily: f, pointerEvents: 'none', whiteSpace: 'nowrap' }}>
+        {lang === 'pt' ? 'depoimentos' : 'testimonials'}
+      </div>
+      <button
+        onClick={onClose}
+        style={{ position: 'absolute', top: 14, right: 18, zIndex: 100001, background: 'rgba(255,255,255,0.9)', border: 'none', borderRadius: '50%', width: 32, height: 32, fontSize: 13, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 10px rgba(0,0,0,0.25)', fontFamily: f }}
+      >✕</button>
+
+      {small ? (
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', padding: 24, gap: 28 }}>
+          <PostItNote t={TESTIMONIALS_DATA[carouselIdx]} lang={lang} style={{ position: 'relative' }} />
+          <div style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
+            <button onClick={() => setCarouselIdx(i => (i - 1 + TESTIMONIALS_DATA.length) % TESTIMONIALS_DATA.length)} style={arrowBtnStyle}>‹</button>
+            <span style={{ color: 'rgba(255,255,255,0.45)', fontSize: 12, fontFamily: f }}>{carouselIdx + 1} / {TESTIMONIALS_DATA.length}</span>
+            <button onClick={() => setCarouselIdx(i => (i + 1) % TESTIMONIALS_DATA.length)} style={arrowBtnStyle}>›</button>
+          </div>
+        </div>
+      ) : (
+        TESTIMONIALS_DATA.map((t, i) => (
+          <PostItNote
+            key={t.id}
+            t={t}
+            lang={lang}
+            style={{ position: 'absolute', left: positions[i].x, top: positions[i].y, transform: `rotate(${positions[i].rotate}deg)`, zIndex: positions[i].z, cursor: 'grab', userSelect: 'none' }}
+            onMouseDown={(e) => startDrag(i, e)}
+          />
+        ))
+      )}
+    </div>,
+    document.body
+  )
+}
+
 export default function Portfolio() {
   const [entered, setEntered] = useState(false)
   const [lang, setLang] = useState('en')
@@ -5328,6 +5519,7 @@ export default function Portfolio() {
   const [snappedWindows, setSnappedWindows] = useState({})
   const [snapPreview, setSnapPreview] = useState(null) // 'left' | 'right' | null
   const [isDragging, setIsDragging] = useState(false)
+  const [showTestimonials, setShowTestimonials] = useState(false)
 
   const openVisible = Object.values(windows).filter(w => w.isOpen && !w.isMinimized)
   const showHandle = isDragging && openVisible.length >= 2
@@ -5396,7 +5588,8 @@ export default function Portfolio() {
   return (
     <div style={{ cursor: 'default', width: '100vw', height: '100vh', overflow: 'hidden' }}>
       <MacMenuBar lang={lang} onLangChange={setLang} />
-      <Desktop windows={windows} onOpen={openWindow} lang={lang} />
+      <Desktop windows={windows} onOpen={openWindow} lang={lang} onOpenTestimonials={() => setShowTestimonials(true)} />
+      {showTestimonials && <TestimonialsOverlay onClose={() => setShowTestimonials(false)} lang={lang} />}
 
       {/* Snap preview overlay */}
       {snapPreview && (
